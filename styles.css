@@ -560,3 +560,225 @@ footer{
   .v3-story,.v3-story-main,.v3-story-wide{min-width:89vw;min-height:445px}
   .v3-story h3,.v3-story-main h3{font-size:1.82rem}
 }
+
+
+/* Romanisti v4.0 — cohesive editorial blocks, no clipart */
+.romanisti-v4 .scroll-cue{
+  width:10px !important;
+  height:44px !important;
+  border-radius:999px !important;
+  border:1px solid rgba(215,161,31,.45) !important;
+  background:rgba(0,0,0,.18) !important;
+  display:inline-flex !important;
+  align-items:flex-start !important;
+  justify-content:center !important;
+  padding-top:8px !important;
+  overflow:hidden !important;
+}
+.romanisti-v4 .scroll-cue span{
+  width:3px !important;
+  height:8px !important;
+  border-radius:999px !important;
+  background:#d7a11f !important;
+  animation:v4Scroll 1.65s ease-in-out infinite !important;
+}
+@keyframes v4Scroll{0%{transform:translateY(0);opacity:.35}45%{opacity:1}100%{transform:translateY(18px);opacity:.05}}
+
+.romanisti-v4 .publication-intro{
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(90deg,rgba(2,2,2,.96),rgba(11,4,4,.92)),
+    radial-gradient(circle at 88% 35%,rgba(215,161,31,.09),transparent 28%) !important;
+}
+.romanisti-v4 .publication-intro::after{
+  content:"";
+  position:absolute;
+  right:-12vw;
+  bottom:-12vw;
+  width:62vw;
+  height:45vw;
+  background:url('/assets/v4-roman-architecture.svg') center/cover no-repeat;
+  opacity:.075;
+  mix-blend-mode:screen;
+  pointer-events:none;
+}
+.romanisti-v4 .publication-intro > *{position:relative;z-index:1}
+
+.romanisti-v4 .v4-coverage{
+  position:relative;
+  padding:112px 7vw 125px !important;
+  background:
+    radial-gradient(circle at 80% 12%,rgba(215,161,31,.07),transparent 26%),
+    linear-gradient(180deg,#020202 0%,#090404 48%,#020202 100%) !important;
+  overflow:hidden;
+}
+.v4-section-intro,.v4-block-grid,.v4-standard-list{
+  max-width:1480px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.v4-section-intro{
+  margin-bottom:38px;
+  border-top:1px solid rgba(215,161,31,.28);
+  padding-top:30px;
+}
+.v4-section-intro h2{
+  font-size:clamp(3rem,6.4vw,8rem);
+  line-height:.84;
+  letter-spacing:-.08em;
+  text-transform:uppercase;
+  max-width:1050px;
+  margin:0 0 20px;
+}
+.v4-section-intro > p:not(.eyebrow){
+  color:rgba(244,239,230,.74);
+  font-size:1.14rem;
+  line-height:1.6;
+  max-width:640px;
+}
+.v4-block-grid{
+  display:grid;
+  grid-template-columns:1.08fr .92fr .92fr;
+  grid-auto-rows:minmax(300px,auto);
+  border-top:1px solid rgba(215,161,31,.28);
+  border-left:1px solid rgba(215,161,31,.22);
+}
+.v4-block{
+  min-height:310px;
+  padding:38px 34px 34px;
+  border-right:1px solid rgba(215,161,31,.22);
+  border-bottom:1px solid rgba(215,161,31,.22);
+  background:
+    linear-gradient(135deg,rgba(215,161,31,.085),rgba(255,255,255,.012) 38%,rgba(0,0,0,.1)),
+    rgba(5,5,5,.78);
+  transition:background .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+.v4-block-feature{
+  grid-row:span 2;
+  min-height:620px;
+  background:
+    linear-gradient(140deg,rgba(215,161,31,.12),rgba(255,255,255,.018) 38%,rgba(90,11,18,.06)),
+    rgba(5,5,5,.86);
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+}
+.v4-block-wide{grid-column:span 2}
+.v4-block .date-label{
+  color:rgba(244,239,230,.62);
+  font-size:.76rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-weight:900;
+  margin-bottom:16px;
+}
+.v4-block .kicker{
+  color:#d7a11f;
+  font-size:.83rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  font-weight:950;
+  margin:0 0 16px;
+}
+.v4-block h3{
+  color:#f4efe6;
+  font-size:clamp(1.65rem,2.1vw,3.05rem);
+  line-height:.98;
+  letter-spacing:-.052em;
+  max-width:760px;
+  margin:0 0 18px;
+}
+.v4-block-feature h3{
+  font-size:clamp(3rem,5vw,6rem);
+  line-height:.88;
+}
+.v4-block p:not(.date-label):not(.kicker){
+  color:rgba(244,239,230,.78);
+  font-size:1.05rem;
+  line-height:1.55;
+  max-width:560px;
+}
+.v4-block a,.v4-block strong{
+  color:#d7a11f;
+  font-weight:950;
+  text-decoration:none;
+}
+.v4-block:hover{
+  background:
+    linear-gradient(135deg,rgba(215,161,31,.13),rgba(255,255,255,.018) 38%,rgba(0,0,0,.08)),
+    rgba(7,7,7,.88);
+  transform:translateY(-2px);
+  box-shadow:0 22px 80px rgba(0,0,0,.22);
+}
+
+.romanisti-v4 .v4-standards{
+  padding:112px 7vw 125px !important;
+  background:
+    radial-gradient(circle at 15% 90%,rgba(90,11,18,.15),transparent 34%),
+    linear-gradient(180deg,#020202,#080404 52%,#020202) !important;
+}
+.v4-standard-list{
+  border-top:1px solid rgba(215,161,31,.28);
+}
+.v4-standard-list article{
+  display:grid;
+  grid-template-columns:70px minmax(180px, .7fr) 1.4fr;
+  gap:30px;
+  align-items:start;
+  padding:32px 0;
+  border-bottom:1px solid rgba(215,161,31,.18);
+}
+.v4-standard-list span{
+  color:#d7a11f;
+  font-weight:950;
+  letter-spacing:.12em;
+  font-size:.85rem;
+}
+.v4-standard-list h3{
+  margin:0;
+  font-size:clamp(1.35rem,2.1vw,2.4rem);
+  line-height:1;
+  letter-spacing:-.045em;
+}
+.v4-standard-list p{
+  margin:0;
+  max-width:760px;
+  color:rgba(244,239,230,.72);
+  line-height:1.65;
+  font-size:1.02rem;
+}
+
+/* Hide legacy decorative icon/card systems if old markup remains */
+.romanisti-v4 .mag-visual,
+.romanisti-v4 .v3-watermark,
+.romanisti-v4 .v2-card-art{display:none !important}
+
+@media(max-width:1100px){
+  .v4-block-grid{grid-template-columns:1fr 1fr}
+  .v4-block-feature,.v4-block-wide{grid-column:span 2;grid-row:auto;min-height:430px}
+}
+@media(max-width:760px){
+  .romanisti-v4 .v4-coverage,
+  .romanisti-v4 .v4-standards{padding:82px 18px 96px !important}
+  .v4-section-intro h2{font-size:clamp(2.7rem,14vw,5.1rem)}
+  .v4-block-grid{
+    display:block;
+    border-left:0;
+  }
+  .v4-block,.v4-block-feature,.v4-block-wide{
+    min-height:auto;
+    padding:30px 0 32px;
+    border-right:0;
+    background:transparent !important;
+    box-shadow:none;
+  }
+  .v4-block:hover{transform:none;box-shadow:none}
+  .v4-block-feature h3,.v4-block h3{font-size:2rem}
+  .v4-standard-list article{
+    grid-template-columns:1fr;
+    gap:10px;
+    padding:26px 0;
+  }
+  .romanisti-v4 .publication-intro::after{opacity:.045;width:90vw;height:64vw}
+}
