@@ -223,3 +223,106 @@ footer small{display:block;max-width:760px;line-height:1.5}
   .footer-links{flex-direction:column;gap:10px}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+
+/* Romanisti v4.1 — atmospheric Roman imagery, section-level only */
+.romanisti-v41 .publication-intro,
+.romanisti-v41 .v4-coverage,
+.romanisti-v41 .question,
+.romanisti-v41 .v4-standards{
+  position:relative;
+  overflow:hidden;
+}
+
+.v41-roman-atmosphere{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+  opacity:.16;
+  filter:contrast(1.12) saturate(.78) sepia(.18);
+  mix-blend-mode:screen;
+}
+
+.v41-forum{
+  background-image:url('/assets/v41-forum-atmosphere.svg');
+  opacity:.115;
+  transform:scale(1.05);
+}
+
+.v41-colosseum{
+  background-image:url('/assets/v41-colosseum-atmosphere.svg');
+  opacity:.13;
+  background-position:center 45%;
+  transform:scale(1.06);
+}
+
+.v41-arch{
+  background-image:url('/assets/v41-arch-atmosphere.svg');
+  opacity:.10;
+  filter:contrast(1.05) saturate(.55) sepia(.15);
+}
+
+.v41-marble{
+  background-image:url('/assets/v41-marble-atmosphere.svg');
+  opacity:.105;
+  mix-blend-mode:soft-light;
+}
+
+.romanisti-v41 .publication-intro > *:not(.v41-roman-atmosphere),
+.romanisti-v41 .v4-coverage > *:not(.v41-roman-atmosphere),
+.romanisti-v41 .question > *:not(.v41-roman-atmosphere),
+.romanisti-v41 .v4-standards > *:not(.v41-roman-atmosphere){
+  position:relative;
+  z-index:2;
+}
+
+/* Make the coverage blocks feel designed over image atmosphere, not decorated by it */
+.romanisti-v41 .v4-block{
+  background:
+    linear-gradient(135deg,rgba(215,161,31,.075),rgba(255,255,255,.014) 38%,rgba(0,0,0,.08)),
+    rgba(3,3,3,.68);
+  backdrop-filter: blur(2px);
+}
+
+.romanisti-v41 .v4-block-feature{
+  background:
+    linear-gradient(140deg,rgba(215,161,31,.11),rgba(255,255,255,.018) 42%,rgba(90,11,18,.045)),
+    rgba(3,3,3,.76);
+}
+
+.romanisti-v41 .v4-block:hover{
+  background:
+    linear-gradient(135deg,rgba(215,161,31,.12),rgba(255,255,255,.018) 38%,rgba(0,0,0,.08)),
+    rgba(6,6,6,.80);
+}
+
+/* A little more cohesion between hero and following sections */
+.romanisti-v41 .publication-intro{
+  border-top:1px solid rgba(215,161,31,.10);
+}
+
+.romanisti-v41 .v4-coverage::before,
+.romanisti-v41 .v4-standards::before{
+  content:"";
+  position:absolute;
+  left:7vw;
+  right:7vw;
+  top:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(215,161,31,.42),transparent);
+  z-index:3;
+}
+
+@media(max-width:760px){
+  .v41-roman-atmosphere{
+    opacity:.075;
+    background-position:center;
+  }
+  .romanisti-v41 .v4-block{
+    backdrop-filter:none;
+  }
+}
