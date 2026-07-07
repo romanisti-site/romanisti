@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1000">
+<defs>
+<radialGradient id="bg" cx="50%" cy="52%" r="80%"><stop offset="0" stop-color="#5d3513"/><stop offset=".52" stop-color="#160908"/><stop offset="1" stop-color="#020202"/></radialGradient>
+<filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="3"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 .15"/></feComponentTransfer></filter>
+</defs>
+<rect width="1800" height="1000" fill="url(#bg)"/>
+<g opacity=".30" fill="none" stroke="#d7a11f" stroke-width="22" stroke-linecap="round">
+<path d="M190 720C330 390 650 235 965 275c300 38 515 208 642 445"/>
+<path d="M275 720C405 470 650 350 920 370c264 20 470 145 595 350"/>
+<path d="M360 720c120-180 310-270 545-252 235 17 408 110 520 252"/>
+<path d="M210 720h1380"/>
+<path d="M330 660h1140"/>
+<path d="M455 592h890"/>
+</g>
+<g opacity=".20" fill="none" stroke="#f4efe6" stroke-width="14">
+<path d="M480 720V520M610 720V460M740 720V425M870 720V410M1000 720V425M1130 720V460M1260 720V520"/>
+</g>
+<rect width="1800" height="1000" filter="url(#grain)"/>
+</svg>
