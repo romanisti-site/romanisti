@@ -121,3 +121,43 @@ main{padding-top:58px}
 .closing-kicker{font:.68rem/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:34px}
 .constitutional-closing p{font:400 clamp(1.8rem,4vw,3.1rem)/1.48 var(--serif);margin:0 0 .7em}
 .closing-mark{margin-top:42px;font:.66rem/1 var(--sans);letter-spacing:.28em;color:var(--gold-soft)}
+
+
+/* Architectural Revision */
+.cover > div{transform:translateY(-12vh)}
+.cover:before{inset:26px;border-width:.5px}
+.cover-kicker{letter-spacing:.19em}
+.cover .edition{font-size:.74rem;letter-spacing:.22em;margin-top:42px}
+
+.front-kicker{font:.68rem/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:0 0 30px}
+.front-codex{font:.74rem/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 22px}
+.edition-line{margin-top:34px;font:.72rem/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+.publication-page{background:var(--paper);align-items:end}
+.publication-copy{max-width:34rem;font:.84rem/1.8 var(--sans);color:var(--ink-soft)}
+.publication-name{font-family:var(--serif);font-size:1.45rem;color:var(--ink);margin-bottom:18px}
+
+.naming-page{background:var(--paper);text-align:center}
+.naming-copy{max-width:52rem}
+.naming-term{margin:54px 0}
+.naming-term h2{font:400 clamp(2.2rem,5vw,4rem)/1 var(--serif);margin:0 0 14px}
+.naming-term p{font:400 clamp(1.05rem,2vw,1.3rem)/1.6 var(--serif);margin:0;color:var(--ink-soft)}
+
+.overview-page{background:var(--ivory);padding:clamp(90px,11vw,150px) 24px}
+.overview-inner{max-width:58rem;margin:auto}
+.overview-inner h2{font:400 clamp(3rem,7vw,5.6rem)/1 var(--serif);margin:18px 0 58px}
+.overview-list a{display:grid;grid-template-columns:150px 1fr;gap:28px;align-items:baseline;text-decoration:none;color:inherit;padding:22px 0;border-bottom:1px solid var(--rule)}
+.overview-list span{font:.68rem/1 var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
+.overview-list strong{font:400 clamp(1.45rem,3vw,2.3rem)/1.2 var(--serif)}
+
+.colophon{background:#11100e;color:#f2eadf;text-align:center}
+.colophon-copy{font-family:var(--serif)}
+.colophon-copy p{font-size:clamp(1.35rem,3vw,2rem);margin:.35em 0}
+.colophon-copy .publication-name{color:#f2eadf;margin-bottom:34px}
+.colophon-url{margin-top:42px!important;font-family:var(--sans)!important;font-size:.72rem!important;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-soft)}
+
+@media(max-width:680px){
+  .cover > div{transform:translateY(-6vh)}
+  .cover:before{inset:14px}
+  .overview-list a{grid-template-columns:1fr;gap:8px}
+  .naming-term{margin:42px 0}
+}
