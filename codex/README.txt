@@ -1,6 +1,4 @@
-ROMANISTI — CODEX I: DE AETERNITATE — EDITION 1.0 RC1
+Romanisti Codex I — Preview Build 1C
 
-This release adds the Liber Lapidum, constitutional closing, refined front matter,
-improved plate treatment, and running section indication.
-
-Open index.html in a modern browser.
+Upload all contents of this directory into the existing GitHub codex/ folder.
+This is a complete replacement package and includes the Italian route.

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Romanisti Codex I — Edizione italiana</title>
+<style>
+:root{--ivory:#f3efe7;--paper:#faf7f0;--gold:#a9823f;--ink:#151311;--serif:Georgia,'Times New Roman',serif;--sans:Inter,system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:#0d0c0a;color:var(--ivory);font-family:var(--sans)}
+.utility{position:fixed;inset:0 0 auto 0;height:54px;display:flex;align-items:center;padding:0 18px;background:rgba(12,11,9,.9);border-bottom:1px solid rgba(255,255,255,.08)}
+.brand{font-family:var(--serif);letter-spacing:.15em;text-transform:uppercase;font-size:.78rem;margin-right:auto}
+.language{font-size:.67rem;letter-spacing:.12em;text-transform:uppercase}
+.language a{color:inherit;text-decoration:none;opacity:.58}
+.language .active{opacity:1;border-bottom:1px solid var(--gold)}
+main{min-height:100svh;display:grid;place-items:center;text-align:center;padding:90px 24px 50px;background:linear-gradient(rgba(8,7,6,.72),rgba(8,7,6,.92)),url('../assets/plate1.jpeg') center/cover}
+.card{width:min(720px,92vw);padding:clamp(42px,8vw,82px);border:1px solid rgba(169,130,63,.45);background:rgba(10,9,8,.62);backdrop-filter:blur(4px)}
+.kicker{font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.8rem,8vw,5.8rem);line-height:.95;margin:24px 0}
+p{font-family:var(--serif);font-size:clamp(1.05rem,2vw,1.3rem);line-height:1.7;color:#ded5c7}
+.back{display:inline-block;margin-top:28px;padding:12px 20px;border:1px solid rgba(169,130,63,.7);color:var(--ivory);text-decoration:none;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase}
+</style>
+</head>
+<body>
+<header class="utility">
+<div class="brand">Romanisti · Biblioteca</div>
+<nav class="language" aria-label="Lingua"><a href="../" lang="en">English</a> / <a class="active" href="./" lang="it" aria-current="page">Italiano</a></nav>
+</header>
+<main>
+<section class="card">
+<p class="kicker">Codex I · De Aeternitate</p>
+<h1>Edizione italiana</h1>
+<p>La traduzione italiana completa sarà preparata come un secondo manoscritto editoriale, fedele al ritmo, al significato e alla disciplina costituzionale dell'edizione inglese.</p>
+<p>Questa pagina riserva il percorso italiano senza sostituire il testo definitivo con una traduzione automatica.</p>
+<a class="back" href="../">Leggi l'edizione inglese</a>
+</section>
+</main>
+</body>
+</html>

@@ -31,3 +31,14 @@ const observer=new IntersectionObserver(entries=>{
   });
 },{rootMargin:'-35% 0px -55% 0px',threshold:0});
 anchors.forEach(a=>observer.observe(a));
+
+
+// Edition 1.0A · Preview Build 1
+const architecturalMoments=[...document.querySelectorAll('[data-moment]')];
+const activeMomentObserver=new IntersectionObserver(entries=>{
+  const visible=entries.find(e=>e.isIntersecting);
+  if(!visible) return;
+  const el=visible.target;
+  document.body.dataset.moment=el.dataset.moment || '';
+},{rootMargin:'-38% 0px -58% 0px',threshold:0});
+architecturalMoments.forEach(el=>activeMomentObserver.observe(el));

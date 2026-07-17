@@ -123,41 +123,260 @@ main{padding-top:58px}
 .closing-mark{margin-top:42px;font:.66rem/1 var(--sans);letter-spacing:.28em;color:var(--gold-soft)}
 
 
-/* Architectural Revision */
-.cover > div{transform:translateY(-12vh)}
-.cover:before{inset:26px;border-width:.5px}
-.cover-kicker{letter-spacing:.19em}
-.cover .edition{font-size:.74rem;letter-spacing:.22em;margin-top:42px}
+/* =========================================================
+   CODEX I — EDITION 1.0A · PREVIEW BUILD 1
+   Constitutional foundation implementation
+   ========================================================= */
 
-.front-kicker{font:.68rem/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:0 0 30px}
-.front-codex{font:.74rem/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 22px}
-.edition-line{margin-top:34px;font:.72rem/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
-.publication-page{background:var(--paper);align-items:end}
-.publication-copy{max-width:34rem;font:.84rem/1.8 var(--sans);color:var(--ink-soft)}
-.publication-name{font-family:var(--serif);font-size:1.45rem;color:var(--ink);margin-bottom:18px}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
+
+:root{
+  --roman-black:#151311;
+  --warm-ivory:#f3efe7;
+  --paper:#faf7f0;
+  --stone-gray:#7d7870;
+  --antique-gold:#a9823f;
+  --bronze:#745438;
+  --hairline:rgba(21,19,17,.16);
+  --display:"Playfair Display",Georgia,"Times New Roman",serif;
+  --text:"Inter",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+body{font-family:var(--text);background:var(--warm-ivory)}
+.chrome{height:54px;background:rgba(243,239,231,.91);border-bottom:1px solid var(--hairline)}
+.chrome .brand{font-family:var(--display);font-size:.79rem;letter-spacing:.075em}
+.drawer{background:var(--roman-black)}
+.drawer-divider{margin:28px 0 8px;color:#a99f90;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase}
+.drawer a{font-family:var(--display)}
+
+.cover{
+  background:
+    radial-gradient(circle at 50% 32%,rgba(169,130,63,.055),transparent 28rem),
+    linear-gradient(180deg,#12100e,#0d0c0a);
+  position:relative;
+}
+.cover-frame{
+  position:absolute;
+  inset:clamp(14px,2.1vw,30px);
+  border:1px solid rgba(169,130,63,.30);
+  pointer-events:none;
+}
+.cover-inner{
+  transform:translateY(-8vh);
+  text-align:center;
+  position:relative;
+  z-index:1;
+}
+.cover-kicker{
+  margin:0 0 clamp(34px,5vw,58px);
+  color:#c4a66a;
+  font-size:.64rem;
+  letter-spacing:.20em;
+  text-transform:uppercase;
+}
+.cover h1{
+  margin:0;
+  font-family:var(--display);
+  font-weight:400;
+  line-height:.91;
+  letter-spacing:-.035em;
+}
+.cover h1 span{
+  display:block;
+  font-size:clamp(3rem,7.4vw,6.7rem);
+}
+.cover h1 em{
+  display:block;
+  font-size:clamp(4rem,10.5vw,9rem);
+  font-weight:400;
+}
+.cover-edition{
+  margin:clamp(42px,6vw,70px) 0 0;
+  color:#c7bba9;
+  font-size:.68rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+
+.frontispiece{background:var(--paper)}
+
+.frontmatter-narrow,
+.edition-record-inner,
+.naming-inner{
+  width:min(90vw,52rem);
+  margin:auto;
+}
+.frontmatter-label{
+  margin:0 0 clamp(36px,6vw,64px);
+  color:var(--antique-gold);
+  font-size:.65rem;
+  letter-spacing:.20em;
+  text-transform:uppercase;
+}
+.title-page{background:var(--paper)}
+.title-page .title-codex{
+  margin:0 0 22px;
+  color:var(--stone-gray);
+  font-size:.72rem;
+  letter-spacing:.20em;
+  text-transform:uppercase;
+}
+.title-page h1{
+  font-family:var(--display);
+  font-size:clamp(3.6rem,8vw,7rem);
+  font-weight:400;
+  line-height:1;
+}
+.title-edition{
+  margin-top:42px;
+  color:var(--stone-gray);
+  font-size:.70rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+
+.edition-record{
+  background:linear-gradient(180deg,var(--warm-ivory),#ece4d7);
+  align-items:end;
+}
+.edition-record-inner{max-width:38rem}
+.edition-record dl{margin:0}
+.edition-record dl div{
+  display:grid;
+  grid-template-columns:minmax(8rem,1fr) 2fr;
+  gap:28px;
+  padding:15px 0;
+  border-top:1px solid var(--hairline);
+}
+.edition-record dt{
+  color:var(--stone-gray);
+  font-size:.65rem;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+.edition-record dd{
+  margin:0;
+  font-family:var(--display);
+  font-size:1.04rem;
+}
+.edition-note{
+  margin-top:52px;
+  color:var(--stone-gray);
+  font-size:.76rem;
+  line-height:1.75;
+}
 
 .naming-page{background:var(--paper);text-align:center}
-.naming-copy{max-width:52rem}
-.naming-term{margin:54px 0}
-.naming-term h2{font:400 clamp(2.2rem,5vw,4rem)/1 var(--serif);margin:0 0 14px}
-.naming-term p{font:400 clamp(1.05rem,2vw,1.3rem)/1.6 var(--serif);margin:0;color:var(--ink-soft)}
+.naming-entry{margin:clamp(42px,6vw,68px) 0}
+.naming-entry h2{
+  margin:0 0 12px;
+  font-family:var(--display);
+  font-size:clamp(2.5rem,5.5vw,4.7rem);
+  font-weight:400;
+  line-height:1;
+}
+.naming-entry p{
+  margin:0;
+  color:#514b44;
+  font-family:var(--display);
+  font-size:clamp(1.05rem,2vw,1.32rem);
+  line-height:1.6;
+}
 
-.overview-page{background:var(--ivory);padding:clamp(90px,11vw,150px) 24px}
-.overview-inner{max-width:58rem;margin:auto}
-.overview-inner h2{font:400 clamp(3rem,7vw,5.6rem)/1 var(--serif);margin:18px 0 58px}
-.overview-list a{display:grid;grid-template-columns:150px 1fr;gap:28px;align-items:baseline;text-decoration:none;color:inherit;padding:22px 0;border-bottom:1px solid var(--rule)}
-.overview-list span{font:.68rem/1 var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
-.overview-list strong{font:400 clamp(1.45rem,3vw,2.3rem)/1.2 var(--serif)}
+.architecture-overview{
+  max-width:none;
+  background:var(--warm-ivory);
+  padding:clamp(92px,11vw,155px) 24px;
+}
+.architecture-overview .contents-inner{max-width:60rem}
+.architecture-overview h2{
+  margin:0 0 58px;
+  font-family:var(--display);
+  font-size:clamp(3.2rem,7vw,5.8rem);
+  font-weight:400;
+  line-height:1;
+}
+.architecture-overview .toc a{
+  grid-template-columns:minmax(8.5rem,10rem) 1fr;
+  gap:30px;
+  align-items:baseline;
+  padding:22px 0;
+}
+.architecture-overview .toc span{
+  color:var(--antique-gold);
+  font-size:.65rem;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+.architecture-overview .toc strong{
+  font-family:var(--display);
+  font-size:clamp(1.45rem,3vw,2.3rem);
+  font-weight:400;
+}
 
-.colophon{background:#11100e;color:#f2eadf;text-align:center}
-.colophon-copy{font-family:var(--serif)}
-.colophon-copy p{font-size:clamp(1.35rem,3vw,2rem);margin:.35em 0}
-.colophon-copy .publication-name{color:#f2eadf;margin-bottom:34px}
-.colophon-url{margin-top:42px!important;font-family:var(--sans)!important;font-size:.72rem!important;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-soft)}
+.book-opening{
+  background:
+    radial-gradient(circle at 50% 38%,rgba(169,130,63,.045),transparent 26rem),
+    var(--roman-black);
+}
+.book-opening .book-number{letter-spacing:.22em}
+.book-opening h2{font-family:var(--display)}
+
+.reading-column{max-width:43rem}
+.reading-column h3,
+.reading-column p,
+.epigraph,
+.question{font-family:var(--display)}
+.reading-column p{line-height:1.82}
+
+.plate-page{
+  background:
+    radial-gradient(circle at 50% 45%,rgba(255,255,255,.025),transparent 30rem),
+    #0e0d0b;
+}
+.plate-frame{
+  width:min(68vw,650px);
+  height:auto;
+  max-height:none;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.plate-mat{
+  width:100%;
+  padding:clamp(12px,1.7vw,22px);
+  background:#e7dfd2;
+  border:1px solid rgba(255,255,255,.25);
+  box-shadow:0 30px 90px rgba(0,0,0,.42);
+}
+.plate-mat img{
+  width:100%;
+  aspect-ratio:5/7;
+  height:auto;
+  object-fit:cover;
+  display:block;
+  box-shadow:none;
+  filter:saturate(.93) contrast(1.015);
+}
+.plate-index{
+  margin-top:24px;
+  color:#a99f90;
+  font-size:.62rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
 
 @media(max-width:680px){
-  .cover > div{transform:translateY(-6vh)}
-  .cover:before{inset:14px}
-  .overview-list a{grid-template-columns:1fr;gap:8px}
-  .naming-term{margin:42px 0}
+  .cover-inner{transform:translateY(-4vh)}
+  .cover h1 span{font-size:clamp(2.6rem,13vw,4.1rem)}
+  .cover h1 em{font-size:clamp(3.5rem,16vw,5.4rem)}
+  .edition-record dl div{grid-template-columns:1fr;gap:7px}
+  .architecture-overview .toc a{grid-template-columns:1fr;gap:8px}
+  .plate-frame{width:min(88vw,520px)}
+  .plate-mat{padding:11px}
+}
+
+@media print{
+  .cover-inner{transform:none}
+  .plate-mat{box-shadow:none}
 }
