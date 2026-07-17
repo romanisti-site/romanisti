@@ -1,495 +1,184 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#11100e">
-<title>Codex I — De Aeternitate | Romanisti</title>
-<meta name="description" content="Romanisti Codex I — De Aeternitate, Edition 1.0">
-<link rel="stylesheet" href="styles.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<title>Romanisti Codex I — De Aeternitate | Edition 1.0A Preview Build 1C</title>
+<meta content="Romanisti Library — Codex I, De Aeternitate. Responsive Assembly Proof v0.2." name="description"/>
+<style>
+:root{
+  --ink:#151311; --ivory:#f3efe7; --paper:#faf7f0; --gold:#a9823f; --bronze:#745438;
+  --stone:#7d7870; --line:rgba(21,19,17,.16); --measure:44rem; --serif: Georgia, 'Times New Roman', serif;
+  --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth;background:var(--ivory)}
+body{margin:0;color:var(--ink);background:var(--ivory);font-family:var(--sans);line-height:1.5}
+.progress{position:fixed;inset:0 auto auto 0;height:3px;width:0;background:var(--gold);z-index:50}
+.utility{position:fixed;top:0;left:0;right:0;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:rgba(243,239,231,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:40}
+.brand{font-family:var(--serif);letter-spacing:.08em;text-transform:uppercase;font-size:.82rem}.utility button{border:0;background:transparent;font:inherit;cursor:pointer}
+.drawer{position:fixed;top:54px;left:0;bottom:0;width:min(320px,88vw);padding:28px;background:#171512;color:var(--ivory);transform:translateX(-102%);transition:.25s ease;z-index:45;overflow:auto}
+.drawer.open{transform:none}.drawer a{display:block;color:inherit;text-decoration:none;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:.92rem}.drawer .small{opacity:.65;font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;margin:24px 0 8px}
+main{padding-top:54px}.moment{min-height:100svh;display:grid;place-items:center;padding:clamp(52px,8vw,120px) clamp(20px,6vw,90px)}
+.cover{background:#11100e;color:var(--ivory);text-align:center;position:relative}.cover:after{content:"";position:absolute;inset:22px;border:1px solid rgba(169,130,63,.45);pointer-events:none}.kicker{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:0 0 24px}.cover h1,.book-open h2,.title-page h1{font-family:var(--serif);font-weight:400;line-height:.95;margin:0}.cover h1{font-size:clamp(3.2rem,10vw,8rem)}.latin{font-style:italic}.cover .sub{margin-top:24px;letter-spacing:.12em;text-transform:uppercase;font-size:.76rem;color:#d9d0c0}
+.title-page{text-align:center;background:var(--paper)}.title-page h1{font-size:clamp(2.6rem,7vw,5.5rem)}.edition{margin-top:30px;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--stone)}
+.contents{display:block;max-width:900px;margin:auto;min-height:auto;padding-top:100px;padding-bottom:120px}.contents h2,.appendix h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.4rem,5vw,4rem)}.toc{margin-top:45px}.toc a{display:grid;grid-template-columns:1fr auto;gap:18px;text-decoration:none;color:inherit;padding:17px 0;border-bottom:1px solid var(--line)}.toc span:last-child{color:var(--stone)}
+.book-open{background:#171512;color:var(--ivory);text-align:center}.book-open h2{font-size:clamp(3rem,8vw,6.5rem);max-width:900px}.book-open .roman{color:var(--gold);letter-spacing:.2em;text-transform:uppercase;font-size:.73rem;margin-bottom:28px}
+.section{padding:clamp(70px,10vw,150px) 22px;background:var(--paper)}.section:nth-of-type(even){background:var(--ivory)}.reading{max-width:var(--measure);margin:auto}.section-number{font-size:.69rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}.section h3{font-family:var(--serif);font-size:clamp(2rem,5vw,3.25rem);font-weight:400;line-height:1.08;margin:0 0 32px}.reading p{font-family:var(--serif);font-size:clamp(1.14rem,2.1vw,1.34rem);line-height:1.78;margin:0 0 1.25em}.reading .short{margin-bottom:.42em}.question{margin:70px 0 15px;padding:32px 0;border-top:1px solid var(--gold);border-bottom:1px solid var(--gold);font-family:var(--serif);font-size:clamp(1.45rem,3.2vw,2rem);font-style:italic;line-height:1.35}.threshold{font-family:var(--serif);font-size:clamp(2rem,5vw,3.6rem);line-height:1.25;text-align:center;margin:0 auto 70px;max-width:700px}.proof-note{max-width:var(--measure);padding:30px;border:1px solid var(--line);background:#fffaf0;margin:35px auto;font-size:.94rem}.proof-note strong{color:var(--bronze)}
+.plate{min-height:100svh;background:#0f0e0c;display:grid;place-items:center;padding:clamp(24px,5vw,64px)}.plate figure{margin:0;width:min(72vw,560px);height:min(84svh,900px);position:relative}.plate img{width:100%;height:100%;object-fit:cover;display:block;box-shadow:0 22px 70px rgba(0,0,0,.45)}.plate.placeholder figure{border:1px solid rgba(255,255,255,.28);display:grid;place-items:center;color:#d5ccbd;text-align:center;padding:30px}.plate-label{position:absolute;left:0;bottom:-30px;color:#a99f90;font-size:.65rem;letter-spacing:.16em;text-transform:uppercase}
+.appendix{max-width:var(--measure);margin:auto;padding:110px 22px}.stones{counter-reset:stone}.stone{counter-increment:stone;padding:30px 0;border-top:1px solid var(--line)}.stone:before{content:counter(stone, upper-roman);display:block;color:var(--gold);font-size:.72rem;letter-spacing:.18em;margin-bottom:10px}.stone h3{font-family:var(--serif);font-weight:400;font-size:1.65rem;margin:0 0 12px}.stone p{font-family:var(--serif);font-size:1.08rem;line-height:1.7;margin:0}
+.lock{background:#171512;color:var(--ivory);text-align:center}.lock blockquote{font-family:var(--serif);font-size:clamp(1.8rem,4vw,3.2rem);line-height:1.35;max-width:900px;margin:0}.lock .meta{margin-top:40px;color:#aaa093;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase}
+.resume{position:fixed;right:16px;bottom:16px;border:1px solid var(--line);background:rgba(250,247,240,.96);padding:11px 14px;font-size:.78rem;z-index:35;display:none;cursor:pointer}
+@media(min-width:1000px){.utility{padding:0 32px}.moment{padding-left:10vw;padding-right:10vw}.plate figure{width:min(38vw,580px)}}
+@media(max-width:640px){.utility{height:50px}.drawer{top:50px}.cover:after{inset:12px}.moment{min-height:92svh}.plate{min-height:100svh;padding:18px}.plate figure{width:min(88vw,480px);height:min(82svh,760px)}.reading p{line-height:1.72}.section{padding-left:20px;padding-right:20px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.drawer{transition:none}}
+
+/* Edition 1.0A · Preview Build 1C — experience layer */
+:root{--gallery:#0b0a09;--mineral:#e8e0d2;--paper2:#f6f1e7;--shadow:0 28px 90px rgba(0,0,0,.32)}
+html{background:var(--gallery)}
+body{background:
+ radial-gradient(circle at 18% 8%,rgba(255,255,255,.035),transparent 28rem),
+ radial-gradient(circle at 88% 30%,rgba(169,130,63,.04),transparent 32rem),
+ linear-gradient(180deg,#0b0a09,#14110e 46%,#090807);color:var(--ink)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;z-index:-1;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E")}
+.utility{background:rgba(12,11,9,.86);color:var(--ivory);border-color:rgba(255,255,255,.08)}
+.utility .brand{letter-spacing:.16em}.utility button{color:inherit}.progress{height:2px}
+main{max-width:1180px;margin:0 auto;background:var(--paper2);box-shadow:var(--shadow);position:relative}
+.library-threshold{min-height:100svh;background:#0d0c0a;color:var(--ivory);display:grid;place-items:center;text-align:center;padding:80px 24px;position:relative;overflow:hidden}
+.library-threshold:before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(8,7,6,.53),rgba(8,7,6,.83)),url('assets/plate1.jpeg') center/cover no-repeat;filter:saturate(.65) contrast(1.05)}
+.library-threshold:after{content:"";position:absolute;inset:24px;border:1px solid rgba(169,130,63,.38)}
+.threshold-inner{position:relative;z-index:2;max-width:760px}.library-word{font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin-bottom:34px}.library-threshold h1{font-family:var(--serif);font-size:clamp(3.7rem,10vw,8.8rem);line-height:.9;font-weight:400;margin:0}.library-threshold .codex-id{margin:26px 0 8px;font-size:.76rem;letter-spacing:.18em;text-transform:uppercase}.library-threshold .descriptor{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:#d7cdbd}.enter{margin-top:46px;padding:14px 27px;border:1px solid rgba(169,130,63,.72);background:rgba(0,0,0,.16);color:var(--ivory);font:inherit;letter-spacing:.15em;text-transform:uppercase;font-size:.72rem;cursor:pointer}.enter:hover{background:rgba(169,130,63,.12)}
+.manuscript-shell{background:linear-gradient(90deg,rgba(116,84,56,.035),transparent 12%,transparent 88%,rgba(116,84,56,.035)),var(--paper2)}
+.cover{background:linear-gradient(rgba(17,16,14,.92),rgba(17,16,14,.92)),url('assets/plate1.jpeg') center/cover no-repeat}.cover:after{inset:32px}
+.title-page,.contents,.section,.appendix{background-color:var(--paper2);background-image:radial-gradient(circle at 30% 10%,rgba(133,113,83,.045),transparent 25rem)}
+.section:nth-of-type(even){background-color:#eee7da}
+.reading{max-width:42rem}.reading p{font-size:clamp(1.12rem,1.6vw,1.29rem);line-height:1.82}
+.section{padding-top:clamp(88px,11vw,165px);padding-bottom:clamp(88px,11vw,165px)}
+.book-open{min-height:94svh;background:#12100e;position:relative}.book-open:after{content:"";position:absolute;inset:34px;border:1px solid rgba(169,130,63,.25)}
+.plate{background:#0b0a09;padding-block:10svh}.plate figure{width:min(72vw,500px);height:min(80svh,820px)}.plate-label{display:none}
+.naming-note{max-width:44rem;margin:0 auto 70px;padding:28px 30px;border-left:2px solid var(--gold);background:rgba(255,255,255,.32)}.naming-note h3{font-family:var(--serif);font-weight:400;margin:0 0 14px;font-size:1.4rem}.naming-note p{font-family:var(--sans);font-size:.88rem;line-height:1.65;margin:.45rem 0}.naming-note em{font-family:var(--serif)}
+.moment-spacer{height:14svh;background:var(--paper2)}
+@media(min-width:1240px){body{padding:34px 0 90px}.utility{left:50%;transform:translateX(-50%);max-width:1180px}.library-threshold{min-height:calc(100svh - 68px)}}
+@media(max-width:700px){body{padding:0}.library-threshold:after{inset:12px}.library-threshold h1{font-size:clamp(3.25rem,18vw,5.4rem)}main{box-shadow:none}.plate figure{width:min(88vw,470px);height:min(78svh,730px)}.book-open:after{inset:14px}.moment-spacer{height:8svh}}
+
+/* Edition 1.0A Preview Build 1C — constitutional correction */
+.constitutional-cover{display:grid!important;min-height:calc(100svh - 58px)!important;visibility:visible!important}
+.constitutional-cover>div{transform:translateY(-7vh)}
+.constitutional-cover:before{border-width:.5px;opacity:.72}
+.blank-verso{background:var(--paper);min-height:calc(100svh - 58px)}
+.constitutional-title,.edition-record,.naming-page{background:var(--paper);text-align:center}
+.constitutional-title .eyebrow,.edition-record .eyebrow,.naming-page .eyebrow,.architecture-overview .eyebrow{font-family:var(--sans);font-size:.67rem;letter-spacing:.21em;text-transform:uppercase;color:var(--gold)}
+.codex-mark,.edition-mark{font-family:var(--sans);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--stone)}
+.constitutional-title h1{font-family:var(--serif);font-size:clamp(3.2rem,8vw,6.4rem);font-weight:400;margin:24px 0 36px}
+.record-inner{width:min(88vw,42rem)}
+.edition-record dl div{display:grid;grid-template-columns:10rem 1fr;gap:24px;padding:15px 0;border-top:1px solid var(--line);text-align:left}
+.edition-record dt{font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;color:var(--stone)}
+.edition-record dd{margin:0;font-family:var(--serif);font-size:1.05rem}
+.naming-inner{width:min(90vw,52rem)}
+.naming-inner>div{margin:50px 0}
+.naming-inner h2{font-family:var(--serif);font-size:clamp(2.4rem,5vw,4.3rem);font-weight:400;margin:0 0 12px}
+.naming-inner p{font-family:var(--serif);font-size:clamp(1.05rem,2vw,1.3rem);margin:0;color:#514b44}
+.architecture-overview{max-width:60rem;margin:auto;padding:clamp(90px,11vw,150px) 24px}
+.plate figure{display:flex;flex-direction:column;align-items:center}
+.plate-mat{padding:clamp(12px,1.7vw,22px);background:#e6ded0;border:1px solid rgba(255,255,255,.25);box-shadow:0 28px 78px rgba(0,0,0,.46)}
+.plate-mat img{display:block;width:min(62vw,600px)!important;height:auto!important;aspect-ratio:5/7;object-fit:cover;box-shadow:none!important}
+.stones .stone{padding:64px 0;border-bottom:1px solid var(--line)}
+.stones .stone:first-child{padding-top:0}
+.constitutional-closing{background:#11100e;color:var(--ivory);text-align:center}
+.constitutional-closing p{font-family:var(--serif);font-size:clamp(1.7rem,4vw,3rem);line-height:1.5}
+@media(max-width:680px){
+ .constitutional-cover>div{transform:translateY(-3vh)}
+ .edition-record dl div{grid-template-columns:1fr;gap:7px}
+ .plate-mat img{width:min(84vw,510px)!important}
+}
+
+/* Preview Build 1C — bilingual navigation */
+.utility{gap:14px}
+.utility .brand{margin-right:auto}
+.language-toggle{display:flex;align-items:center;gap:.42rem;font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.language-toggle a{color:inherit;text-decoration:none;opacity:.58;padding:5px 0;border-bottom:1px solid transparent}
+.language-toggle a:hover,.language-toggle a:focus-visible{opacity:1}
+.language-toggle a.active{opacity:1;border-bottom-color:var(--gold)}
+.language-toggle span{opacity:.35}
+@media(max-width:640px){
+ .utility{padding:0 12px;gap:10px}
+ .utility .brand{font-size:.67rem;letter-spacing:.09em}
+ .language-toggle{font-size:.58rem;letter-spacing:.08em;gap:.28rem}
+}
+</style>
 </head>
 <body>
 <div class="progress" id="progress"></div>
-<header class="chrome">
-  <div class="left"><button class="icon-btn" id="menuBtn" aria-label="Open contents">☰</button></div>
-  <div class="brand">Romanisti · Codex I <span id="section-indicator"></span></div>
-  <div class="right">
-    <button class="icon-btn" id="themeBtn" aria-label="Toggle light and dark mode">◐</button>
-    <button class="icon-btn" id="topBtn" aria-label="Return to top">↑</button>
-  </div>
-</header>
-<nav class="drawer" id="drawer" aria-label="Codex navigation">
-  <div class="drawer-title">Codex I · Edition 1.0</div>
-  <a href="#cover"><span>00</span>Cover</a>
-  <a href="#institutional-naming"><span>—</span>Institutional Naming</a>
-<a href="#architectural-overview"><span>—</span>Architectural Overview</a>
-  <a href="#book-1"><span>I</span>The Eternal City</a>
-<a href="#book-2"><span>II</span>The Romanisti</a>
-<a href="#book-3"><span>III</span>The Publication</a>
-<a href="#book-4"><span>IV</span>Rome and AS Roma</a>
-<a href="#book-5"><span>V</span>Among Romans</a>
-<a href="#liber-lapidum"><span>—</span>Liber Lapidum</a>
-<a href="#constitutional-closing"><span>—</span>Constitutional Closing</a>
+<header class="utility"><button aria-label="Open contents" id="menu">☰</button><div class="brand">Romanisti · Library</div><nav aria-label="Language" class="language-toggle"><a aria-current="page" class="active" href="./" lang="en">English</a><span aria-hidden="true"> / </span><a href="it/" lang="it">Italiano</a></nav><button aria-label="Return to top" id="topBtn">↑</button></header>
+<nav aria-label="Codex navigation" class="drawer" id="drawer">
+<div class="small">Edition 1.0A · Preview Build 1C</div>
+<a href="#cover">Cover</a><a href="#contents">Contents</a>
+<div class="small">Books</div>
+<a href="#book1">I — The Eternal City</a><a href="#book2">II — The Romanisti</a><a href="#book3">III — The Publication</a><a href="#book4">IV — Rome and AS Roma</a><a href="#book5">V — Among Romans</a>
+<div class="small">End Matter</div><a href="#stones">Liber Lapidum</a><a href="#lock">Constitutional Lock</a>
 </nav>
-<div class="reading-controls" aria-label="Reading controls">
-  <button id="fontMinus" aria-label="Decrease text size">A−</button>
-  <button id="fontPlus" aria-label="Increase text size">A+</button>
+<button class="resume" id="resume">Continue where you left off</button>
+<section class="library-threshold" id="library"><div class="threshold-inner"><p class="library-word">Romanisti · Library</p><h1>De Aeternitate</h1><p class="codex-id">Codex I</p><p class="descriptor">A Constitutional Manuscript</p><button class="enter" id="enterCodex">Enter the Manuscript</button></div></section><section class="moment book-open constitutional-open" id="liber-lapidum">
+<div><p class="roman">Liber Lapidum</p><h2>Immutable Stones</h2></div>
+</section><section class="section stones">
+<div class="reading">
+<div class="stone"><p class="section-number">I</p><h3>Where City and Club Become One</h3><p>Romanisti exists where city and club become one.</p><p>Romanisti exists to interpret AS Roma through the enduring character of Rome, and to interpret Rome through the living story of its football club.</p><p>Everything the institution creates should deepen understanding of both.</p></div>
+<div class="stone"><p class="section-number">II</p><h3>Stewardship, Not Ownership</h3><p>Romanisti is held in trust.</p><p>Every generation serves.</p><p>No generation possesses.</p></div>
+<div class="stone"><p class="section-number">III</p><h3>Institutions Earn the Future</h3><p>Institutions earn, not deserve.</p><p>Responsibility creates worthiness.</p><p>Worthiness invites stewardship.</p></div>
+<div class="stone"><p class="section-number">IV</p><h3>Rome Before Football</h3><p>Rome is the lens.</p><p>The city gives meaning to the club.</p><p>The club adds chapters to the city’s story.</p></div>
+<div class="stone"><p class="section-number">V</p><h3>Integrity Above Everything</h3><p>Trust is the greatest asset.</p><p>Earned slowly.</p><p>Never traded for convenience.</p></div>
+<div class="stone"><p class="section-number">VI</p><h3>Luxury Through Restraint</h3><p>Excellence through discipline rather than abundance.</p></div>
+<div class="stone"><p class="section-number">VII</p><h3>Leave It Stronger</h3><p>Every contributor inherits Romanisti temporarily.</p><p>The responsibility is to leave it stronger.</p></div>
+<div class="stone"><p class="section-number">VIII</p><h3>Institution Over Individuals</h3><p>Romanisti is built around principles, not founders, editors, writers, designers, or developers.</p></div>
 </div>
-<button class="resume" id="resume">Continue reading</button>
-
-<main>
-<section class="full-page cover" id="cover">
-  <div>
-    <div class="cover-kicker">Romanisti</div>
-    <h1>Codex I<br><em>De Aeternitate</em></h1>
-    <div class="edition">Edition 1.0</div>
-  </div>
-</section>
-
-
-<section class="full-page frontispiece" aria-label="Blank verso"></section>
-
-<section class="full-page title-page">
-  <div>
-    <p class="front-kicker">A Romanisti Constitutional Manuscript</p>
-    <p class="front-codex">Codex I</p>
-    <h1><em>De Aeternitate</em></h1>
-    <p class="edition-line">Digital Edition 1.0</p>
-  </div>
-</section>
-
-<section class="full-page publication-page">
-  <div class="publication-copy">
-    <p class="publication-name">Romanisti</p>
-    <p>Independent Journalism</p>
-    <p>This is Bigger Than Football</p>
-    <p>Romanisti.org</p>
-    <p>Digital Edition 1.0</p>
-  </div>
-</section>
-
-<section class="full-page naming-page" id="institutional-naming">
-  <div class="naming-copy">
-    <p class="front-kicker">Institutional Naming</p>
-    <div class="naming-term"><h2>Romanisti</h2><p>identifies the institution and publication.</p></div>
-    <div class="naming-term"><h2>romanisti</h2><p>identifies the supporters of AS Roma.</p></div>
-    <div class="naming-term"><h2>Romanisti.org</h2><p>identifies the institution’s digital home.</p></div>
-  </div>
-</section>
-
-<section class="overview-page" id="architectural-overview">
-  <div class="overview-inner">
-    <p class="front-kicker">Architectural Overview</p>
-    <h2>Table of Contents</h2>
-    <div class="overview-list">
-      <a href="#book-1"><span>Book I</span><strong>The Eternal City</strong></a>
-      <a href="#book-2"><span>Book II</span><strong>The Romanisti</strong></a>
-      <a href="#book-3"><span>Book III</span><strong>The Publication</strong></a>
-      <a href="#book-4"><span>Book IV</span><strong>Rome and AS Roma</strong></a>
-      <a href="#book-5"><span>Book V</span><strong>Among Romans</strong></a>
-      <a href="#liber-lapidum"><span>Liber Lapidum</span><strong>Immutable Stones</strong></a>
-      <a href="#constitutional-closing"><span>Closing</span><strong>Constitutional Closing</strong></a>
-    </div>
-  </div>
-</section>
-
-
-
-<section class="book-opening" id="book-1">
-  <div class="book-opening-inner">
-    <div class="book-number">Book I</div>
-    <h2>The Eternal City</h2>
-  </div>
-</section>
-
-
-<section class="reading-section" id="book-1-section-1">
-  <article class="reading-column">
-    <div class="section-meta">Section I</div>
-    <h3>The City That Outlived Empires</h3>
-    <blockquote class="epigraph">&quot;A city is not measured by what it builds in a generation, but by what it chooses to preserve across generations.&quot;
-— Romanisti, Codex I</blockquote>
-<p class="fragment">There are older cities than Rome.</p>
-<p class="">There have been richer cities, larger cities, and cities whose influence burned brighter for a moment in history. Yet when civilizations speak of endurance, they return, almost instinctively, to Rome.</p>
-<p class="fragment">Not because Rome escaped decline.</p>
-<p class="">Not because it was untouched by war, disaster, or failure.</p>
-<p class="">Rome endured because it possessed something greater than uninterrupted success. It possessed continuity. Across centuries of triumph and collapse, emperors and republics, prosperity and ruin, there remained an identity recognizable enough that each generation believed it worth preserving.</p>
-<p class="fragment">That distinction matters.</p>
-<p class="">A monument may survive because its stone is strong. An institution survives because its principles are stronger.</p>
-<p class="">Romanisti begins with Rome because Rome teaches that permanence is never accidental. It is the result of countless deliberate choices made by people who understood they were temporary caretakers of something larger than themselves.</p>
-<p class="">The builders of Rome rarely worked for applause. Many never lived to see the completion of the structures they began. They carved stone knowing another generation would finish the work. Their ambition was measured not by ownership, but by contribution.</p>
-<p class="">Institutions worthy of enduring are built the same way.</p>
-<p class="">Every generation inherits a foundation it did not lay. Every generation improves or diminishes that inheritance through the choices it makes. No generation begins from nothing, and none has the right to behave as though it owns what history has entrusted to it.</p>
-<p class="fragment">This is the philosophy Romanisti chooses to inherit.</p>
-<p class="">We do not begin with football because football is immediate.</p>
-<p class="fragment">It lives in ninety minutes.</p>
-<p class="fragment">In league tables.</p>
-<p class="fragment">In transfer windows.</p>
-<p class="">In celebrations and disappointments that can change within a week.</p>
-<p class="fragment">Rome invites us to think differently.</p>
-<p class="fragment">The city asks longer questions.</p>
-<p class="fragment">What deserves to remain?</p>
-<p class="fragment">What should be preserved when fashions disappear?</p>
-<p class="">What ideas continue to serve long after those who first imagined them are gone?</p>
-<p class="fragment">Those questions are not historical curiosities.</p>
-<p class="fragment">They are editorial responsibilities.</p>
-<p class="">Every article Romanisti publishes becomes part of an institution larger than the moment that inspired it. Some stories belong to their day. Others will speak across generations. All deserve the honesty and judgment expected of work that may one day become part of the historical record.</p>
-<p class="fragment">The internet rewards immediacy.</p>
-<p class="fragment">History rewards judgment.</p>
-<p class="fragment">Romanisti will always choose judgment.</p>
-<p class="">That choice demands patience, because credibility is accumulated slowly and surrendered quickly.</p>
-<p class="">Rome reminds us that greatness is rarely dramatic while it is being built.</p>
-<p class="">The stones of the Pantheon were laid one at a time.</p>
-<p class="">The arches of the Colosseum rose through ordinary labor repeated over years.</p>
-<p class="">The city&#x27;s identity emerged not from a single extraordinary act, but from thousands of disciplined decisions made consistently across generations.</p>
-<p class="fragment">Journalism deserves the same respect.</p>
-<p class="">A publication is not defined by one exceptional article.</p>
-<p class="">It is defined by whether the thousandth article reflects the same standards as the first.</p>
-<p class="">Readers should recognize Romanisti not because every story agrees with their opinions, but because every story reflects the same commitment to fairness, clarity, and thoughtful craftsmanship.</p>
-<p class="">This is why Rome stands at the beginning of this Codex.</p>
-<p class="fragment">Not as decoration.</p>
-<p class="fragment">Not as nostalgia.</p>
-<p class="fragment">Not as branding.</p>
-<p class="">Rome stands here because it represents the standard to which Romanisti aspires.</p>
-<p class="fragment">To endure without becoming rigid.</p>
-<p class="fragment">To evolve without abandoning identity.</p>
-<p class="">To welcome new generations without forgetting those who came before.</p>
-<p class="">To build carefully enough that what is created today deserves to be inherited tomorrow.</p>
-<p class="fragment">That is a higher ambition than publishing quickly.</p>
-<p class="fragment">It is a higher ambition than growing rapidly.</p>
-<p class="">It is even a higher ambition than becoming influential.</p>
-<p class="fragment">Influence fades.</p>
-<p class="fragment">Reputation can be lost.</p>
-<p class="">Institutions endure only when every generation chooses, again and again, to place principle above convenience.</p>
-<p class="fragment">Romanisti makes that choice at the very beginning.</p>
-<p class="">Everything that follows in this Codex—and everything that follows in the life of this publication—stands upon it.</p>
-<p class="eyebrow reflection">Closing Reflection</p>
-<p class="">Rome did not endure because every generation inherited a finished city.</p>
-<p class="fragment">It endured because every generation inherited a responsibility.</p>
-<p class="fragment">They chose carefully what deserved repair.</p>
-<p class="fragment">They rebuilt what deserved rebuilding.</p>
-<p class="fragment">They preserved what deserved preservation.</p>
-<p class="fragment">Romanisti must do the same.</p>
-<p class="fragment">CODEX I</p>
-<p class="fragment">Book I — The Eternal City</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-1-section-2">
-  <article class="reading-column">
-    <div class="section-meta">Section II</div>
-    <h3>Institutions Outlive Individuals</h3>
-    <blockquote class="epigraph">&quot;Great institutions are built by people humble enough to know they will not be the ones who finish them.&quot;
-— Romanisti, Codex I</blockquote>
-<p class="fragment">Every institution begins with an individual.</p>
-<p class="fragment">Every enduring institution learns to outgrow them.</p>
-<p class="">This is one of the quiet paradoxes of lasting work. Vision often begins in the mind of one person, but permanence is achieved only when that vision becomes larger than its creator.</p>
-<p class="fragment">Rome teaches this lesson with remarkable clarity.</p>
-<p class="">Few who laid its foundations imagined the city as we know it today. Roads were extended by people who never met those who first surveyed them. Temples were restored by generations who understood that preservation was as noble as creation. Public spaces were maintained by citizens who inherited them not as owners, but as custodians.</p>
-<p class="">The city survived because no single generation mistook stewardship for possession.</p>
-<p class="fragment">Romanisti chooses to inherit the same philosophy.</p>
-<p class="">Any institution that depends entirely upon one voice, one personality, or one generation may achieve recognition, but it will struggle to achieve permanence. When institutions become inseparable from individuals, their future becomes as fragile as the lives and careers of those individuals.</p>
-<p class="fragment">Romanisti rejects that model.</p>
-<p class="">Romanisti is founded by people, but it is not built around them.</p>
-<p class="">Its standards must be clear enough that future editors can uphold them without imitating their predecessors. Its visual language must remain recognizable even as designers evolve it. Its editorial integrity must survive changes in technology, ownership, and leadership because those qualities are rooted in principles rather than personalities.</p>
-<p class="fragment">This philosophy demands humility.</p>
-<p class="">Every contributor should leave a mark upon Romanisti, but no contributor should become larger than Romanisti itself.</p>
-<p class="">The finest article ever published here will eventually be followed by another.</p>
-<p class="">The most celebrated editor will one day hand responsibility to someone else.</p>
-<p class="">Even the founders must accept that success is measured not by how indispensable they become, but by how well they prepare others to continue the work.</p>
-<p class="fragment">That is not a loss of authorship.</p>
-<p class="fragment">It is the fulfillment of stewardship.</p>
-<p class="">Institutions endure because they invite successive generations to participate in something already worthy of their care.</p>
-<p class="fragment">The publication you inherit is a gift.</p>
-<p class="fragment">The publication you leave behind is your legacy.</p>
-<p class="">Romanisti asks every writer, editor, designer, photographer, developer, and future publisher to make one promise:</p>
-<p class="fragment">Leave it stronger than you found it.</p>
-<p class="">If each generation keeps that promise, the institution becomes greater than any individual achievement within it.</p>
-<p class="fragment">That is how cities endure.</p>
-<p class="fragment">That is how publications endure.</p>
-<p class="fragment">That is how Romanisti intends to endure.</p>
-<p class="eyebrow reflection">Closing Reflection</p>
-<p class="">The highest achievement of a founder is not to remain indispensable.</p>
-<p class="">It is to leave behind principles worthy of another generation&#x27;s care.</p>
-<p class="fragment">CODEX I</p>
-<p class="fragment">Book I — The Eternal City</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-1-section-3">
-  <article class="reading-column">
-    <div class="section-meta">Section III</div>
-    <h3>Craft Is an Act of Stewardship</h3>
-    <blockquote class="epigraph">&quot;What we build carelessly, others inherit unwillingly.&quot;
-— Romanisti, Codex I</blockquote>
-<p class="fragment">Craft is often mistaken for decoration.</p>
-<p class="">It is treated as the final layer placed upon work after the serious decisions have already been made. A flourish. A finish. A mark of taste.</p>
-<p class="fragment">But true craft is not ornament.</p>
-<p class="fragment">It is responsibility made visible.</p>
-<p class="fragment">Rome teaches this distinction in stone.</p>
-<p class="">Its greatest works were not enduring because they were beautiful alone. They endured because beauty was joined to structure, proportion, discipline, and purpose. The arch was not merely elegant. It carried weight. The road was not merely impressive. It connected people, armies, markets, and cities. The aqueduct was not merely monumental. It brought life.</p>
-<p class="fragment">The work was beautiful because it served.</p>
-<p class="">That is the kind of craft Romanisti must inherit.</p>
-<p class="">A publication is built from materials less permanent than stone, but no less capable of shaping memory. Words, images, headlines, captions, layouts, sources, corrections, code—each becomes part of what the reader experiences. Each either strengthens trust or weakens it. Each either honors the institution or treats it casually.</p>
-<p class="fragment">There is no neutral craft.</p>
-<p class="">A careless headline teaches readers to distrust the article beneath it.</p>
-<p class="">A poorly sourced claim weakens the paragraph around it.</p>
-<p class="">A rushed correction suggests that accuracy was secondary until embarrassment made it necessary.</p>
-<p class="">A cluttered page tells the reader that attention is something to be taken rather than respected.</p>
-<p class="fragment">A design without restraint treats seriousness as performance.</p>
-<p class="">A line of code written without care becomes someone else&#x27;s burden.</p>
-<p class="fragment">Craft is not separate from integrity.</p>
-<p class="fragment">It is one of integrity&#x27;s forms.</p>
-<p class="">This is why excellence becomes a moral responsibility when work is intended to outlive the person who made it. If Romanisti is built only for the present moment, convenience may appear harmless. But if Romanisti is built as an institution, every shortcut becomes an inheritance.</p>
-<p class="fragment">Someone will inherit the archive.</p>
-<p class="fragment">Someone will inherit the design system.</p>
-<p class="fragment">Someone will inherit the editorial standards.</p>
-<p class="fragment">Someone will inherit the code.</p>
-<p class="fragment">Someone will inherit the reputation.</p>
-<p class="">The question is whether they will inherit a burden or a foundation.</p>
-<p class="">The Roman builder understood this better than most modern creators. Stone did not forgive negligence. A weak arch collapsed. A poorly measured road failed. A careless foundation betrayed every structure placed upon it. Craft was not romantic. It was practical. It was civic. It was an obligation to people the builder might never meet.</p>
-<p class="fragment">Romanisti must think the same way.</p>
-<p class="">The writer must write for the reader who arrives years later, searching not for the emotion of the day, but for understanding.</p>
-<p class="">The editor must protect the sentence not because elegance matters for its own sake, but because clarity is a form of respect.</p>
-<p class="">The designer must remove what competes with the words, because attention is not an infinite resource.</p>
-<p class="">The photographer must choose an image that deepens meaning rather than decorates space.</p>
-<p class="">The developer must build with the future maintainer in mind.</p>
-<p class="">The founder must create systems strong enough that the institution is not dependent on the founder.</p>
-<p class="fragment">This is craft as stewardship.</p>
-<p class="">It asks each contributor to see beyond authorship and toward inheritance. The work is not complete when it is published. It becomes part of Romanisti. It joins the archive. It teaches future contributors what the publication values. It becomes precedent.</p>
-<p class="fragment">That is why standards matter.</p>
-<p class="">A single careless decision may appear small in isolation. But institutions are not weakened all at once. They are weakened by the accumulation of exceptions. One rushed article. One vague correction. One indulgent design choice. One misleading image. One compromise explained away as temporary.</p>
-<p class="">Temporary compromises have a way of becoming permanent character.</p>
-<p class="fragment">The reverse is also true.</p>
-<p class="fragment">One carefully written article creates expectation.</p>
-<p class="fragment">One transparent correction creates trust.</p>
-<p class="fragment">One restrained layout creates identity.</p>
-<p class="fragment">One well-maintained system creates continuity.</p>
-<p class="fragment">One generation&#x27;s discipline becomes the next generation&#x27;s inheritance.</p>
-<p class="">Rome was not built by one act of genius. It was built by repeated acts of care.</p>
-<p class="fragment">Romanisti must be built the same way.</p>
-<p class="">Craft, then, is not the pursuit of perfection. Perfection is too fragile a word. It often becomes vanity disguised as discipline. Craft is something more durable. It is the habit of taking the work seriously because the reader, the institution, and the future deserve that seriousness.</p>
-<p class="fragment">There will be days when speed is tempting.</p>
-<p class="fragment">There will be stories that reward reaction.</p>
-<p class="">There will be pressure to publish before understanding has matured.</p>
-<p class="fragment">There will be design trends that promise novelty.</p>
-<p class="fragment">There will be technologies that make shortcuts easy.</p>
-<p class="fragment">Romanisti should not reject change.</p>
-<p class="fragment">Rome itself never endured by standing still.</p>
-<p class="">But change must be judged by what it strengthens. A new tool is welcome if it deepens clarity. A new format is welcome if it improves understanding. A new design is welcome if it serves the reading experience. A new platform is welcome if it preserves the institution&#x27;s standards.</p>
-<p class="fragment">Innovation without stewardship is merely motion.</p>
-<p class="fragment">Romanisti does not exist to move constantly.</p>
-<p class="fragment">It exists to move deliberately.</p>
-<p class="">That deliberateness is not slowness. It is care. It is the difference between hesitation and judgment. It is the confidence to say that not every moment deserves publication, not every idea deserves design, and not every opportunity deserves pursuit.</p>
-<p class="fragment">This too is craft.</p>
-<p class="fragment">Knowing what to leave out.</p>
-<p class="fragment">Knowing what to preserve.</p>
-<p class="fragment">Knowing when restraint says more than abundance.</p>
-<p class="">The strongest institutions are not built by people who add endlessly. They are built by people who understand what must remain.</p>
-<p class="">A great publication is not made only by what it publishes.</p>
-<p class="">It is also made by what it refuses to publish.</p>
-<p class="fragment">By what it refuses to exaggerate.</p>
-<p class="fragment">By what it refuses to decorate.</p>
-<p class="fragment">By what it refuses to compromise.</p>
-<p class="fragment">In that refusal, craft becomes character.</p>
-<p class="">Romanisti must never treat excellence as luxury. Excellence is not something added after the work is done. It is the manner in which the work is done.</p>
-<p class="fragment">The headline is stewardship.</p>
-<p class="fragment">The paragraph is stewardship.</p>
-<p class="fragment">The caption is stewardship.</p>
-<p class="fragment">The source is stewardship.</p>
-<p class="fragment">The correction is stewardship.</p>
-<p class="fragment">The page is stewardship.</p>
-<p class="fragment">The code is stewardship.</p>
-<p class="fragment">The archive is stewardship.</p>
-<p class="fragment">Everything teaches.</p>
-<p class="fragment">Everything remains.</p>
-<p class="fragment">Everything is inherited.</p>
-<p class="eyebrow reflection">Closing Reflection</p>
-<p class="fragment">Craft is what the present owes the future.</p>
-<p class="">Stewardship is remembering that the future will one day read, use, question, and inherit what we leave behind.</p>
-<p class="fragment">CODEX I</p>
-<p class="fragment">Book I — The Eternal City</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-1-section-4">
-  <article class="reading-column">
-    <div class="section-meta">Section IV</div>
-    <h3>What Are We Building That Deserves to Endure?</h3>
-    <p class="eyebrow">One Question</p>
-<p class="fragment">What makes an institution worthy of another generation?</p>
-<blockquote class="epigraph">&quot;An inheritance is not measured by what is received, but by what is worth preserving.&quot;
-— Romanisti, Codex I</blockquote>
-<p class="fragment">Every institution speaks of endurance.</p>
-<p class="fragment">Few speak first of worthiness.</p>
-<p class="">The desire to endure is natural. Every founder hopes that what is built today will remain tomorrow. Every generation imagines that its work will survive its own lifetime. Yet endurance is not a reward granted simply because something exists. Time owes nothing to institutions. Neither do future generations.</p>
-<p class="fragment">To endure is not a right.</p>
-<p class="fragment">It is a judgment.</p>
-<p class="">Rome understands this better than perhaps any city on earth.</p>
-<p class="">Its history is not a story of everything being preserved. It is a story of countless generations deciding, again and again, what deserved to be restored, rebuilt, defended, adapted, and carried forward. Temples fell. Walls were repaired. Roads were extended. Ideas evolved. Yet through every age, something recognizably Roman remained.</p>
-<p class="fragment">Not because permanence was guaranteed.</p>
-<p class="fragment">Because worthiness was continually renewed.</p>
-<p class="">This is the responsibility inherited by every institution that aspires to outlive its founders.</p>
-<p class="">Romanisti cannot ask future generations to preserve its name.</p>
-<p class="fragment">It cannot ask them to preserve its pages.</p>
-<p class="">It cannot ask them to preserve its designs, its technologies, or even its methods.</p>
-<p class="fragment">Those things belong to their own time.</p>
-<p class="fragment">What Romanisti may ask is something more demanding.</p>
-<p class="">That every generation finds the institution still worthy of its care.</p>
-<p class="fragment">Worthiness is never established by declaration.</p>
-<p class="fragment">It is accumulated.</p>
-<p class="fragment">Every carefully sourced article strengthens it.</p>
-<p class="fragment">Every transparent correction strengthens it.</p>
-<p class="fragment">Every act of editorial restraint strengthens it.</p>
-<p class="">Every design choice made in service of clarity strengthens it.</p>
-<p class="fragment">Every compromise refused strengthens it.</p>
-<p class="fragment">Character is not built in extraordinary moments.</p>
-<p class="">It is built in ordinary decisions repeated faithfully over time.</p>
-<p class="fragment">That is why responsibility matters.</p>
-<p class="fragment">Responsibility does more than protect standards.</p>
-<p class="fragment">Responsibility creates worthiness.</p>
-<p class="">An institution becomes worthy not because it claims noble principles, but because it demonstrates them consistently enough that others begin to trust them. Trust becomes reputation. Reputation becomes inheritance. Inheritance becomes responsibility once more.</p>
-<p class="">Thus every generation stands in two places at once.</p>
-<p class="fragment">It is heir.</p>
-<p class="fragment">And it is builder.</p>
-<p class="">It receives the labor, judgment, mistakes, and wisdom of those who came before. It also accepts responsibility for leaving the institution stronger than it was found. To inherit without improving is neglect. To rebuild without respecting what was inherited is arrogance. Stewardship requires both gratitude and courage.</p>
-<p class="fragment">Rome has never remained unchanged.</p>
-<p class="">Nor has it remained itself by abandoning what gave it identity.</p>
-<p class="">Its continuity has always depended upon discerning what must evolve and what must endure.</p>
-<p class="fragment">Romanisti must practice the same discipline.</p>
-<p class="">Innovation should never be pursued because it is new.</p>
-<p class="">Tradition should never be preserved because it is old.</p>
-<p class="fragment">Both should be judged by a higher measure:</p>
-<p class="">Do they strengthen the institution&#x27;s ability to fulfill its purpose?</p>
-<p class="fragment">If they do, they deserve their place.</p>
-<p class="">If they do not, neither novelty nor age can justify them.</p>
-<p class="">This is how institutions resist becoming monuments to themselves.</p>
-<p class="">They remember that continuity is not measured by survival.</p>
-<p class="fragment">It is measured by continuing to deserve survival.</p>
-<p class="">There will come a day when those who built Romanisti are no longer the ones who guide it.</p>
-<p class="">If that day never arrives, then Romanisti will have failed its own ambitions.</p>
-<p class="">An institution that cannot survive its founders was never truly an institution.</p>
-<p class="fragment">It was a project.</p>
-<p class="">The highest achievement of a founder is not to remain indispensable.</p>
-<p class="">It is to leave behind principles so clear, standards so trustworthy, and a culture so deeply rooted that others willingly accept the responsibility of carrying them forward.</p>
-<p class="">The final measure of an institution is not whether its founders believed it should continue.</p>
-<p class="">The final measure is whether those who inherit it, free to abandon it, choose instead to strengthen it.</p>
-<p class="">They continue because every generation before them left something worthy of their care.</p>
-<p class="fragment">That is how institutions earn the future.</p>
-<p class="fragment">CODEX I</p>
-<p class="fragment">Book I — The Eternal City</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-1-section-5">
-  <article class="reading-column">
-    <div class="section-meta">Section V</div>
-    <h3>Where City and Club Become One</h3>
-    <p class="eyebrow">One Question</p>
-<p class="fragment">What exists beyond Romanisti that makes Romanisti necessary?</p>
-<blockquote class="epigraph">&quot;An institution fulfills its purpose when it helps people see what was always there, but too often overlooked.&quot;
-— Romanisti, Codex I</blockquote>
-<p class="">Every institution must eventually answer a question more demanding than how it is built.</p>
-<p class="">It must answer why it should exist at all.</p>
-<p class="fragment">The answer cannot be found in ambition.</p>
-<p class="fragment">Nor in recognition.</p>
-<p class="fragment">Nor in influence.</p>
-<p class="">Institutions that exist merely to sustain themselves eventually become consumed by themselves. They mistake their own preservation for their purpose. Their traditions become rituals without meaning. Their reputation becomes more important than the principles that first earned it.</p>
-<p class="fragment">Romanisti must resist that temptation from its beginning.</p>
-<p class="">It does not exist to become the largest publication devoted to AS Roma.</p>
-<p class="fragment">It does not exist to become the fastest.</p>
-<p class="fragment">It does not exist to become the loudest.</p>
-<p class="fragment">Those ambitions belong to competition.</p>
-<p class="fragment">Romanisti belongs to stewardship.</p>
-<p class="fragment">Its purpose lies beyond itself.</p>
-<p class="fragment">AS Roma is not merely a football club.</p>
-<p class="">It is one of the living expressions of Rome.</p>
-<p class="">The city&#x27;s history, neighborhoods, language, architecture, memory, triumphs, contradictions, and character have shaped the club since its beginning. In return, the club has become one of the modern ways through which millions encounter the city itself.</p>
-<p class="fragment">Neither can be fully understood without the other.</p>
-<p class="fragment">Yet they are too often separated.</p>
-<p class="fragment">The city becomes scenery.</p>
-<p class="fragment">The club becomes entertainment.</p>
-<p class="fragment">History becomes nostalgia.</p>
-<p class="fragment">Culture becomes decoration.</p>
-<p class="fragment">Romanisti rejects these divisions.</p>
-<p class="fragment">It exists where city and club become one.</p>
-<p class="fragment">Not because they lose their distinct identities.</p>
-<p class="">But because each reveals something essential about the other.</p>
-<p class="">To understand AS Roma is to understand the city that gave it life.</p>
-<p class="">To understand Rome is to recognize that its story did not end with emperors, republics, or monuments. It continues wherever the city&#x27;s character is lived, defended, celebrated, questioned, and renewed.</p>
-<p class="fragment">Football is one of those places.</p>
-<p class="">For this reason, Romanisti does not merely report events.</p>
-<p class="fragment">It interprets them.</p>
-<p class="fragment">A match is never only a match.</p>
-<p class="fragment">A derby is never only a rivalry.</p>
-<p class="fragment">A stadium is never only architecture.</p>
-<p class="fragment">A captain is never only a player.</p>
-<p class="fragment">Each belongs to a longer story.</p>
-<p class="">Each reflects questions of belonging, loyalty, identity, courage, responsibility, memory, and renewal.</p>
-<p class="fragment">Those are the stories Romanisti exists to tell.</p>
-<p class="fragment">Not because they are hidden.</p>
-<p class="">Because they are easily forgotten beneath the urgency of the present.</p>
-<p class="fragment">Most publications ask what happened.</p>
-<p class="fragment">Romanisti also asks why it matters.</p>
-<p class="fragment">Not only to the league table.</p>
-<p class="">But to the enduring relationship between city and club.</p>
-<p class="fragment">Not only to today&#x27;s supporters.</p>
-<p class="fragment">But to those who will inherit both tomorrow.</p>
-<p class="fragment">This is what makes Romanisti useful.</p>
-<p class="fragment">Not that it possesses information unavailable elsewhere.</p>
-<p class="fragment">Information passes quickly.</p>
-<p class="fragment">Meaning endures.</p>
-<p class="fragment">Romanisti seeks to preserve meaning.</p>
-<p class="">It offers a perspective rooted in principles rather than trends, in memory rather than novelty, and in continuity rather than reaction. It invites readers to see football not as an escape from history, but as one of its living expressions.</p>
-<p class="">Every article should leave the reader understanding more than the result.</p>
-<p class="fragment">Every editorial should illuminate more than the controversy.</p>
-<p class="fragment">Every photograph should reveal more than the moment.</p>
-<p class="fragment">Every Plate should invite reflection beyond the page.</p>
-<p class="">Every contribution should deepen the reader&#x27;s understanding of both the club and the city.</p>
-<p class="fragment">That is Romanisti&#x27;s measure of usefulness.</p>
-<p class="fragment">Not attention.</p>
-<p class="fragment">Understanding.</p>
-<p class="fragment">Not novelty.</p>
-<p class="fragment">Perspective.</p>
-<p class="fragment">Not volume.</p>
-<p class="fragment">Depth.</p>
-<p class="">If Romanisti remains faithful to this purpose, it will never need to justify its existence through prominence alone.</p>
-<p class="">Its worth will be found wherever a reader finishes an article with a deeper understanding of Rome because they came seeking AS Roma, or a deeper understanding of AS Roma because they came seeking Rome.</p>
-<p class="">That is the meeting place Romanisti exists to protect.</p>
-<p class="fragment">It is where memory becomes identity.</p>
-<p class="fragment">Where history becomes living culture.</p>
-<p class="fragment">Where one generation speaks to the next.</p>
-<p class="fragment">Where city and club become one.</p>
-<p class="eyebrow reflection">Closing Reflection</p>
-<p class="fragment">Rome continues to shape the club.</p>
-<p class="fragment">The club continues to reveal the city.</p>
-<p class="fragment">Romanisti exists to preserve that conversation.</p>
-<p class="fragment">CODEX I</p>
-<p class="fragment">Book I — The Eternal City</p>
-  </article>
-</section>
-<section class="plate-page" id="plate-1">
-  <figure class="plate-frame">
-    <img src="assets/plate-1.jpg" alt="" loading="lazy">
-  </figure>
-</section>
-
-<section class="book-opening" id="book-2">
-  <div class="book-opening-inner">
-    <div class="book-number">Book II</div>
-    <h2>The Romanisti</h2>
-  </div>
-</section>
-
-<section class="threshold-page">
-  <div class="threshold-copy">Rome endures.<br>You are still here.</div>
-</section>
-
-<section class="reading-section" id="book-2-section-1">
-  <article class="reading-column">
-    <div class="section-meta">Section I</div>
-    <h3>Recognition</h3>
-    <p class="">Those who continued did so without invitation, persuasion, or promise.
+</section><section class="moment constitutional-closing" id="constitutional-closing">
+<div><p>Romanisti exists where city and club become one.</p></div>
+</section><main class="manuscript-shell">
+<section class="moment cover constitutional-cover" id="cover"><div><p class="kicker">Romanisti · Library</p><h1>Codex I<br/><span class="latin">De Aeternitate</span></h1><p class="sub">Edition 1.0A · Preview Build 1C</p></div></section>
+<section class="contents architecture-overview" id="contents">
+<p class="eyebrow">Architectural Overview</p>
+<h2>Table of Contents</h2>
+<div class="toc">
+<a href="#book1"><span>Book I</span><strong>The Eternal City</strong></a>
+<a href="#book2"><span>Book II</span><strong>The Romanisti</strong></a>
+<a href="#book3"><span>Book III</span><strong>The Publication</strong></a>
+<a href="#book4"><span>Book IV</span><strong>Rome and AS Roma</strong></a>
+<a href="#book5"><span>Book V</span><strong>Among Romans</strong></a>
+<a href="#liber-lapidum"><span>Liber Lapidum</span><strong>Immutable Stones</strong></a>
+</div>
+</section><section class="moment naming-page" id="institutional-naming">
+<div class="naming-inner">
+<p class="eyebrow">Institutional Naming</p>
+<div><h2>Romanisti</h2><p>identifies the institution and publication.</p></div>
+<div><h2>romanisti</h2><p>identifies the supporters of AS Roma.</p></div>
+<div><h2>Romanisti.org</h2><p>identifies the institution’s digital home.</p></div>
+</div>
+</section><section class="moment edition-record" id="edition-record">
+<div class="record-inner">
+<p class="eyebrow">Edition Record</p>
+<dl>
+<div><dt>Institution</dt><dd>Romanisti</dd></div>
+<div><dt>Work</dt><dd>Codex I — <em>De Aeternitate</em></dd></div>
+<div><dt>Edition</dt><dd>1.0A</dd></div>
+<div><dt>Status</dt><dd>Preview Build 1C</dd></div>
+<div><dt>Digital Home</dt><dd>Romanisti.org</dd></div>
+</dl>
+</div>
+</section><section class="moment title-page constitutional-title" id="title-page">
+<div>
+<p class="eyebrow">A Romanisti Constitutional Manuscript</p>
+<p class="codex-mark">Codex I</p>
+<h1><em>De Aeternitate</em></h1>
+<p class="edition-mark">Digital Edition 1.0A</p>
+</div>
+</section><section aria-label="Blank verso" class="moment blank-verso"></section><section class="moment book-open" id="book1"><div><p class="roman">Book I</p><h2>The Eternal City</h2></div></section><section class="section"><div class="reading"><p class="section-number">Section I</p><h3>The City That Outlived Empires</h3><blockquote class="epigraph">"A city is not measured by what it builds in a generation, but by what it chooses to preserve across generations."
+— Romanisti, Codex I</blockquote><p class="short-line">There are older cities than Rome.</p><p>There have been richer cities, larger cities, and cities whose influence burned brighter for a moment in history. Yet when civilizations speak of endurance, they return, almost instinctively, to Rome.</p><p class="short-line">Not because Rome escaped decline.</p><p>Not because it was untouched by war, disaster, or failure.</p><p>Rome endured because it possessed something greater than uninterrupted success. It possessed continuity. Across centuries of triumph and collapse, emperors and republics, prosperity and ruin, there remained an identity recognizable enough that each generation believed it worth preserving.</p><p class="short-line">That distinction matters.</p><p>A monument may survive because its stone is strong. An institution survives because its principles are stronger.</p><p>Romanisti begins with Rome because Rome teaches that permanence is never accidental. It is the result of countless deliberate choices made by people who understood they were temporary caretakers of something larger than themselves.</p><p>The builders of Rome rarely worked for applause. Many never lived to see the completion of the structures they began. They carved stone knowing another generation would finish the work. Their ambition was measured not by ownership, but by contribution.</p><p>Institutions worthy of enduring are built the same way.</p><p>Every generation inherits a foundation it did not lay. Every generation improves or diminishes that inheritance through the choices it makes. No generation begins from nothing, and none has the right to behave as though it owns what history has entrusted to it.</p><p class="short-line">This is the philosophy Romanisti chooses to inherit.</p><p>We do not begin with football because football is immediate.</p><p class="short-line">It lives in ninety minutes.</p><p class="short-line">In league tables.</p><p class="short-line">In transfer windows.</p><p>In celebrations and disappointments that can change within a week.</p><p class="short-line">Rome invites us to think differently.</p><p class="short-line">The city asks longer questions.</p><p class="short-line">What deserves to remain?</p><p class="short-line">What should be preserved when fashions disappear?</p><p>What ideas continue to serve long after those who first imagined them are gone?</p><p class="short-line">Those questions are not historical curiosities.</p><p class="short-line">They are editorial responsibilities.</p><p>Every article Romanisti publishes becomes part of an institution larger than the moment that inspired it. Some stories belong to their day. Others will speak across generations. All deserve the honesty and judgment expected of work that may one day become part of the historical record.</p><p class="short-line">The internet rewards immediacy.</p><p class="short-line">History rewards judgment.</p><p class="short-line">Romanisti will always choose judgment.</p><p>That choice demands patience, because credibility is accumulated slowly and surrendered quickly.</p><p>Rome reminds us that greatness is rarely dramatic while it is being built.</p><p>The stones of the Pantheon were laid one at a time.</p><p>The arches of the Colosseum rose through ordinary labor repeated over years.</p><p>The city's identity emerged not from a single extraordinary act, but from thousands of disciplined decisions made consistently across generations.</p><p class="short-line">Journalism deserves the same respect.</p><p>A publication is not defined by one exceptional article.</p><p>It is defined by whether the thousandth article reflects the same standards as the first.</p><p>Readers should recognize Romanisti not because every story agrees with their opinions, but because every story reflects the same commitment to fairness, clarity, and thoughtful craftsmanship.</p><p>This is why Rome stands at the beginning of this Codex.</p><p class="short-line">Not as decoration.</p><p class="short-line">Not as nostalgia.</p><p class="short-line">Not as branding.</p><p>Rome stands here because it represents the standard to which Romanisti aspires.</p><p class="short-line">To endure without becoming rigid.</p><p class="short-line">To evolve without abandoning identity.</p><p>To welcome new generations without forgetting those who came before.</p><p>To build carefully enough that what is created today deserves to be inherited tomorrow.</p><p class="short-line">That is a higher ambition than publishing quickly.</p><p class="short-line">It is a higher ambition than growing rapidly.</p><p>It is even a higher ambition than becoming influential.</p><p class="short-line">Influence fades.</p><p class="short-line">Reputation can be lost.</p><p>Institutions endure only when every generation chooses, again and again, to place principle above convenience.</p><p class="short-line">Romanisti makes that choice at the very beginning.</p><p>Everything that follows in this Codex—and everything that follows in the life of this publication—stands upon it.</p><p class="closing-reflection-label">Closing Reflection</p><p>Rome did not endure because every generation inherited a finished city.</p><p class="short-line">It endured because every generation inherited a responsibility.</p><p class="short-line">They chose carefully what deserved repair.</p><p class="short-line">They rebuilt what deserved rebuilding.</p><p class="short-line">They preserved what deserved preservation.</p><p class="short-line">Romanisti must do the same.</p><p class="short-line">CODEX I</p><p class="short-line">Book I — The Eternal City</p></div></section><section class="section"><div class="reading"><p class="section-number">Section II</p><h3>Institutions Outlive Individuals</h3><blockquote class="epigraph">"Great institutions are built by people humble enough to know they will not be the ones who finish them."
+— Romanisti, Codex I</blockquote><p class="short-line">Every institution begins with an individual.</p><p class="short-line">Every enduring institution learns to outgrow them.</p><p>This is one of the quiet paradoxes of lasting work. Vision often begins in the mind of one person, but permanence is achieved only when that vision becomes larger than its creator.</p><p class="short-line">Rome teaches this lesson with remarkable clarity.</p><p>Few who laid its foundations imagined the city as we know it today. Roads were extended by people who never met those who first surveyed them. Temples were restored by generations who understood that preservation was as noble as creation. Public spaces were maintained by citizens who inherited them not as owners, but as custodians.</p><p>The city survived because no single generation mistook stewardship for possession.</p><p class="short-line">Romanisti chooses to inherit the same philosophy.</p><p>Any institution that depends entirely upon one voice, one personality, or one generation may achieve recognition, but it will struggle to achieve permanence. When institutions become inseparable from individuals, their future becomes as fragile as the lives and careers of those individuals.</p><p class="short-line">Romanisti rejects that model.</p><p>Romanisti is founded by people, but it is not built around them.</p><p>Its standards must be clear enough that future editors can uphold them without imitating their predecessors. Its visual language must remain recognizable even as designers evolve it. Its editorial integrity must survive changes in technology, ownership, and leadership because those qualities are rooted in principles rather than personalities.</p><p class="short-line">This philosophy demands humility.</p><p>Every contributor should leave a mark upon Romanisti, but no contributor should become larger than Romanisti itself.</p><p>The finest article ever published here will eventually be followed by another.</p><p>The most celebrated editor will one day hand responsibility to someone else.</p><p>Even the founders must accept that success is measured not by how indispensable they become, but by how well they prepare others to continue the work.</p><p class="short-line">That is not a loss of authorship.</p><p class="short-line">It is the fulfillment of stewardship.</p><p>Institutions endure because they invite successive generations to participate in something already worthy of their care.</p><p class="short-line">The publication you inherit is a gift.</p><p class="short-line">The publication you leave behind is your legacy.</p><p>Romanisti asks every writer, editor, designer, photographer, developer, and future publisher to make one promise:</p><p class="short-line">Leave it stronger than you found it.</p><p>If each generation keeps that promise, the institution becomes greater than any individual achievement within it.</p><p class="short-line">That is how cities endure.</p><p class="short-line">That is how publications endure.</p><p class="short-line">That is how Romanisti intends to endure.</p><p class="closing-reflection-label">Closing Reflection</p><p>The highest achievement of a founder is not to remain indispensable.</p><p>It is to leave behind principles worthy of another generation's care.</p><p class="short-line">CODEX I</p><p class="short-line">Book I — The Eternal City</p></div></section><section class="section"><div class="reading"><p class="section-number">Section III</p><h3>Craft Is an Act of Stewardship</h3><blockquote class="epigraph">"What we build carelessly, others inherit unwillingly."
+— Romanisti, Codex I</blockquote><p class="short-line">Craft is often mistaken for decoration.</p><p>It is treated as the final layer placed upon work after the serious decisions have already been made. A flourish. A finish. A mark of taste.</p><p class="short-line">But true craft is not ornament.</p><p class="short-line">It is responsibility made visible.</p><p class="short-line">Rome teaches this distinction in stone.</p><p>Its greatest works were not enduring because they were beautiful alone. They endured because beauty was joined to structure, proportion, discipline, and purpose. The arch was not merely elegant. It carried weight. The road was not merely impressive. It connected people, armies, markets, and cities. The aqueduct was not merely monumental. It brought life.</p><p class="short-line">The work was beautiful because it served.</p><p>That is the kind of craft Romanisti must inherit.</p><p>A publication is built from materials less permanent than stone, but no less capable of shaping memory. Words, images, headlines, captions, layouts, sources, corrections, code—each becomes part of what the reader experiences. Each either strengthens trust or weakens it. Each either honors the institution or treats it casually.</p><p class="short-line">There is no neutral craft.</p><p>A careless headline teaches readers to distrust the article beneath it.</p><p>A poorly sourced claim weakens the paragraph around it.</p><p>A rushed correction suggests that accuracy was secondary until embarrassment made it necessary.</p><p>A cluttered page tells the reader that attention is something to be taken rather than respected.</p><p class="short-line">A design without restraint treats seriousness as performance.</p><p>A line of code written without care becomes someone else's burden.</p><p class="short-line">Craft is not separate from integrity.</p><p class="short-line">It is one of integrity's forms.</p><p>This is why excellence becomes a moral responsibility when work is intended to outlive the person who made it. If Romanisti is built only for the present moment, convenience may appear harmless. But if Romanisti is built as an institution, every shortcut becomes an inheritance.</p><p class="short-line">Someone will inherit the archive.</p><p class="short-line">Someone will inherit the design system.</p><p class="short-line">Someone will inherit the editorial standards.</p><p class="short-line">Someone will inherit the code.</p><p class="short-line">Someone will inherit the reputation.</p><p>The question is whether they will inherit a burden or a foundation.</p><p>The Roman builder understood this better than most modern creators. Stone did not forgive negligence. A weak arch collapsed. A poorly measured road failed. A careless foundation betrayed every structure placed upon it. Craft was not romantic. It was practical. It was civic. It was an obligation to people the builder might never meet.</p><p class="short-line">Romanisti must think the same way.</p><p>The writer must write for the reader who arrives years later, searching not for the emotion of the day, but for understanding.</p><p>The editor must protect the sentence not because elegance matters for its own sake, but because clarity is a form of respect.</p><p>The designer must remove what competes with the words, because attention is not an infinite resource.</p><p>The photographer must choose an image that deepens meaning rather than decorates space.</p><p>The developer must build with the future maintainer in mind.</p><p>The founder must create systems strong enough that the institution is not dependent on the founder.</p><p class="short-line">This is craft as stewardship.</p><p>It asks each contributor to see beyond authorship and toward inheritance. The work is not complete when it is published. It becomes part of Romanisti. It joins the archive. It teaches future contributors what the publication values. It becomes precedent.</p><p class="short-line">That is why standards matter.</p><p>A single careless decision may appear small in isolation. But institutions are not weakened all at once. They are weakened by the accumulation of exceptions. One rushed article. One vague correction. One indulgent design choice. One misleading image. One compromise explained away as temporary.</p><p>Temporary compromises have a way of becoming permanent character.</p><p class="short-line">The reverse is also true.</p><p class="short-line">One carefully written article creates expectation.</p><p class="short-line">One transparent correction creates trust.</p><p class="short-line">One restrained layout creates identity.</p><p class="short-line">One well-maintained system creates continuity.</p><p class="short-line">One generation's discipline becomes the next generation's inheritance.</p><p>Rome was not built by one act of genius. It was built by repeated acts of care.</p><p class="short-line">Romanisti must be built the same way.</p><p>Craft, then, is not the pursuit of perfection. Perfection is too fragile a word. It often becomes vanity disguised as discipline. Craft is something more durable. It is the habit of taking the work seriously because the reader, the institution, and the future deserve that seriousness.</p><p class="short-line">There will be days when speed is tempting.</p><p class="short-line">There will be stories that reward reaction.</p><p>There will be pressure to publish before understanding has matured.</p><p class="short-line">There will be design trends that promise novelty.</p><p class="short-line">There will be technologies that make shortcuts easy.</p><p class="short-line">Romanisti should not reject change.</p><p class="short-line">Rome itself never endured by standing still.</p><p>But change must be judged by what it strengthens. A new tool is welcome if it deepens clarity. A new format is welcome if it improves understanding. A new design is welcome if it serves the reading experience. A new platform is welcome if it preserves the institution's standards.</p><p class="short-line">Innovation without stewardship is merely motion.</p><p class="short-line">Romanisti does not exist to move constantly.</p><p class="short-line">It exists to move deliberately.</p><p>That deliberateness is not slowness. It is care. It is the difference between hesitation and judgment. It is the confidence to say that not every moment deserves publication, not every idea deserves design, and not every opportunity deserves pursuit.</p><p class="short-line">This too is craft.</p><p class="short-line">Knowing what to leave out.</p><p class="short-line">Knowing what to preserve.</p><p class="short-line">Knowing when restraint says more than abundance.</p><p>The strongest institutions are not built by people who add endlessly. They are built by people who understand what must remain.</p><p>A great publication is not made only by what it publishes.</p><p>It is also made by what it refuses to publish.</p><p class="short-line">By what it refuses to exaggerate.</p><p class="short-line">By what it refuses to decorate.</p><p class="short-line">By what it refuses to compromise.</p><p class="short-line">In that refusal, craft becomes character.</p><p>Romanisti must never treat excellence as luxury. Excellence is not something added after the work is done. It is the manner in which the work is done.</p><p class="short-line">The headline is stewardship.</p><p class="short-line">The paragraph is stewardship.</p><p class="short-line">The caption is stewardship.</p><p class="short-line">The source is stewardship.</p><p class="short-line">The correction is stewardship.</p><p class="short-line">The page is stewardship.</p><p class="short-line">The code is stewardship.</p><p class="short-line">The archive is stewardship.</p><p class="short-line">Everything teaches.</p><p class="short-line">Everything remains.</p><p class="short-line">Everything is inherited.</p><p class="closing-reflection-label">Closing Reflection</p><p class="short-line">Craft is what the present owes the future.</p><p>Stewardship is remembering that the future will one day read, use, question, and inherit what we leave behind.</p><p class="short-line">CODEX I</p><p class="short-line">Book I — The Eternal City</p></div></section><section class="section"><div class="reading"><p class="section-number">Section IV</p><h3>What Are We Building That Deserves to Endure?</h3><p class="one-question-label">One Question</p><p class="short-line">What makes an institution worthy of another generation?</p><blockquote class="epigraph">"An inheritance is not measured by what is received, but by what is worth preserving."
+— Romanisti, Codex I</blockquote><p class="short-line">Every institution speaks of endurance.</p><p class="short-line">Few speak first of worthiness.</p><p>The desire to endure is natural. Every founder hopes that what is built today will remain tomorrow. Every generation imagines that its work will survive its own lifetime. Yet endurance is not a reward granted simply because something exists. Time owes nothing to institutions. Neither do future generations.</p><p class="short-line">To endure is not a right.</p><p class="short-line">It is a judgment.</p><p>Rome understands this better than perhaps any city on earth.</p><p>Its history is not a story of everything being preserved. It is a story of countless generations deciding, again and again, what deserved to be restored, rebuilt, defended, adapted, and carried forward. Temples fell. Walls were repaired. Roads were extended. Ideas evolved. Yet through every age, something recognizably Roman remained.</p><p class="short-line">Not because permanence was guaranteed.</p><p class="short-line">Because worthiness was continually renewed.</p><p>This is the responsibility inherited by every institution that aspires to outlive its founders.</p><p>Romanisti cannot ask future generations to preserve its name.</p><p class="short-line">It cannot ask them to preserve its pages.</p><p>It cannot ask them to preserve its designs, its technologies, or even its methods.</p><p class="short-line">Those things belong to their own time.</p><p class="short-line">What Romanisti may ask is something more demanding.</p><p>That every generation finds the institution still worthy of its care.</p><p class="short-line">Worthiness is never established by declaration.</p><p class="short-line">It is accumulated.</p><p class="short-line">Every carefully sourced article strengthens it.</p><p class="short-line">Every transparent correction strengthens it.</p><p class="short-line">Every act of editorial restraint strengthens it.</p><p>Every design choice made in service of clarity strengthens it.</p><p class="short-line">Every compromise refused strengthens it.</p><p class="short-line">Character is not built in extraordinary moments.</p><p>It is built in ordinary decisions repeated faithfully over time.</p><p class="short-line">That is why responsibility matters.</p><p class="short-line">Responsibility does more than protect standards.</p><p class="short-line">Responsibility creates worthiness.</p><p>An institution becomes worthy not because it claims noble principles, but because it demonstrates them consistently enough that others begin to trust them. Trust becomes reputation. Reputation becomes inheritance. Inheritance becomes responsibility once more.</p><p>Thus every generation stands in two places at once.</p><p class="short-line">It is heir.</p><p class="short-line">And it is builder.</p><p>It receives the labor, judgment, mistakes, and wisdom of those who came before. It also accepts responsibility for leaving the institution stronger than it was found. To inherit without improving is neglect. To rebuild without respecting what was inherited is arrogance. Stewardship requires both gratitude and courage.</p><p class="short-line">Rome has never remained unchanged.</p><p>Nor has it remained itself by abandoning what gave it identity.</p><p>Its continuity has always depended upon discerning what must evolve and what must endure.</p><p class="short-line">Romanisti must practice the same discipline.</p><p>Innovation should never be pursued because it is new.</p><p>Tradition should never be preserved because it is old.</p><p class="short-line">Both should be judged by a higher measure:</p><p>Do they strengthen the institution's ability to fulfill its purpose?</p><p class="short-line">If they do, they deserve their place.</p><p>If they do not, neither novelty nor age can justify them.</p><p>This is how institutions resist becoming monuments to themselves.</p><p>They remember that continuity is not measured by survival.</p><p class="short-line">It is measured by continuing to deserve survival.</p><p>There will come a day when those who built Romanisti are no longer the ones who guide it.</p><p>If that day never arrives, then Romanisti will have failed its own ambitions.</p><p>An institution that cannot survive its founders was never truly an institution.</p><p class="short-line">It was a project.</p><p>The highest achievement of a founder is not to remain indispensable.</p><p>It is to leave behind principles so clear, standards so trustworthy, and a culture so deeply rooted that others willingly accept the responsibility of carrying them forward.</p><p>The final measure of an institution is not whether its founders believed it should continue.</p><p>The final measure is whether those who inherit it, free to abandon it, choose instead to strengthen it.</p><p>They continue because every generation before them left something worthy of their care.</p><p class="short-line">That is how institutions earn the future.</p><p class="short-line">CODEX I</p><p class="short-line">Book I — The Eternal City</p></div></section><section class="section"><div class="reading"><p class="section-number">Section V</p><h3>Where City and Club Become One</h3><p class="one-question-label">One Question</p><p class="short-line">What exists beyond Romanisti that makes Romanisti necessary?</p><blockquote class="epigraph">"An institution fulfills its purpose when it helps people see what was always there, but too often overlooked."
+— Romanisti, Codex I</blockquote><p>Every institution must eventually answer a question more demanding than how it is built.</p><p>It must answer why it should exist at all.</p><p class="short-line">The answer cannot be found in ambition.</p><p class="short-line">Nor in recognition.</p><p class="short-line">Nor in influence.</p><p>Institutions that exist merely to sustain themselves eventually become consumed by themselves. They mistake their own preservation for their purpose. Their traditions become rituals without meaning. Their reputation becomes more important than the principles that first earned it.</p><p class="short-line">Romanisti must resist that temptation from its beginning.</p><p>It does not exist to become the largest publication devoted to AS Roma.</p><p class="short-line">It does not exist to become the fastest.</p><p class="short-line">It does not exist to become the loudest.</p><p class="short-line">Those ambitions belong to competition.</p><p class="short-line">Romanisti belongs to stewardship.</p><p class="short-line">Its purpose lies beyond itself.</p><p class="short-line">AS Roma is not merely a football club.</p><p>It is one of the living expressions of Rome.</p><p>The city's history, neighborhoods, language, architecture, memory, triumphs, contradictions, and character have shaped the club since its beginning. In return, the club has become one of the modern ways through which millions encounter the city itself.</p><p class="short-line">Neither can be fully understood without the other.</p><p class="short-line">Yet they are too often separated.</p><p class="short-line">The city becomes scenery.</p><p class="short-line">The club becomes entertainment.</p><p class="short-line">History becomes nostalgia.</p><p class="short-line">Culture becomes decoration.</p><p class="short-line">Romanisti rejects these divisions.</p><p class="short-line">It exists where city and club become one.</p><p class="short-line">Not because they lose their distinct identities.</p><p>But because each reveals something essential about the other.</p><p>To understand AS Roma is to understand the city that gave it life.</p><p>To understand Rome is to recognize that its story did not end with emperors, republics, or monuments. It continues wherever the city's character is lived, defended, celebrated, questioned, and renewed.</p><p class="short-line">Football is one of those places.</p><p>For this reason, Romanisti does not merely report events.</p><p class="short-line">It interprets them.</p><p class="short-line">A match is never only a match.</p><p class="short-line">A derby is never only a rivalry.</p><p class="short-line">A stadium is never only architecture.</p><p class="short-line">A captain is never only a player.</p><p class="short-line">Each belongs to a longer story.</p><p>Each reflects questions of belonging, loyalty, identity, courage, responsibility, memory, and renewal.</p><p class="short-line">Those are the stories Romanisti exists to tell.</p><p class="short-line">Not because they are hidden.</p><p>Because they are easily forgotten beneath the urgency of the present.</p><p class="short-line">Most publications ask what happened.</p><p class="short-line">Romanisti also asks why it matters.</p><p class="short-line">Not only to the league table.</p><p>But to the enduring relationship between city and club.</p><p class="short-line">Not only to today's supporters.</p><p class="short-line">But to those who will inherit both tomorrow.</p><p class="short-line">This is what makes Romanisti useful.</p><p class="short-line">Not that it possesses information unavailable elsewhere.</p><p class="short-line">Information passes quickly.</p><p class="short-line">Meaning endures.</p><p class="short-line">Romanisti seeks to preserve meaning.</p><p>It offers a perspective rooted in principles rather than trends, in memory rather than novelty, and in continuity rather than reaction. It invites readers to see football not as an escape from history, but as one of its living expressions.</p><p>Every article should leave the reader understanding more than the result.</p><p class="short-line">Every editorial should illuminate more than the controversy.</p><p class="short-line">Every photograph should reveal more than the moment.</p><p class="short-line">Every Plate should invite reflection beyond the page.</p><p>Every contribution should deepen the reader's understanding of both the club and the city.</p><p class="short-line">That is Romanisti's measure of usefulness.</p><p class="short-line">Not attention.</p><p class="short-line">Understanding.</p><p class="short-line">Not novelty.</p><p class="short-line">Perspective.</p><p class="short-line">Not volume.</p><p class="short-line">Depth.</p><p>If Romanisti remains faithful to this purpose, it will never need to justify its existence through prominence alone.</p><p>Its worth will be found wherever a reader finishes an article with a deeper understanding of Rome because they came seeking AS Roma, or a deeper understanding of AS Roma because they came seeking Rome.</p><p>That is the meeting place Romanisti exists to protect.</p><p class="short-line">It is where memory becomes identity.</p><p class="short-line">Where history becomes living culture.</p><p class="short-line">Where one generation speaks to the next.</p><p class="short-line">Where city and club become one.</p><p class="closing-reflection-label">Closing Reflection</p><p class="short-line">Rome continues to shape the club.</p><p class="short-line">The club continues to reveal the city.</p><p class="short-line">Romanisti exists to preserve that conversation.</p><p class="short-line">CODEX I</p><p class="short-line">Book I — The Eternal City</p></div></section>
+<section class="plate"><figure><span class="plate-label">Plate I · provisional reference crop</span><div class="plate-mat"><img alt="" src="assets/plate1.jpg"/></div></figure></section>
+<div aria-hidden="true" class="moment-spacer"></div><section class="moment book-open" id="book2"><div><p class="roman">Book II</p><h2>The Romanisti</h2></div></section><section class="section threshold-section"><div class="reading threshold-copy"><p class="short-line">Rome endures.</p><p class="short-line">You are still here.</p></div></section><section class="section"><div class="reading"><p class="section-number">Section I</p><h3>Recognition</h3><p>Those who continued did so without invitation, persuasion, or promise.
 
 That choice is enough.
 
@@ -527,21 +216,13 @@ Recognition seldom announces itself.
 
 It rarely asks to be noticed.
 
-More often, it arrives as a quiet certainty that what once felt deeply personal may not be entirely one&#x27;s own.
+More often, it arrives as a quiet certainty that what once felt deeply personal may not be entirely one's own.
 
 This book does not seek to explain that feeling.
 
 It simply begins there.
 
-One Question: What quietly binds people who have never met?</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-2-section-2">
-  <article class="reading-column">
-    <div class="section-meta">Section II</div>
-    <h3>A Shared Romance</h3>
-    <p class="">No two Romanisti arrive by the same road.
+One Question: What quietly binds people who have never met?</p></div></section><section class="section"><div class="reading"><p class="section-number">Section II</p><h3>A Shared Romance</h3><p>No two Romanisti arrive by the same road.
 
 Some first encounter Rome through history.
 
@@ -609,15 +290,7 @@ They have each arrived by different roads.
 
 Yet they have come to recognize the same enduring conversation between Rome and the club that bears her name.
 
-One Question: What happens when a love that feels deeply personal is discovered to have always been quietly shared?</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-2-section-3">
-  <article class="reading-column">
-    <div class="section-meta">Section III</div>
-    <h3>An Inherited Memory</h3>
-    <p class="">No one encounters Rome for the first time.
+One Question: What happens when a love that feels deeply personal is discovered to have always been quietly shared?</p></div></section><section class="section"><div class="reading"><p class="section-number">Section III</p><h3>An Inherited Memory</h3><p>No one encounters Rome for the first time.
 
 Even the stranger arrives carrying fragments of her.
 
@@ -699,15 +372,7 @@ Those who accept that invitation do not preserve Rome by carrying her memory.
 
 Quietly, and over time, they discover that her memory has been carrying them all along.
 
-One Question: What does it mean to inherit a memory that no one was ever required to pass on?</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-2-section-4">
-  <article class="reading-column">
-    <div class="section-meta">Section IV</div>
-    <h3>Quiet Companions</h3>
-    <p class="">There are moments in Rome when the city seems entirely your own.
+One Question: What does it mean to inherit a memory that no one was ever required to pass on?</p></div></section><section class="section"><div class="reading"><p class="section-number">Section IV</p><h3>Quiet Companions</h3><p>There are moments in Rome when the city seems entirely your own.
 
 An early morning street before the crowds arrive.
 
@@ -795,15 +460,7 @@ Not through invitation.
 
 But through the quiet recognition that others have long been walking the same roads.
 
-One Question: What changes when we discover that what we quietly carry has always been carried by others as well?</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-2-section-5">
-  <article class="reading-column">
-    <div class="section-meta">Section V</div>
-    <h3>The Romanisti</h3>
-    <p class="">By now, little remains to be explained.
+One Question: What changes when we discover that what we quietly carry has always been carried by others as well?</p></div></section><section class="section"><div class="reading"><p class="section-number">Section V</p><h3>The Romanisti</h3><p>By now, little remains to be explained.
 
 The city has endured.
 
@@ -895,80 +552,9 @@ The recognition was never ours to give.
 
 It was always yours to discover.
 
-One Question: How do we faithfully carry forward what has always been a part of us?</p>
-  </article>
-</section>
-<section class="plate-page" id="plate-2">
-  <figure class="plate-frame">
-    <img src="assets/plate-2.jpg" alt="" loading="lazy">
-  </figure>
-</section>
-
-<section class="book-opening" id="book-3">
-  <div class="book-opening-inner">
-    <div class="book-number">Book III</div>
-    <h2>The Publication</h2>
-  </div>
-</section>
-
-
-<section class="reading-section" id="book-3-section-1">
-  <article class="reading-column">
-    <div class="section-meta">Section I</div>
-    
-    <p class="">Book II ended by reminding us that we were never alone.
-
-Rome had quietly gathered us long before we ever recognized one another. What began as individual affection slowly revealed itself as something shared. Not organized. Not assigned. Simply discovered.
-
-Recognition, however, is never the end of the story.
-
-Every generation eventually faces the same question. Once we discover that we belong to something larger than ourselves, what responsibility follows?
-
-Love alone cannot preserve what it loves.
-
-Admiration does not carry memory forward.
-
-Loyalty alone cannot carry an inheritance forward.
-
-What endures is what people choose to steward together.
-
-That is how institutions begin.
-
-Not with charters or buildings. Not with founders or declarations. They begin when responsibility becomes shared, and when people decide that something entrusted to them must be left stronger than they received it.
-
-Rome quietly reminds us of this.
-
-Its monuments, its streets, its traditions, and even its stories remain because countless hands accepted the quiet work of carrying them forward. Most of those hands are forgotten. Their work is not.
-
-The same inheritance belongs to those who love AS Roma.
-
-The club is renewed every season, but its meaning is carried across generations. Victories pass. Defeats pass. Players arrive and depart. Yet something deeper remains because people refuse to allow it to disappear.
-
-Sooner or later, stewardship seeks a home.
-
-Not a place of ownership, but of responsibility.
-
-Not a platform for voices, but an institution capable of preserving understanding with honesty, humility, and care.
-
-That is where a publication begins.
-
-Not as a collection of articles.
-
-Not as a business.
-
-Not even as a destination.
-
-But as one generation accepting responsibility for what the next deserves to inherit.
-
-Every institution begins the moment responsibility becomes shared.</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-3-section-2">
-  <article class="reading-column">
-    <div class="section-meta">Section II</div>
-    
-    <p class="">Every generation arrives in the middle of a story already being told.
+One Question: How do we faithfully carry forward what has always been a part of us?</p></div></section>
+<section class="plate"><figure><span class="plate-label">Plate II · provisional benchmark crop</span><div class="plate-mat"><img alt="" src="assets/plate2.jpg"/></div></figure></section>
+<div aria-hidden="true" class="moment-spacer"></div><section class="moment book-open" id="book3"><div><p class="roman">Book III</p><h2>The Publication</h2></div></section><section class="section"><div class="reading"><p class="section-number">Section I</p><p>Every generation eventually faces the same question. Once we discover that we belong to something larger than ourselves, what responsibility follows?</p><p class="short-line">Love alone cannot preserve what it loves.</p><p class="short-line">Admiration does not carry memory forward.</p><p class="short-line">Loyalty alone cannot carry an inheritance forward.</p><p>What endures is what people choose to steward together.</p><p class="short-line">That is how institutions begin.</p><p>Not with charters or buildings. Not with founders or declarations. They begin when responsibility becomes shared, and when people decide that something entrusted to them must be left stronger than they received it.</p><p class="short-line">Rome quietly reminds us of this.</p><p>Its monuments, its streets, its traditions, and even its stories remain because countless hands accepted the quiet work of carrying them forward. Most of those hands are forgotten. Their work is not.</p><p>The same inheritance belongs to those who love AS Roma.</p><p>The club is renewed every season, but its meaning is carried across generations. Victories pass. Defeats pass. Players arrive and depart. Yet something deeper remains because people refuse to allow it to disappear.</p><p class="short-line">Sooner or later, stewardship seeks a home.</p><p class="short-line">Not a place of ownership, but of responsibility.</p><p>Not a platform for voices, but an institution capable of preserving understanding with honesty, humility, and care.</p><p class="short-line">That is where a publication begins.</p><p class="short-line">Not as a collection of articles.</p><p class="short-line">Not as a business.</p><p class="short-line">Not even as a destination.</p><p>But as one generation accepting responsibility for what the next deserves to inherit.</p><p class="short-line">Every institution begins the moment responsibility becomes shared.</p></div></section><section class="section"><div class="reading"><p class="section-number">Section II</p><p>Every generation arrives in the middle of a story already being told.
 
 Long before we understand it, others have already carried it.
 
@@ -1016,15 +602,7 @@ It is to listen.
 
 Not to stand above the story.
 
-But to receive it so faithfully that those who come after inherit it more clearly than we did.</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-3-section-3">
-  <article class="reading-column">
-    <div class="section-meta">Section III</div>
-    
-    <p class="">What has been entrusted to us is never preserved by intention alone.
+But to receive it so faithfully that those who come after inherit it more clearly than we did.</p></div></section><section class="section"><div class="reading"><p class="section-number">Section III</p><p>What has been entrusted to us is never preserved by intention alone.
 
 Good intentions may begin the work.
 
@@ -1068,19 +646,11 @@ Only an institution that remains faithful to what it serves can remain worthy of
 
 Fidelity is not simply one of its virtues.
 
-It is the quiet practice through which every other virtue endures.</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-3-section-4">
-  <article class="reading-column">
-    <div class="section-meta">Section IV</div>
-    
-    <p class="">Every generation eventually discovers that its stewardship is temporary.
+It is the quiet practice through which every other virtue endures.</p></div></section><section class="section"><div class="reading"><p class="section-number">Section IV</p><p>Every generation eventually discovers that its stewardship is temporary.
 
 At first, this may seem like a limitation.
 
-It is, instead, one of an institution&#x27;s greatest strengths.
+It is, instead, one of an institution's greatest strengths.
 
 This is the quiet rhythm of stewardship.
 
@@ -1116,15 +686,7 @@ Then, when its time has passed, another generation quietly begins.
 
 That is how stewardship becomes inheritance.
 
-And how inheritance becomes continuity.</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-3-section-5">
-  <article class="reading-column">
-    <div class="section-meta">Section V</div>
-    
-    <p class="">In time, every institution is measured by the same question.
+And how inheritance becomes continuity.</p></div></section><section class="section"><div class="reading"><p class="section-number">Section V</p><p>In time, every institution is measured by the same question.
 
 Not whether it endured.
 
@@ -1170,28 +732,9 @@ Only to receive it gratefully...
 
 to strengthen it faithfully...
 
-and to leave it worthy of those who have not yet arrived.</p>
-  </article>
-</section>
-<section class="plate-page" id="plate-3">
-  <figure class="plate-frame">
-    <img src="assets/plate-3.jpg" alt="" loading="lazy">
-  </figure>
-</section>
-
-<section class="book-opening" id="book-4">
-  <div class="book-opening-inner">
-    <div class="book-number">Book IV</div>
-    <h2>Rome and AS Roma</h2>
-  </div>
-</section>
-
-
-<section class="reading-section" id="book-4-section-1">
-  <article class="reading-column">
-    <div class="section-meta">Section I</div>
-    
-    <p class="">There are football clubs whose stories begin with football.
+and to leave it worthy of those who have not yet arrived.</p></div></section>
+<section class="plate"><figure><span class="plate-label">Plate III · candidate D</span><div class="plate-mat"><img alt="" src="assets/plate3.jpg"/></div></figure></section>
+<div aria-hidden="true" class="moment-spacer"></div><section class="moment book-open" id="book4"><div><p class="roman">Book IV</p><h2>Rome and AS Roma</h2></div></section><section class="section"><div class="reading"><p class="section-number">Section I</p><p>There are football clubs whose stories begin with football.
 
 AS Roma is not one of them.
 
@@ -1219,15 +762,7 @@ That is why the relationship between Rome and AS Roma cannot be reduced to geogr
 
 The city is not simply where the club belongs.
 
-It is where its meaning begins.</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-4-section-2">
-  <article class="reading-column">
-    <div class="section-meta">Section II</div>
-    
-    <p class="">To love Rome is to accept that no generation receives the city at its greatest moment.
+It is where its meaning begins.</p></div></section><section class="section"><div class="reading"><p class="section-number">Section II</p><p>To love Rome is to accept that no generation receives the city at its greatest moment.
 
 Every generation inherits both its beauty and its burdens.
 
@@ -1267,15 +802,7 @@ It is an act of fidelity.
 
 Not because the club is perfect.
 
-But because some things become worthy of love long before they become worthy of approval.</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-4-section-3">
-  <article class="reading-column">
-    <div class="section-meta">Section III</div>
-    
-    <p class="">Rome does not hide her past.
+But because some things become worthy of love long before they become worthy of approval.</p></div></section><section class="section"><div class="reading"><p class="section-number">Section III</p><p>Rome does not hide her past.
 
 She lives beside it.
 
@@ -1321,15 +848,7 @@ A future with memory becomes continuity.
 
 Perhaps that is why Rome never asks us to forget.
 
-She asks us to remember well enough that every new chapter still belongs to the same story.</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-4-section-4">
-  <article class="reading-column">
-    <div class="section-meta">Section IV</div>
-    
-    <p class="">Rome has never lived only in her greatest moments.
+She asks us to remember well enough that every new chapter still belongs to the same story.</p></div></section><section class="section"><div class="reading"><p class="section-number">Section IV</p><p>Rome has never lived only in her greatest moments.
 
 She has endured because every generation believed another chapter was still worth writing.
 
@@ -1375,15 +894,7 @@ Never the whole story.
 
 To love Rome is to believe that another chapter remains unwritten.
 
-To love AS Roma is to believe the same.</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-4-section-5">
-  <article class="reading-column">
-    <div class="section-meta">Section V</div>
-    
-    <p class="">The story of Rome did not end when football began.
+To love AS Roma is to believe the same.</p></div></section><section class="section"><div class="reading"><p class="section-number">Section V</p><p>The story of Rome did not end when football began.
 
 Nor did football begin a story apart from Rome.
 
@@ -1415,7 +926,7 @@ Every supporter inherits the story already in progress and leaves something for 
 
 What Rome teaches us to celebrate, to mourn, to regret, to hope for, and ultimately to find worthy of our time becomes the way we understand and love AS Roma.
 
-AS Roma is not separate from Rome&#x27;s story.
+AS Roma is not separate from Rome's story.
 
 It is one of the ways Rome continues to tell it.
 
@@ -1425,36 +936,17 @@ Not to create that story.
 
 Not to improve it.
 
-Only to help us recognize it.</p>
-  </article>
-</section>
-<section class="plate-page" id="plate-4">
-  <figure class="plate-frame">
-    <img src="assets/plate-4.jpg" alt="" loading="lazy">
-  </figure>
-</section>
+Only to help us recognize it.</p></div></section>
+<section class="plate"><figure><span class="plate-label">Plate IV · provisional benchmark</span><div class="plate-mat"><img alt="" src="assets/plate4.jpg"/></div></figure></section>
+<div aria-hidden="true" class="moment-spacer"></div><section class="moment book-open" id="book5"><div><p class="roman">Book V</p><h2>Among Romans</h2></div></section><section class="section"><div class="reading"><p class="section-number">Section I</p><p>Rome has never been contained by its walls. Long before it became memory, Rome became an idea. Its streets remained in one place, but its citizenship, its laws, its language, and its way of seeing the world crossed mountains and seas. People who had never stood beneath the Capitoline or crossed the Forum could nevertheless become Romans—not by erasing who they had been, but by entering into something larger than themselves.
 
-<section class="book-opening" id="book-5">
-  <div class="book-opening-inner">
-    <div class="book-number">Book V</div>
-    <h2>Among Romans</h2>
-  </div>
-</section>
-
-
-<section class="reading-section" id="book-5-section-1">
-  <article class="reading-column">
-    <div class="section-meta">Section I</div>
-    
-    <p class="">Rome has never been contained by its walls. Long before it became memory, Rome became an idea. Its streets remained in one place, but its citizenship, its laws, its language, and its way of seeing the world crossed mountains and seas. People who had never stood beneath the Capitoline or crossed the Forum could nevertheless become Romans—not by erasing who they had been, but by entering into something larger than themselves.
-
-That is one of Rome&#x27;s greatest inheritances.
+That is one of Rome's greatest inheritances.
 
 Not simply that it endured.
 
 That it invited.
 
-Across centuries, the meaning of &#x27;Roman&#x27; became greater than geography. It came to describe a shared civic inheritance—one capable of welcoming people from many places into a common story. Rome remained the center, but it no longer defined the limits.
+Across centuries, the meaning of 'Roman' became greater than geography. It came to describe a shared civic inheritance—one capable of welcoming people from many places into a common story. Rome remained the center, but it no longer defined the limits.
 
 AS Roma has always carried something of that same character. The club was born in Rome and will always belong to Rome. Yet those who love it are found wherever its story is received.
 
@@ -1464,15 +956,7 @@ For that reason, the question is no longer whether one is Roman.
 
 The more enduring question is simpler.
 
-What does it mean to live among Romans?</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-5-section-2">
-  <article class="reading-column">
-    <div class="section-meta">Section II</div>
-    
-    <p class="">There has never been a single way to become Roman.
+What does it mean to live among Romans?</p></div></section><section class="section"><div class="reading"><p class="section-number">Section II</p><p>There has never been a single way to become Roman.
 
 Across centuries, people arrived from different lands, spoke different languages, and carried different customs. They did not cease to be themselves. Yet by accepting a common civic inheritance, they became participants in something greater than any one origin could contain.
 
@@ -1490,21 +974,13 @@ Neither path is greater than the other.
 
 What matters is how one remains.
 
-To stand among Romans has never required abandoning one&#x27;s own story.
+To stand among Romans has never required abandoning one's own story.
 
 It asks only that one receive it with humility, care for it faithfully, and leave it stronger for those who will come after.
 
 For no one inherits Rome alone.
 
-And no one carries it alone.</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-5-section-3">
-  <article class="reading-column">
-    <div class="section-meta">Section III</div>
-    
-    <p class="">To live among Romans is to discover that inheritance is never passive.
+And no one carries it alone.</p></div></section><section class="section"><div class="reading"><p class="section-number">Section III</p><p>To live among Romans is to discover that inheritance is never passive.
 
 It asks something of those who receive it.
 
@@ -1542,15 +1018,7 @@ Not to stand still.
 
 Not to forget.
 
-But to continue.</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-5-section-4">
-  <article class="reading-column">
-    <div class="section-meta">Section IV</div>
-    
-    <p class="">To continue is not merely to preserve what has been received.
+But to continue.</p></div></section><section class="section"><div class="reading"><p class="section-number">Section IV</p><p>To continue is not merely to preserve what has been received.
 
 It is to prepare what will one day be received by others.
 
@@ -1570,17 +1038,9 @@ For a time, we are entrusted with songs, memories, friendships, traditions, and 
 
 Perhaps this is the quiet gift of living among Romans.
 
-It is found in faithfully adding one&#x27;s own sentence to a story that never needed to begin with us in order to matter.
+It is found in faithfully adding one's own sentence to a story that never needed to begin with us in order to matter.
 
-And in leaving that story more worthy of those who will one day inherit it.</p>
-  </article>
-</section>
-
-<section class="reading-section" id="book-5-section-5">
-  <article class="reading-column">
-    <div class="section-meta">Section V</div>
-    
-    <p class="">Every inheritance arrives, sooner or later, at the same quiet moment.
+And in leaving that story more worthy of those who will one day inherit it.</p></div></section><section class="section"><div class="reading"><p class="section-number">Section V</p><p>Every inheritance arrives, sooner or later, at the same quiet moment.
 
 It passes from memory into responsibility.
 
@@ -1614,112 +1074,35 @@ to leave it stronger.
 
 Then, quietly,
 
-to place it into other hands.</p>
-  </article>
-</section>
-<section class="plate-page" id="plate-5">
-  <figure class="plate-frame">
-    <img src="assets/plate-5.jpg" alt="" loading="lazy">
-  </figure>
-</section>
-
-
-
-<section class="book-opening constitutional-open" id="liber-lapidum">
-  <div class="book-opening-inner">
-    <div class="book-number">Liber Lapidum</div>
-    <h2>Immutable Stones</h2>
-  </div>
-</section>
-
-<section class="constitutional-section">
-  <article class="stone-list">
-    <div class="stone">
-      <div class="stone-number">I</div>
-      <h3>Where City and Club Become One</h3>
-      <p>Romanisti exists where city and club become one.</p>
-      <p>Romanisti exists to interpret AS Roma through the enduring character of Rome, and to interpret Rome through the living story of its football club.</p>
-      <p>Everything the institution creates should deepen the understanding of both.</p>
-    </div>
-
-    <div class="stone">
-      <div class="stone-number">II</div>
-      <h3>Stewardship, Not Ownership</h3>
-      <p>Romanisti is held in trust.</p>
-      <p>Every generation serves.</p>
-      <p>No generation possesses.</p>
-    </div>
-
-    <div class="stone">
-      <div class="stone-number">III</div>
-      <h3>Institutions Earn the Future</h3>
-      <p>Institutions do not deserve the future.</p>
-      <p>Responsibility creates worthiness.</p>
-      <p>Worthiness invites stewardship.</p>
-    </div>
-
-    <div class="stone">
-      <div class="stone-number">IV</div>
-      <h3>Rome Before Football</h3>
-      <p>Rome is the lens.</p>
-      <p>The city gives meaning to the club.</p>
-      <p>The club adds chapters to the city’s story.</p>
-    </div>
-
-    <div class="stone">
-      <div class="stone-number">V</div>
-      <h3>Integrity Above Everything</h3>
-      <p>Trust is Romanisti’s greatest asset.</p>
-      <p>It is earned slowly.</p>
-      <p>It is never traded for convenience.</p>
-    </div>
-
-    <div class="stone">
-      <div class="stone-number">VI</div>
-      <h3>Luxury Through Restraint</h3>
-      <p>Excellence is expressed through discipline rather than abundance.</p>
-    </div>
-
-    <div class="stone">
-      <div class="stone-number">VII</div>
-      <h3>Leave It Stronger</h3>
-      <p>Every contributor inherits Romanisti temporarily.</p>
-      <p>The responsibility is to leave it stronger.</p>
-    </div>
-
-    <div class="stone">
-      <div class="stone-number">VIII</div>
-      <h3>Institution Over Individuals</h3>
-      <p>Romanisti is built around principles, not founders, editors, writers, designers, or developers.</p>
-    </div>
-  </article>
-</section>
-
-<section class="full-page constitutional-closing" id="constitutional-closing">
-  <div class="closing-inner">
-    <div class="closing-kicker">Romanisti</div>
-    <p>What is inherited is never ours alone.</p>
-    <p>What endures must remain worthy of those who come next.</p>
-    <div class="closing-mark">SPQR</div>
-  </div>
-</section>
-
-<section class="full-page closing" id="closing" aria-label="Closing silence">
-  <p>Romanisti exists where city and club become one.</p>
-</section>
-
-<section class="full-page colophon" id="colophon">
-  <div class="colophon-copy">
-    <p class="publication-name">Romanisti</p>
-    <p>Held in trust.</p>
-    <p>Every generation serves.</p>
-    <p>No generation possesses.</p>
-    <p class="colophon-url">Romanisti.org</p>
-  </div>
-</section>
-
+to place it into other hands.</p></div></section>
+<section class="plate placeholder"><figure><div><p class="kicker">Plate V · provisional</p><p>Weathered Roman stone steps.<br/>Portrait benchmark image pending insertion.</p></div></figure></section>
+<section class="appendix" id="stones"><p class="kicker">Liber Lapidum</p><h2>Immutable Stones</h2>
+<div class="stones">
+<div class="stone"><h3>Where City and Club Become One</h3><p>Romanisti exists where city and club become one. Romanisti exists to interpret AS Roma through the enduring character of Rome, and to interpret Rome through the living story of its football club. Everything the institution creates should deepen the understanding of both.</p></div>
+<div class="stone"><h3>Stewardship, Not Ownership</h3><p>Romanisti is held in trust. Every generation serves. No generation possesses.</p></div>
+<div class="stone"><h3>Institutions Earn the Future</h3><p>Institutions earn the future; they do not deserve it. Responsibility creates worthiness. Worthiness invites stewardship.</p></div>
+<div class="stone"><h3>Rome Before Football</h3><p>Rome is the lens. The city gives meaning to the club. The club adds chapters to the city's story.</p></div>
+<div class="stone"><h3>Integrity Above Everything</h3><p>Trust is the institution's greatest asset. It is earned slowly and never traded for convenience.</p></div>
+<div class="stone"><h3>Luxury Through Restraint</h3><p>Excellence is achieved through discipline rather than abundance.</p></div>
+<div class="stone"><h3>Leave It Stronger</h3><p>Every contributor inherits Romanisti temporarily. The responsibility is to leave it stronger.</p></div>
+<div class="stone"><h3>Institution Over Individuals</h3><p>Romanisti is built around principles, not founders, editors, writers, designers, or developers.</p></div>
+</div></section>
+<section class="moment lock" id="lock"><div><blockquote>“The Codex inherits itself exactly as every generation inherits Romanisti.”</blockquote><p class="meta">Edition 1.0A · Preview Build 1C · Experience Study · Not a constitutional edition</p></div></section>
 </main>
-
-<script src="script.js"></script>
-</body>
-</html>
+<script>
+const drawer=document.getElementById('drawer');
+document.getElementById('menu').onclick=()=>drawer.classList.toggle('open');
+drawer.querySelectorAll('a').forEach(a=>a.onclick=()=>drawer.classList.remove('open'));
+document.getElementById('topBtn').onclick=()=>scrollTo({top:0,behavior:'smooth'});
+document.getElementById('enterCodex').onclick=()=>document.getElementById('cover').scrollIntoView({behavior:'smooth'});
+const progress=document.getElementById('progress');
+const resume=document.getElementById('resume');
+let saved=+localStorage.getItem('codexScrollV02')||0;
+if(saved>1100){resume.style.display='block';resume.onclick=()=>scrollTo({top:saved,behavior:'smooth'})}
+addEventListener('scroll',()=>{
+ const h=document.documentElement.scrollHeight-innerHeight;
+ progress.style.width=((scrollY/h)*100)+'%';
+ if(scrollY>900)localStorage.setItem('codexScrollV02',scrollY)
+},{passive:true});
+</script>
+</body></html>
