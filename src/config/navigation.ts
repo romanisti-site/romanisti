@@ -5,4 +5,5 @@ export const primaryNavigation: NavigationItem[] = [
   { label: 'About', href: '/about/' },
   { label: 'Standards', href: '/standards/' },
   { label: 'Library', href: '/library/' },
+  { label: 'Search', href: '/search/' },
 ];

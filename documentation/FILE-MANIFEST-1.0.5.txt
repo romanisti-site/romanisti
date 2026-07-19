@@ -16,6 +16,7 @@ astro.config.mjs
 documentation/ACCEPTANCE-REPORT-1.0.2.md
 documentation/ACCEPTANCE-REPORT-1.0.3.md
 documentation/ACCEPTANCE-REPORT-1.0.4.md
+documentation/ACCEPTANCE-REPORT-1.0.5.md
 documentation/ARCHITECTURE.md
 documentation/CANONICAL-SOURCE-MAP.md
 documentation/CONTENT-GUIDE.md
@@ -25,7 +26,9 @@ documentation/LOCAL-DEVELOPMENT.md
 documentation/RELEASE-NOTES-1.0.2.md
 documentation/RELEASE-NOTES-1.0.3.md
 documentation/RELEASE-NOTES-1.0.4.md
+documentation/RELEASE-NOTES-1.0.5.md
 documentation/REPOSITORY-STATE.md
+documentation/WINDOWS-DEVELOPMENT.md
 eslint.config.js
 package.json
 public/_headers
@@ -35,6 +38,7 @@ public/images/plates/plate-2.jpg
 public/images/plates/plate-3.jpg
 public/images/plates/plate-4.jpg
 public/images/plates/plate-5.jpg
+scripts/diagnose.mjs
 scripts/repository-audit.mjs
 scripts/setup.mjs
 scripts/smoke-test.mjs
@@ -69,15 +73,18 @@ src/content/observations/welcome.md
 src/content/pages/about.md
 src/content/pages/standards.md
 src/content.config.ts
+src/env.d.ts
 src/layouts/BaseLayout.astro
 src/layouts/EditorialLayout.astro
 src/layouts/LibraryLayout.astro
 src/lib/content.ts
 src/lib/date.ts
 src/lib/library.ts
+src/lib/search.ts
 src/lib/url.ts
 src/pages/404.astro
 src/pages/[...page].astro
+src/pages/build.json.ts
 src/pages/index.astro
 src/pages/library/[...id].astro
 src/pages/library/index.astro
@@ -86,8 +93,12 @@ src/pages/observations/index.astro
 src/pages/privacy.astro
 src/pages/robots.txt.ts
 src/pages/rss.xml.js
+src/pages/search-index.json.ts
+src/pages/search.astro
 src/styles/global.css
 src/styles/tokens.css
 src/types/navigation.ts
+tools/windows/START_ROMANISTI.cmd
+tools/windows/VERIFY_ROMANISTI.cmd
 tsconfig.json
 wrangler.toml

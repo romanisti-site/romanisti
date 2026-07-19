@@ -13,6 +13,9 @@ const required = [
   'src/components/SectionHeading.astro',
   'src/pages/index.astro',
   'src/pages/privacy.astro',
+  'src/pages/search.astro',
+  'src/pages/search-index.json.ts',
+  'src/pages/build.json.ts',
   'src/pages/observations/index.astro',
   'src/pages/observations/[...id].astro',
   'src/pages/library/index.astro',
@@ -21,6 +24,8 @@ const required = [
   'documentation/ACCEPTANCE-REPORT-1.0.3.md',
   'documentation/ACCEPTANCE-REPORT-1.0.4.md',
   'documentation/LOCAL-DEVELOPMENT.md',
+  'documentation/WINDOWS-DEVELOPMENT.md',
+  'documentation/ACCEPTANCE-REPORT-1.0.5.md',
 ];
 
 const forbidden = [

@@ -1,6 +1,6 @@
 {
   "name": "romanisti",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": true,
   "type": "module",
   "engines": {
@@ -15,13 +15,14 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "validate:content": "node scripts/validate-content.mjs",
-    "verify": "npm run audit:repository && npm run validate:content && npm run smoke && npm run format:check && npm run lint && npm run check && npm run build",
+    "verify": "npm run diagnose && npm run audit:repository && npm run validate:content && npm run smoke && npm run format:check && npm run lint && npm run check && npm run build",
     "prepare": "husky",
     "lint-staged": "lint-staged",
     "audit:repository": "node scripts/repository-audit.mjs",
     "verify:source": "npm run audit:repository && npm run validate:content && npm run format:check && npm run lint && npm run check && npm run build",
     "setup": "node scripts/setup.mjs",
-    "smoke": "node scripts/smoke-test.mjs"
+    "smoke": "node scripts/smoke-test.mjs",
+    "diagnose": "node scripts/diagnose.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.0",

@@ -8,6 +8,9 @@ const expectations = [
   ['src/pages/library/index.astro', ['getLibraryByCategory']],
   ['src/pages/library/[...id].astro', ['getStaticPaths', "getCollection('library'"]],
   ['src/pages/privacy.astro', ['<BaseLayout']],
+  ['src/pages/search.astro', ['search-index.json', '<BaseLayout']],
+  ['src/pages/search-index.json.ts', ['createSearchIndex']],
+  ['src/pages/build.json.ts', ['repositoryVersion']],
   ['src/components/StructuredData.astro', ['application/ld+json']],
 ];
 

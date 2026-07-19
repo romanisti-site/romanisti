@@ -2,28 +2,27 @@
 
 All notable repository changes are recorded here.
 
-## 1.0.4 — 2026-07-19
+## 1.0.5 — 2026-07-19
 
 ### Added
 
-- One-command local setup and verification workflow
-- Source-level smoke tests for routes, content, and structured data
-- Expanded local development documentation
-- Institutional homepage experience with featured observation, latest record, and Library entry
-- Reusable section heading and institutional statement components
-- Reading progress indicator
-- Active navigation state
-- Improved global keyboard focus and text-selection behavior
-- Incremental Git update package for an existing clean `faber` branch
+- Repository environment declarations for Astro and TypeScript
+- Source and platform diagnostic command
+- Build metadata endpoint at `/build.json`
+- Windows launchers for local development and complete verification
+- Static search index for observations and institutional Library documents
+- Public search page and primary navigation entry
+- Windows development documentation
+- Guarded incremental updater for Build 1.0.4 repositories
 
 ### Changed
 
-- Repository version advanced to 1.0.4
-- Homepage moved from baseline scaffold to the Edition One editorial experience
-- Site header is now sticky and context-aware
-- Verification now includes source smoke testing
+- Repository version advanced to 1.0.5
+- Astro output now enforces trailing slashes and compressed HTML
+- Complete verification begins with environment diagnostics
+- Update installer now copies files by relative path rather than merging top-level directories
 
 ### Preserved
 
-- Canonical Codex, constitutional library, editorial canon, and five locked plates
-- Production `main` branch remains outside the update process
+- Canonical institutional documents and five locked plates
+- Production `main` branch remains untouched
