@@ -77,3 +77,14 @@ img {
     scroll-behavior: auto;
   }
 }
+
+
+:focus-visible {
+  outline: 2px solid var(--color-roman-red);
+  outline-offset: 4px;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}

@@ -1,6 +1,10 @@
 ---
 import { primaryNavigation } from '@/config/navigation';
 import { site } from '@/config/site';
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? currentPath === '/' : currentPath.startsWith(href);
 ---
 <header class="site-header">
   <div class="container header-inner">
@@ -8,10 +12,18 @@ import { site } from '@/config/site';
       <span>{site.name}</span>
       <small>{site.edition}</small>
     </a>
+
     <nav aria-label="Primary navigation">
       <ul>
         {primaryNavigation.map((item) => (
-          <li><a href={item.href}>{item.label}</a></li>
+          <li>
+            <a
+              href={item.href}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
         ))}
       </ul>
     </nav>
@@ -20,7 +32,11 @@ import { site } from '@/config/site';
 
 <style>
   .site-header {
+    background: rgb(244 240 232 / 94%);
     border-bottom: 1px solid var(--color-line);
+    position: sticky;
+    top: 0;
+    z-index: 50;
   }
 
   .header-inner {
@@ -66,8 +82,16 @@ import { site } from '@/config/site';
   }
 
   nav a:hover,
-  nav a:focus-visible {
+  nav a:focus-visible,
+  nav a[aria-current='page'] {
     text-decoration: underline;
+  }
+
+  @supports (backdrop-filter: blur(1rem)) {
+    .site-header {
+      backdrop-filter: blur(1rem);
+      background: rgb(244 240 232 / 82%);
+    }
   }
 
   @media (max-width: 42rem) {

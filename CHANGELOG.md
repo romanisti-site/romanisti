@@ -2,28 +2,28 @@
 
 All notable repository changes are recorded here.
 
-## 1.0.3 — 2026-07-19
+## 1.0.4 — 2026-07-19
 
 ### Added
 
-- Guarded GitHub Desktop installation package for the local `faber` clone
-- Branch, repository, and clean-working-tree safety checks
-- Structured data for the website and editorial articles
-- Publication date, modification date, author, and publisher metadata
-- Native Astro privacy route
-- Node version and npm behavior declarations
-- Repository-state and installation-boundary documentation
+- One-command local setup and verification workflow
+- Source-level smoke tests for routes, content, and structured data
+- Expanded local development documentation
+- Institutional homepage experience with featured observation, latest record, and Library entry
+- Reusable section heading and institutional statement components
+- Reading progress indicator
+- Active navigation state
+- Improved global keyboard focus and text-selection behavior
+- Incremental Git update package for an existing clean `faber` branch
 
 ### Changed
 
-- Repository version advanced to 1.0.3
-- CI installs dependencies without assuming a pre-existing lockfile
-- Migration utilities moved outside the canonical repository state
-- Stale Build 1.0.1 acceptance and release documents removed
-- Build 1.0.3 is packaged as a complete local replacement, not a browser upload
+- Repository version advanced to 1.0.4
+- Homepage moved from baseline scaffold to the Edition One editorial experience
+- Site header is now sticky and context-aware
+- Verification now includes source smoke testing
 
 ### Preserved
 
-- The production `main` branch remains unchanged
-- Canonical institutional texts retain their recorded source paths
-- The five locked Codex plates remain unchanged
+- Canonical Codex, constitutional library, editorial canon, and five locked plates
+- Production `main` branch remains outside the update process
