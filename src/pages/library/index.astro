@@ -1,0 +1,76 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="The Library"
+  description="The constitutional and editorial inheritance of Romanisti."
+>
+  <section class="container library">
+    <p class="eyebrow">Codex and Constitution</p>
+    <h1>The Library</h1>
+    <p class="intro">
+      The institutional memory of Romanisti belongs here. Build 1.0.1 establishes the permanent
+      route and reading environment; canonical texts and plates are inserted as preserved source
+      material in a subsequent content release.
+    </p>
+    <div class="shelves">
+      <article>
+        <h2>Codex I — De Aeternitate</h2>
+        <p>Five constitutionally locked books on Rome, the Romanisti, the publication, AS Roma, and belonging among Romans.</p>
+        <p class="status">Route established · content import pending canonical source package</p>
+      </article>
+      <article>
+        <h2>Constitutional Library</h2>
+        <p>Liber Lapidum, Liber Constitutionis, and Liber Conventus.</p>
+        <p class="status">Route established · content import pending canonical source package</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .library {
+    padding-block: var(--space-6);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3.4rem, 2rem + 6vw, 8rem);
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    margin: var(--space-2) 0 var(--space-4);
+  }
+
+  .intro {
+    color: var(--color-muted);
+    font-size: 1.3rem;
+    line-height: 1.6;
+    max-width: 48rem;
+  }
+
+  .shelves {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    margin-top: var(--space-6);
+  }
+
+  article {
+    border: 1px solid var(--color-line);
+    box-shadow: var(--shadow-soft);
+    padding: var(--space-4);
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 500;
+  }
+
+  .status {
+    color: var(--color-muted);
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    margin-top: var(--space-4);
+  }
+</style>

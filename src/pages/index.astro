@@ -1,0 +1,70 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ObservationCard from '@/components/ObservationCard.astro';
+import { getPublishedObservations } from '@/lib/content';
+
+const observations = await getPublishedObservations();
+const featured = observations.find((entry) => entry.data.featured) ?? observations[0];
+const remaining = observations.filter((entry) => entry.id !== featured?.id).slice(0, 4);
+---
+<BaseLayout>
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Independent Journalism</p>
+      <h1>This is bigger than football.</h1>
+      <p>
+        Romanisti observes AS Roma through the enduring character of Rome—and Rome through the
+        living story of its football club.
+      </p>
+    </div>
+  </section>
+
+  {featured && (
+    <section class="container featured" aria-labelledby="featured-heading">
+      <p class="eyebrow" id="featured-heading">First Observation</p>
+      <ObservationCard entry={featured} />
+    </section>
+  )}
+
+  {remaining.length > 0 && (
+    <section class="container latest" aria-labelledby="latest-heading">
+      <h2 id="latest-heading">Latest</h2>
+      {remaining.map((entry) => <ObservationCard entry={entry} />)}
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .hero {
+    border-bottom: 1px solid var(--color-line);
+    padding-block: clamp(5rem, 12vw, 10rem);
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3.4rem, 2rem + 7vw, 9rem);
+    font-weight: 500;
+    letter-spacing: -0.055em;
+    line-height: 0.86;
+    margin: var(--space-3) 0;
+    max-width: 62rem;
+  }
+
+  .hero p:last-child {
+    color: var(--color-muted);
+    font-size: clamp(1.15rem, 1rem + 0.6vw, 1.55rem);
+    line-height: 1.55;
+    max-width: 46rem;
+  }
+
+  .featured,
+  .latest {
+    padding-top: var(--space-6);
+  }
+
+  .latest > h2 {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 500;
+  }
+</style>

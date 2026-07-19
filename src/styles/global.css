@@ -1,0 +1,79 @@
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(rgb(244 240 232 / 94%), rgb(244 240 232 / 94%)),
+    repeating-linear-gradient(0deg, transparent 0 3px, rgb(33 29 25 / 2%) 3px 4px);
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.container {
+  width: min(calc(100% - 2rem), var(--page));
+  margin-inline: auto;
+}
+
+.prose {
+  width: min(100%, var(--measure));
+  font-size: clamp(1.08rem, 1rem + 0.28vw, 1.28rem);
+  line-height: 1.75;
+}
+
+.prose h2,
+.prose h3 {
+  font-family: var(--font-display);
+  line-height: 1.15;
+  margin-top: 2.25em;
+}
+
+.eyebrow {
+  color: var(--color-roman-red);
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: -5rem;
+  z-index: 100;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  padding: 0.75rem 1rem;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

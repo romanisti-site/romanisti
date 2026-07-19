@@ -1,0 +1,44 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ObservationCard from '@/components/ObservationCard.astro';
+import { getPublishedObservations } from '@/lib/content';
+
+const observations = await getPublishedObservations();
+---
+<BaseLayout
+  title="Observations"
+  description="Reporting, analysis, memory, and attention from Romanisti."
+>
+  <header class="container page-header">
+    <p class="eyebrow">Editorial</p>
+    <h1>Observations</h1>
+    <p>What has been observed, placed in context, and preserved with care.</p>
+  </header>
+  <section class="container list" aria-label="Published observations">
+    {observations.map((entry) => <ObservationCard entry={entry} />)}
+  </section>
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding-block: var(--space-6);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 2rem + 5vw, 7rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    margin: var(--space-2) 0;
+  }
+
+  .page-header > p:last-child {
+    color: var(--color-muted);
+    font-size: 1.25rem;
+    max-width: 42rem;
+  }
+
+  .list {
+    padding-bottom: var(--space-6);
+  }
+</style>

@@ -1,0 +1,27 @@
+---
+import { site } from '@/config/site';
+---
+<footer>
+  <div class="container footer-inner">
+    <p><strong>{site.name}</strong> · {site.edition}</p>
+    <p>Stewardship, not ownership.</p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    border-top: 1px solid var(--color-line);
+    color: var(--color-muted);
+    margin-top: var(--space-6);
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    gap: var(--space-3);
+    justify-content: space-between;
+    padding-block: var(--space-4);
+  }
+</style>

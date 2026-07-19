@@ -1,0 +1,65 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatEditorialDate } from '@/lib/date';
+
+interface Props {
+  entry: CollectionEntry<'observations'>;
+}
+
+const { entry } = Astro.props;
+---
+<article>
+  <p class="eyebrow">{formatEditorialDate(entry.data.publishedAt)}</p>
+  <h2><a href={`/observations/${entry.id}/`}>{entry.data.title}</a></h2>
+  <p>{entry.data.description}</p>
+  {entry.data.topics.length > 0 && (
+    <ul aria-label="Topics">
+      {entry.data.topics.map((topic) => <li>{topic}</li>)}
+    </ul>
+  )}
+</article>
+
+<style>
+  article {
+    border-top: 1px solid var(--color-line);
+    padding-block: var(--space-4);
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.65rem, 1.35rem + 1vw, 2.35rem);
+    line-height: 1.08;
+    margin: 0.45rem 0 0.75rem;
+  }
+
+  h2 a {
+    text-decoration: none;
+  }
+
+  h2 a:hover,
+  h2 a:focus-visible {
+    text-decoration: underline;
+  }
+
+  p {
+    max-width: 46rem;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+  }
+
+  li {
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    color: var(--color-muted);
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    padding: 0.25rem 0.6rem;
+  }
+</style>
