@@ -1,13 +1,15 @@
----
+\---
+
 title: "Codex I — De Aeternitate"
 description: "The canonical Edition 1.0A manuscript of Codex I."
 category: "codex"
 order: 10
 status: "locked"
 language: "en"
-sourcePath: "01_CONST/01_FOUND/Codex_I_De_Aeternitate_Edition_1.0A.md"
+sourcePath: "01\_CONST/01\_FOUND/Codex\_I\_De\_Aeternitate\_Edition\_1.0A.md"
 edition: "Edition 1.0A"
 ---
+
 # CODEX I — DE AETERNITATE
 
 **Edition 1.0A — Canonical English Manuscript**
@@ -15,6 +17,7 @@ edition: "Edition 1.0A"
 Book I
 
 ## The Eternal City
+
 
 
 Section I
@@ -151,6 +154,7 @@ CODEX I
 Book I — The Eternal City
 
 
+
 Section II
 
 ### Institutions Outlive Individuals
@@ -221,6 +225,7 @@ It is to leave behind principles worthy of another generation's care.
 CODEX I
 
 Book I — The Eternal City
+
 
 
 Section III
@@ -405,6 +410,7 @@ CODEX I
 Book I — The Eternal City
 
 
+
 Section IV
 
 ### What Are We Building That Deserves to Endure?
@@ -531,6 +537,7 @@ That is how institutions earn the future.
 CODEX I
 
 Book I — The Eternal City
+
 
 
 Section V
@@ -699,9 +706,10 @@ CODEX I
 Book I — The Eternal City
 
 
+
 Plate I
 
-![](assets/plate1.jpg)
+!\[](assets/plate1.jpg)
 
 
 
@@ -712,9 +720,11 @@ Book II
 ## The Romanisti
 
 
+
 Rome endures.
 
 You are still here.
+
 
 
 Section I
@@ -744,6 +754,7 @@ More often, it arrives as a quiet certainty that what once felt deeply personal 
 This book does not seek to explain that feeling.
 It simply begins there.
 One Question: What quietly binds people who have never met?
+
 
 
 Section II
@@ -785,6 +796,7 @@ But with the same gentle persistence.
 They have each arrived by different roads.
 Yet they have come to recognize the same enduring conversation between Rome and the club that bears her name.
 One Question: What happens when a love that feels deeply personal is discovered to have always been quietly shared?
+
 
 
 Section III
@@ -833,6 +845,7 @@ She simply remains worthy of remembering.
 Those who accept that invitation do not preserve Rome by carrying her memory.
 Quietly, and over time, they discover that her memory has been carrying them all along.
 One Question: What does it mean to inherit a memory that no one was ever required to pass on?
+
 
 
 Section IV
@@ -884,6 +897,7 @@ Perhaps that is how the most enduring fellowships have always begun.
 Not through invitation.
 But through the quiet recognition that others have long been walking the same roads.
 One Question: What changes when we discover that what we quietly carry has always been carried by others as well?
+
 
 
 Section V
@@ -939,9 +953,10 @@ It was always yours to discover.
 One Question: How do we faithfully carry forward what has always been a part of us?
 
 
+
 Plate II
 
-![](assets/plate2.jpg)
+!\[](assets/plate2.jpg)
 
 
 
@@ -950,6 +965,7 @@ Plate II
 Book III
 
 ## The Publication
+
 
 
 Section I
@@ -995,6 +1011,7 @@ But as one generation accepting responsibility for what the next deserves to inh
 Every institution begins the moment responsibility becomes shared.
 
 
+
 Section II
 
 Every generation arrives in the middle of a story already being told.
@@ -1024,6 +1041,7 @@ Not to stand above the story.
 But to receive it so faithfully that those who come after inherit it more clearly than we did.
 
 
+
 Section III
 
 What has been entrusted to us is never preserved by intention alone.
@@ -1051,6 +1069,7 @@ Fidelity is not simply one of its virtues.
 It is the quiet practice through which every other virtue endures.
 
 
+
 Section IV
 
 Every generation eventually discovers that its stewardship is temporary.
@@ -1074,6 +1093,7 @@ Each generation is quietly invited to consider stewardship.
 Then, when its time has passed, another generation quietly begins.
 That is how stewardship becomes inheritance.
 And how inheritance becomes continuity.
+
 
 
 Section V
@@ -1104,9 +1124,10 @@ to strengthen it faithfully...
 and to leave it worthy of those who have not yet arrived.
 
 
+
 Plate III
 
-![](assets/plate3.jpg)
+!\[](assets/plate3.jpg)
 
 
 
@@ -1115,6 +1136,7 @@ Plate III
 Book IV
 
 ## Rome and AS Roma
+
 
 
 Section I
@@ -1134,6 +1156,7 @@ It had already been shaping the people who would one day call themselves Romanis
 That is why the relationship between Rome and AS Roma cannot be reduced to geography.
 The city is not simply where the club belongs.
 It is where its meaning begins.
+
 
 
 Section II
@@ -1159,6 +1182,7 @@ The supporter who understands Rome begins to understand that loving AS Roma was 
 It is an act of fidelity.
 Not because the club is perfect.
 But because some things become worthy of love long before they become worthy of approval.
+
 
 
 Section III
@@ -1189,6 +1213,7 @@ Perhaps that is why Rome never asks us to forget.
 She asks us to remember well enough that every new chapter still belongs to the same story.
 
 
+
 Section IV
 
 Rome has never lived only in her greatest moments.
@@ -1217,6 +1242,7 @@ To love Rome is to believe that another chapter remains unwritten.
 To love AS Roma is to believe the same.
 
 
+
 Section V
 
 The story of Rome did not end when football began.
@@ -1243,9 +1269,10 @@ Not to improve it.
 Only to help us recognize it.
 
 
+
 Plate IV
 
-![](assets/plate4.jpg)
+!\[](assets/plate4.jpg)
 
 
 
@@ -1254,6 +1281,7 @@ Plate IV
 Book V
 
 ## Among Romans
+
 
 
 Section I
@@ -1268,6 +1296,7 @@ Romanisti simply continues that tradition.
 For that reason, the question is no longer whether one is Roman.
 The more enduring question is simpler.
 What does it mean to live among Romans?
+
 
 
 Section II
@@ -1285,6 +1314,7 @@ To stand among Romans has never required abandoning one's own story.
 It asks only that one receive it with humility, care for it faithfully, and leave it stronger for those who will come after.
 For no one inherits Rome alone.
 And no one carries it alone.
+
 
 
 Section III
@@ -1311,6 +1341,7 @@ Not to forget.
 But to continue.
 
 
+
 Section IV
 
 To continue is not merely to preserve what has been received.
@@ -1325,6 +1356,7 @@ For a time, we are entrusted with songs, memories, friendships, traditions, and 
 Perhaps this is the quiet gift of living among Romans.
 It is found in faithfully adding one's own sentence to a story that never needed to begin with us in order to matter.
 And in leaving that story more worthy of those who will one day inherit it.
+
 
 
 Section V
@@ -1349,6 +1381,8 @@ Then, quietly,
 to place it into other hands.
 
 
+
 Plate V
 
-![](assets/plate-5.jpg)
+!\[](assets/plate5.jpg)
+
