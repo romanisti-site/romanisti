@@ -10,6 +10,8 @@ sourcePath: "01\_CONST/01\_FOUND/Codex\_I\_De\_Aeternitate\_Edition\_1.0A.md"
 edition: "Edition 1.0A"
 ---
 
+\---
+
 # CODEX I — DE AETERNITATE
 
 **Edition 1.0A — Canonical English Manuscript**
