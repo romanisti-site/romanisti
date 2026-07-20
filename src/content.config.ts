@@ -61,17 +61,10 @@ const library = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    category: z.enum([
-      'codex',
-      'constitution',
-      'editorial',
-      'fabrication',
-    ]),
+    category: z.enum(['codex', 'constitution', 'editorial', 'fabrication']),
     order: z.number().int().nonnegative(),
     edition: z.string().optional(),
-    status: z
-      .enum(['locked', 'canonical', 'working'])
-      .default('canonical'),
+    status: z.enum(['locked', 'canonical', 'working']).default('canonical'),
     language: z.enum(['en', 'it']).default('en'),
     sourcePath: z.string(),
   }),

@@ -2,6 +2,21 @@
 
 All notable repository changes are recorded here.
 
+## 1.0.10b — 2026-07-20
+
+### Fixed
+
+- Applied the exact Prettier-compatible layout to `src/content.config.ts`
+- Restored the valid package semantic version `1.0.10`
+- Replaced the ineffective 1.0.10a maintenance package
+
+### Preserved
+
+- Library schema behavior
+- Collection types
+- Canonical content
+- Runtime behavior
+
 ## 1.0.10 — 2026-07-20
 
 ### Added
