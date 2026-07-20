@@ -1,0 +1,106 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CodexContents from '@/components/CodexContents.astro';
+import CodexPlate from '@/components/CodexPlate.astro';
+import { codexBooks } from '@/config/codex';
+
+const entry = await getEntry('library', 'codex/codex-i-de-aeternitate');
+
+if (!entry) {
+  throw new Error('Canonical Codex entry was not found.');
+}
+
+const { Content } = await render(entry);
+---
+<BaseLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  type="article"
+>
+  <article class="container codex">
+    <header>
+      <p class="eyebrow">Edition One · Canonical</p>
+      <h1>{entry.data.title}</h1>
+      <p class="standfirst">{entry.data.description}</p>
+      <p class="edition">{entry.data.edition}</p>
+    </header>
+
+    <CodexContents />
+
+    <div class="prose codex-text">
+      <Content />
+    </div>
+
+    <section class="plate-sequence" aria-labelledby="plate-sequence-heading">
+      <p class="eyebrow">Closing Plates</p>
+      <h2 id="plate-sequence-heading">Five moments of silence</h2>
+      {codexBooks.map((book, index) => (
+        <CodexPlate
+          src={book.plate}
+          alt={book.alt}
+          label={`Book ${book.number} — ${book.title}`}
+          id={`book-${index + 1}`}
+        />
+      ))}
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .codex {
+    padding-block: var(--space-6);
+  }
+
+  header {
+    border-bottom: 1px solid var(--color-line);
+    max-width: 62rem;
+    padding-bottom: var(--space-5);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 2rem + 5vw, 7rem);
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+    margin: var(--space-2) 0 var(--space-3);
+  }
+
+  .standfirst {
+    color: var(--color-muted);
+    font-size: 1.3rem;
+    line-height: 1.55;
+    max-width: 48rem;
+  }
+
+  .edition {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    margin-top: var(--space-3);
+  }
+
+  .codex-text {
+    margin-inline: auto;
+  }
+
+  :global(.codex-text h1) {
+    margin-top: 2.5em;
+  }
+
+  :global(.codex-text h2) {
+    scroll-margin-top: 8rem;
+  }
+
+  .plate-sequence {
+    border-top: 1px solid var(--color-line);
+    margin-top: var(--space-6);
+    padding-top: var(--space-6);
+  }
+
+  .plate-sequence > h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 1.7rem + 3vw, 5rem);
+    font-weight: 500;
+  }
+</style>

@@ -1,0 +1,44 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import TopicList from '@/components/TopicList.astro';
+import { getTopics } from '@/lib/topics';
+
+const topics = await getTopics();
+---
+<BaseLayout
+  title="Topics"
+  description="Browse Romanisti observations by subject."
+>
+  <header class="container topic-header">
+    <p class="eyebrow">The Record</p>
+    <h1>Topics</h1>
+    <p>
+      A living index of the subjects Romanisti has observed and preserved.
+    </p>
+  </header>
+
+  <div class="container">
+    <TopicList topics={topics} heading="Browse the record" />
+  </div>
+</BaseLayout>
+
+<style>
+  .topic-header {
+    padding-block: var(--space-6);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 2rem + 5vw, 7rem);
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    margin: var(--space-2) 0 var(--space-4);
+  }
+
+  .topic-header > p:last-child {
+    color: var(--color-muted);
+    font-size: 1.25rem;
+    line-height: 1.55;
+    max-width: 45rem;
+  }
+</style>
