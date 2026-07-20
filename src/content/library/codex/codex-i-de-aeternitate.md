@@ -1,12 +1,12 @@
-\---
+---
 
-title: "Codex I — De Aeternitate"
+title: "Codex I — De Aeternitate
 description: "The canonical Edition 1.0A manuscript of Codex I."
 category: "codex"
 order: 10
 status: "locked"
 language: "en"
-sourcePath: "01\_CONST/01\_FOUND/Codex\_I\_De\_Aeternitate\_Edition\_1.0A.md"
+sourcePath: 01_CONST/01_FOUND/Codex_I_De_Aeternitate_Edition_1.0A.md
 edition: "Edition 1.0A"
 ---
 
