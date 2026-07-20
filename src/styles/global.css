@@ -88,3 +88,12 @@ img {
   background: var(--color-gold);
   color: var(--color-ink);
 }
+
+
+@media print {
+  .site-header, footer, .reading-progress, .skip-link { display: none !important; }
+  body { background: white; color: black; }
+  .container { width: 100%; }
+  a { color: black; text-decoration: none; }
+  .prose { max-width: none; }
+}

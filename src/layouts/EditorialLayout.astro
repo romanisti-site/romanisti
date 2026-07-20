@@ -1,17 +1,27 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { formatEditorialDate } from '@/lib/date';
+import ArticleTools from '@/components/ArticleTools.astro';
+import { canonicalUrl } from '@/lib/url';
 
 interface Props {
   title: string;
   description: string;
   publishedAt?: Date;
   author?: string;
+  updatedAt?: Date;
 }
 
-const { title, description, publishedAt, author } = Astro.props;
+const { title, description, publishedAt, author, updatedAt } = Astro.props;
 ---
-<BaseLayout title={title} description={description} type="article">
+<BaseLayout
+  title={title}
+  description={description}
+  type="article"
+  publishedAt={publishedAt}
+  updatedAt={updatedAt}
+  author={author}
+>
   <article class="container article-shell">
     <header>
       <p class="eyebrow">Romanisti · Observation</p>
@@ -23,6 +33,7 @@ const { title, description, publishedAt, author } = Astro.props;
           {publishedAt && <time datetime={publishedAt.toISOString()}>{formatEditorialDate(publishedAt)}</time>}
         </p>
       )}
+      <ArticleTools title={title} canonical={canonicalUrl(Astro.url.pathname).toString()} />
     </header>
     <div class="prose">
       <slot />

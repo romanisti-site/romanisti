@@ -20,6 +20,8 @@ const required = [
   'src/pages/search-index.json.ts',
   'src/pages/build.json.ts',
   'src/pages/observations/index.astro',
+  'src/pages/observations/archive.astro',
+  'src/pages/observations/page/[page].astro',
   'src/pages/observations/[...id].astro',
   'src/pages/library/index.astro',
   'src/pages/library/[...id].astro',
@@ -30,6 +32,7 @@ const required = [
   'documentation/WINDOWS-DEVELOPMENT.md',
   'documentation/ACCEPTANCE-REPORT-1.0.5.md',
   'documentation/ACCEPTANCE-REPORT-1.0.6.md',
+  'documentation/ACCEPTANCE-REPORT-1.0.7.md',
 ];
 
 const forbidden = [

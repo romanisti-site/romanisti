@@ -3,7 +3,9 @@ import path from 'node:path';
 
 const expectations = [
   ['src/pages/index.astro', ['getPublishedObservations', '<BaseLayout']],
-  ['src/pages/observations/index.astro', ['getPublishedObservations']],
+  ['src/pages/observations/index.astro', ['getPublishedObservations', 'Pagination']],
+  ['src/pages/observations/archive.astro', ['getObservationArchive']],
+  ['src/pages/observations/page/[page].astro', ['getStaticPaths', 'Pagination']],
   ['src/pages/observations/[...id].astro', ['getStaticPaths', "getCollection('observations'"]],
   ['src/pages/library/index.astro', ['getLibraryByCategory']],
   ['src/pages/library/[...id].astro', ['getStaticPaths', "getCollection('library'"]],
@@ -15,6 +17,7 @@ const expectations = [
   ['src/pages/topics/[topic].astro', ['getStaticPaths', 'getTopics']],
   ['src/pages/library/codex/codex-i-de-aeternitate.astro', ['CodexContents', 'CodexPlate']],
   ['src/lib/related.ts', ['getRelatedObservations']],
+  ['src/components/ArticleTools.astro', ['data-copy-link', 'data-print']],
   ['src/components/StructuredData.astro', ['application/ld+json']],
 ];
 
