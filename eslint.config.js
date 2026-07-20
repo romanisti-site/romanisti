@@ -1,14 +1,24 @@
-import eslint from '@eslint/js';
+import js from '@eslint/js';
 import astro from 'eslint-plugin-astro';
+import tseslint from 'typescript-eslint';
 
 export default [
-  eslint.configs.recommended,
-  ...astro.configs.recommended,
   {
     ignores: ['dist/**', '.astro/**', 'node_modules/**'],
   },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  ...astro.configs.recommended,
   {
-    files: ['**/*.{js,mjs,ts}'],
+    files: ['**/*.astro'],
+    languageOptions: {
+      parserOptions: {
+        parser: tseslint.parser,
+      },
+    },
+  },
+  {
+    files: ['**/*.{js,mjs,ts,astro}'],
     rules: {
       'no-console': ['warn', { allow: ['warn', 'error'] }],
     },

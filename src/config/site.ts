@@ -3,7 +3,7 @@ const configuredUrl = import.meta.env.SITE_URL ?? 'https://romanisti.org';
 export const site = {
   name: import.meta.env.PUBLIC_SITE_NAME ?? 'Romanisti',
   edition: 'Edition One',
-  repositoryVersion: '1.0.8',
+  repositoryVersion: '1.0.9',
   url: new URL(configuredUrl),
   title: 'Romanisti — Edition One',
   description:
