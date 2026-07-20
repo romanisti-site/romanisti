@@ -2,26 +2,28 @@
 
 All notable repository changes are recorded here.
 
-## 1.0.7 — 2026-07-19
+## 1.0.8 — 2026-07-20
 
 ### Added
 
-- Observation archive grouped by publication year
-- Paginated observation index
-- Reusable pagination component and configuration
-- Article copy-link and print controls
-- Print-specific reading stylesheet
-- Transparent changed-file update package for GitHub Desktop review
+- Complete institutional Library content set restored to the active branch
+- Related-observation utility restored
+- CI-safe smoke assertions based on semantic patterns rather than exact formatting
+- Repository-version consistency validation between `package.json` and site configuration
+- Transparent update package for GitHub Desktop review
 
 ### Changed
 
-- Repository version advanced to 1.0.7
-- Observation index now exposes the complete archive
-- Long-running observation collections can grow without one oversized page
+- Repository version advanced to 1.0.8
+- Diagnostic validation no longer requires a manually updated hard-coded version
+- Smoke tests now recognize multiline Astro collection calls
+- Library document count validation now reflects the complete canonical Library
 
 ### Preserved
 
-- Canonical institutional source documents
-- Dedicated Codex reading experience
-- Topic taxonomy and related observation system
-- Production `main` branch remains untouched
+- Canonical Codex source
+- Constitutional Library
+- Editorial Canon
+- Fabrication documents
+- Five locked plate images
+- Production `main` branch remains untouched until CI passes
