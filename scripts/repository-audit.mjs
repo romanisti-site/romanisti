@@ -14,6 +14,9 @@ const required = [
   'src/pages/index.astro',
   'src/pages/privacy.astro',
   'src/pages/search.astro',
+  'src/pages/topics/index.astro',
+  'src/pages/topics/[topic].astro',
+  'src/pages/library/codex/codex-i-de-aeternitate.astro',
   'src/pages/search-index.json.ts',
   'src/pages/build.json.ts',
   'src/pages/observations/index.astro',
@@ -26,6 +29,7 @@ const required = [
   'documentation/LOCAL-DEVELOPMENT.md',
   'documentation/WINDOWS-DEVELOPMENT.md',
   'documentation/ACCEPTANCE-REPORT-1.0.5.md',
+  'documentation/ACCEPTANCE-REPORT-1.0.6.md',
 ];
 
 const forbidden = [

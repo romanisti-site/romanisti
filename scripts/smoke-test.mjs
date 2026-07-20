@@ -11,6 +11,10 @@ const expectations = [
   ['src/pages/search.astro', ['search-index.json', '<BaseLayout']],
   ['src/pages/search-index.json.ts', ['createSearchIndex']],
   ['src/pages/build.json.ts', ['repositoryVersion']],
+  ['src/pages/topics/index.astro', ['getTopics']],
+  ['src/pages/topics/[topic].astro', ['getStaticPaths', 'getTopics']],
+  ['src/pages/library/codex/codex-i-de-aeternitate.astro', ['CodexContents', 'CodexPlate']],
+  ['src/lib/related.ts', ['getRelatedObservations']],
   ['src/components/StructuredData.astro', ['application/ld+json']],
 ];
 

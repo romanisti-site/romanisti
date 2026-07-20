@@ -1,0 +1,32 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ObservationCard from '@/components/ObservationCard.astro';
+
+interface Props {
+  entries: CollectionEntry<'observations'>[];
+}
+
+const { entries } = Astro.props;
+---
+{entries.length > 0 && (
+  <aside class="related" aria-labelledby="related-observations-heading">
+    <p class="eyebrow">Continue Reading</p>
+    <h2 id="related-observations-heading">Related Observations</h2>
+    {entries.map((entry) => <ObservationCard entry={entry} />)}
+  </aside>
+)}
+
+<style>
+  .related {
+    border-top: 1px solid var(--color-line);
+    margin-top: var(--space-6);
+    padding-top: var(--space-5);
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.5rem + 2vw, 3.6rem);
+    font-weight: 500;
+    margin-bottom: var(--space-3);
+  }
+</style>

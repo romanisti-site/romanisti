@@ -14,7 +14,9 @@ const { entry } = Astro.props;
   <p>{entry.data.description}</p>
   {entry.data.topics.length > 0 && (
     <ul aria-label="Topics">
-      {entry.data.topics.map((topic) => <li>{topic}</li>)}
+      {entry.data.topics.map((topic) => (
+        <li><a href={`/topics/${topic.toLocaleLowerCase().replace(/[^a-z0-9]+/g, '-')}/`}>{topic}</a></li>
+      ))}
     </ul>
   )}
 </article>
@@ -63,3 +65,13 @@ const { entry } = Astro.props;
     padding: 0.25rem 0.6rem;
   }
 </style>
+
+
+li a {
+  text-decoration: none;
+}
+
+li a:hover,
+li a:focus-visible {
+  text-decoration: underline;
+}
