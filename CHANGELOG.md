@@ -2,6 +2,15 @@
 
 All notable repository changes are recorded here.
 
+## 1.0.8a — 2026-07-20
+
+### Maintenance
+
+- Established a controlled Prettier baseline for the inherited repository
+- Protected canonical manuscripts and institutional documents from mechanical rewriting
+- Limited formatting enforcement to files outside the explicitly baselined legacy paths
+- Preserved application behavior and package version 1.0.8
+
 ## 1.0.8 — 2026-07-20
 
 ### Added
