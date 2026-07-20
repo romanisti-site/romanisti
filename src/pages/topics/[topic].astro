@@ -1,7 +1,10 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ObservationCard from '@/components/ObservationCard.astro';
-import { getTopics } from '@/lib/topics';
+import {
+  getTopics,
+  type TopicRecord,
+} from '@/lib/topics';
 
 export async function getStaticPaths() {
   const topics = await getTopics();
@@ -12,25 +15,34 @@ export async function getStaticPaths() {
   }));
 }
 
+interface Props {
+  topic: TopicRecord;
+}
+
 const { topic } = Astro.props;
 ---
 <BaseLayout
   title={topic.label}
-  description={`Romanisti observations filed under ${topic.label}.`}
+  description={`Romanisti observations concerning ${topic.label}.`}
 >
-  <header class="container topic-header">
+  <header class="container page-header">
     <p class="eyebrow">Topic</p>
     <h1>{topic.label}</h1>
-    <p>{topic.count} observation{topic.count === 1 ? '' : 's'} in the record.</p>
+    <p>{topic.count} published observation{topic.count === 1 ? '' : 's'}.</p>
   </header>
 
-  <section class="container topic-results" aria-label={`${topic.label} observations`}>
-    {topic.entries.map((entry) => <ObservationCard entry={entry} />)}
+  <section
+    class="container observations"
+    aria-label={`Observations concerning ${topic.label}`}
+  >
+    {topic.entries.map((entry) => (
+      <ObservationCard entry={entry} />
+    ))}
   </section>
 </BaseLayout>
 
 <style>
-  .topic-header {
+  .page-header {
     padding-block: var(--space-6);
   }
 
@@ -38,16 +50,15 @@ const { topic } = Astro.props;
     font-family: var(--font-display);
     font-size: clamp(3rem, 2rem + 5vw, 7rem);
     font-weight: 500;
-    letter-spacing: -0.045em;
-    margin: var(--space-2) 0 var(--space-3);
+    letter-spacing: -0.04em;
+    margin: var(--space-2) 0;
   }
 
-  .topic-header > p:last-child {
+  .page-header > p:last-child {
     color: var(--color-muted);
-    font-family: var(--font-sans);
   }
 
-  .topic-results {
+  .observations {
     padding-bottom: var(--space-6);
   }
 </style>

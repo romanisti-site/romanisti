@@ -2,32 +2,26 @@
 
 All notable repository changes are recorded here.
 
-## 1.0.9a — 2026-07-20
-
-### Maintenance
-
-- Declared Node globals for repository automation scripts
-- Exempted Node maintenance scripts from browser-oriented `no-console` rules
-- Repaired malformed CSS placement in `ObservationCard.astro`
-- Preserved package and site version 1.0.9
-
-## 1.0.9 — 2026-07-20
+## 1.0.10 — 2026-07-20
 
 ### Added
 
-- TypeScript-aware ESLint parser and recommended rule configuration
-- TypeScript parsing inside Astro component frontmatter
-- Toolchain release documentation and verification record
+- Complete typed Library content collection architecture
+- Explicit Library category and entry types
+- Typed topic records and dynamic topic routes
+- Restored Library layout, card, plate sequence, and topic utilities
+- Library-aware search record generation
 
 ### Changed
 
-- Repository version advanced to 1.0.9
-- ESLint flat configuration now distinguishes JavaScript, TypeScript, and Astro
-- CI linting can parse interfaces, type annotations, generics, and Astro TypeScript
+- Repository version advanced to 1.0.10
+- Library grouping now returns a complete typed category record
+- Dynamic Library and topic routes now declare their Astro props
+- Content collection schema explicitly exposes Library metadata to Astro
 
 ### Preserved
 
-- Canonical manuscripts and institutional documents
-- Existing formatting baseline
-- Application behavior and reader-facing content
+- Canonical institutional Library manuscripts
+- Existing reader-facing content
+- Formatting and linting baselines
 - Production `main` branch remains untouched until CI passes

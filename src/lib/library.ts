@@ -1,19 +1,36 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export type LibraryEntry = CollectionEntry<'library'>;
+export type LibraryCategory = LibraryEntry['data']['category'];
+
+export const libraryCategories: readonly LibraryCategory[] = [
+  'codex',
+  'constitution',
+  'editorial',
+  'fabrication',
+];
 
 export async function getLibraryEntries(): Promise<LibraryEntry[]> {
   const entries = await getCollection('library');
-  return entries.sort((left, right) => left.data.order - right.data.order);
+
+  return [...entries].sort(
+    (left, right) => left.data.order - right.data.order,
+  );
 }
 
-export async function getLibraryByCategory() {
-  const entries = await getLibraryEntries();
+export async function getLibraryByCategory(): Promise<
+  Record<LibraryCategory, LibraryEntry[]>
+> {
+  const groups: Record<LibraryCategory, LibraryEntry[]> = {
+    codex: [],
+    constitution: [],
+    editorial: [],
+    fabrication: [],
+  };
 
-  return entries.reduce<Record<string, LibraryEntry[]>>((groups, entry) => {
-    const category = entry.data.category;
-    groups[category] ??= [];
-    groups[category].push(entry);
-    return groups;
-  }, {});
+  for (const entry of await getLibraryEntries()) {
+    groups[entry.data.category].push(entry);
+  }
+
+  return groups;
 }

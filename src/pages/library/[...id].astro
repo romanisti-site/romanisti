@@ -1,17 +1,28 @@
 ---
-import { getCollection, render } from 'astro:content';
+import {
+  getCollection,
+  render,
+  type CollectionEntry,
+} from 'astro:content';
 import LibraryLayout from '@/layouts/LibraryLayout.astro';
+
+type LibraryEntry = CollectionEntry<'library'>;
 
 export async function getStaticPaths() {
   const entries = await getCollection(
     'library',
-    (entry) => entry.id !== 'codex/codex-i-de-aeternitate',
+    (entry) =>
+      entry.id !== 'codex/codex-i-de-aeternitate',
   );
 
   return entries.map((entry) => ({
     params: { id: entry.id },
     props: { entry },
   }));
+}
+
+interface Props {
+  entry: LibraryEntry;
 }
 
 const { entry } = Astro.props;

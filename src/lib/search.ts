@@ -10,25 +10,30 @@ export interface SearchRecord {
 }
 
 export async function createSearchIndex(): Promise<SearchRecord[]> {
-  const [observations, library] = await Promise.all([
+  const [observations, libraryEntries] = await Promise.all([
     getPublishedObservations(),
     getLibraryEntries(),
   ]);
 
-  return [
-    ...observations.map((entry) => ({
+  const observationRecords: SearchRecord[] = observations.map(
+    (entry) => ({
       title: entry.data.title,
       description: entry.data.description,
       href: `/observations/${entry.id}/`,
-      type: 'observation' as const,
+      type: 'observation',
       topics: entry.data.topics,
-    })),
-    ...library.map((entry) => ({
+    }),
+  );
+
+  const libraryRecords: SearchRecord[] = libraryEntries.map(
+    (entry) => ({
       title: entry.data.title,
       description: entry.data.description,
       href: `/library/${entry.id}/`,
-      type: 'library' as const,
+      type: 'library',
       topics: [entry.data.category, entry.data.status],
-    })),
-  ];
+    }),
+  );
+
+  return [...observationRecords, ...libraryRecords];
 }

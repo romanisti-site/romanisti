@@ -1,0 +1,51 @@
+---
+import type { LibraryEntry } from '@/lib/library';
+
+interface Props {
+  entry: LibraryEntry;
+}
+
+const { entry } = Astro.props;
+const categoryLabel = entry.data.category.charAt(0).toUpperCase() + entry.data.category.slice(1);
+---
+<article>
+  <p class="eyebrow">{categoryLabel} · {entry.data.status}</p>
+  <h3><a href={`/library/${entry.id}/`}>{entry.data.title}</a></h3>
+  <p>{entry.data.description}</p>
+  {entry.data.edition && <p class="edition">{entry.data.edition}</p>}
+</article>
+
+<style>
+  article {
+    border-top: 1px solid var(--color-line);
+    padding-block: var(--space-4);
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 1.3rem + 1vw, 2.3rem);
+    font-weight: 500;
+    line-height: 1.08;
+    margin: 0.4rem 0 0.7rem;
+  }
+
+  h3 a {
+    text-decoration: none;
+  }
+
+  h3 a:hover,
+  h3 a:focus-visible {
+    text-decoration: underline;
+  }
+
+  article > p:not(.eyebrow, .edition) {
+    color: var(--color-muted);
+    line-height: 1.55;
+    max-width: 44rem;
+  }
+
+  .edition {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+  }
+</style>

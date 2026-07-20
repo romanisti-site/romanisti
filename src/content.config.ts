@@ -9,7 +9,10 @@ const seoSchema = z.object({
 });
 
 const observations = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/observations' }),
+  loader: glob({
+    pattern: '**/*.{md,mdx}',
+    base: './src/content/observations',
+  }),
   schema: z.object({
     title: z.string(),
     description: z.string().max(220),
@@ -25,7 +28,10 @@ const observations = defineCollection({
 });
 
 const pages = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/pages' }),
+  loader: glob({
+    pattern: '**/*.{md,mdx}',
+    base: './src/content/pages',
+  }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -36,7 +42,10 @@ const pages = defineCollection({
 });
 
 const authors = defineCollection({
-  loader: glob({ pattern: '**/*.json', base: './src/content/authors' }),
+  loader: glob({
+    pattern: '**/*.json',
+    base: './src/content/authors',
+  }),
   schema: z.object({
     name: z.string(),
     role: z.string(),
@@ -44,4 +53,33 @@ const authors = defineCollection({
   }),
 });
 
-export const collections = { observations, pages, authors };
+const library = defineCollection({
+  loader: glob({
+    pattern: '**/*.md',
+    base: './src/content/library',
+  }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    category: z.enum([
+      'codex',
+      'constitution',
+      'editorial',
+      'fabrication',
+    ]),
+    order: z.number().int().nonnegative(),
+    edition: z.string().optional(),
+    status: z
+      .enum(['locked', 'canonical', 'working'])
+      .default('canonical'),
+    language: z.enum(['en', 'it']).default('en'),
+    sourcePath: z.string(),
+  }),
+});
+
+export const collections = {
+  observations,
+  pages,
+  authors,
+  library,
+};

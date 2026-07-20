@@ -1,0 +1,84 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  category: string;
+  status: string;
+  sourcePath: string;
+}
+
+const { title, description, category, status, sourcePath } = Astro.props;
+---
+<BaseLayout title={title} description={description} type="article">
+  <article class="container library-document">
+    <header>
+      <p class="eyebrow">{category} · {status}</p>
+      <h1>{title}</h1>
+      <p class="standfirst">{description}</p>
+      <details>
+        <summary>Canonical source record</summary>
+        <code>{sourcePath}</code>
+      </details>
+    </header>
+    <div class="prose institutional-text">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .library-document {
+    padding-block: var(--space-6);
+  }
+
+  header {
+    border-bottom: 1px solid var(--color-line);
+    margin-bottom: var(--space-5);
+    max-width: 60rem;
+    padding-bottom: var(--space-5);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 2rem + 4vw, 6rem);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 0.97;
+    margin: var(--space-2) 0 var(--space-3);
+  }
+
+  .standfirst {
+    color: var(--color-muted);
+    font-size: 1.25rem;
+    line-height: 1.55;
+    max-width: 48rem;
+  }
+
+  details {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    margin-top: var(--space-3);
+  }
+
+  code {
+    display: block;
+    margin-top: var(--space-2);
+    overflow-wrap: anywhere;
+  }
+
+  :global(.institutional-text blockquote) {
+    border-left: 2px solid var(--color-gold);
+    font-family: var(--font-display);
+    font-size: 1.2em;
+    margin-inline: 0;
+    padding-left: var(--space-4);
+  }
+
+  :global(.institutional-text hr) {
+    border: 0;
+    border-top: 1px solid var(--color-line);
+    margin-block: var(--space-5);
+  }
+</style>
