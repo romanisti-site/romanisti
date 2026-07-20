@@ -18,7 +18,20 @@ export default [
     },
   },
   {
+    files: ['scripts/**/*.mjs'],
+    languageOptions: {
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
+      },
+    },
+    rules: {
+      'no-console': 'off',
+    },
+  },
+  {
     files: ['**/*.{js,mjs,ts,astro}'],
+    ignores: ['scripts/**/*.mjs'],
     rules: {
       'no-console': ['warn', { allow: ['warn', 'error'] }],
     },

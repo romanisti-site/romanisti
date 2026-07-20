@@ -2,6 +2,15 @@
 
 All notable repository changes are recorded here.
 
+## 1.0.9a — 2026-07-20
+
+### Maintenance
+
+- Declared Node globals for repository automation scripts
+- Exempted Node maintenance scripts from browser-oriented `no-console` rules
+- Repaired malformed CSS placement in `ObservationCard.astro`
+- Preserved package and site version 1.0.9
+
 ## 1.0.9 — 2026-07-20
 
 ### Added
