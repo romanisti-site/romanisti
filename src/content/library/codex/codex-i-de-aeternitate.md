@@ -1,6 +1,6 @@
 ---
 
-title: "Codex I — De Aeternitate
+title: "Codex I - De Aeternitate"
 description: "The canonical Edition 1.0A manuscript of Codex I."
 category: "codex"
 order: 10
