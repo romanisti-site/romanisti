@@ -1,0 +1,38 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+<BaseLayout title="Page Not Found" description="The requested page could not be found." noindex>
+  <section class="container not-found">
+    <p class="eyebrow">404</p>
+    <h1>Nothing was observed here.</h1>
+    <p>The page may have moved, or it may never have belonged to the record.</p>
+    <a href="/">Return to Romanisti</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    padding-block: var(--space-6);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 2rem + 5vw, 7rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    max-width: 52rem;
+  }
+
+  p {
+    color: var(--color-muted);
+    font-size: 1.2rem;
+    max-width: 42rem;
+  }
+
+  a {
+    display: inline-block;
+    font-family: var(--font-sans);
+    margin-top: var(--space-3);
+  }
+</style>

@@ -1,0 +1,62 @@
+---
+import { site } from '@/config/site';
+import { canonicalUrl } from '@/lib/url';
+
+interface Props {
+  kind?: 'website' | 'article';
+  title?: string;
+  description?: string;
+  publishedAt?: Date;
+  updatedAt?: Date;
+  author?: string;
+  pathname?: string;
+}
+
+const {
+  kind = 'website',
+  title = site.title,
+  description = site.description,
+  publishedAt,
+  updatedAt,
+  author = 'Romanisti',
+  pathname = Astro.url.pathname,
+} = Astro.props;
+
+const base = {
+  '@context': 'https://schema.org',
+  name: title,
+  description,
+  url: canonicalUrl(pathname).toString(),
+  inLanguage: site.language,
+};
+
+const data =
+  kind === 'article'
+    ? {
+        ...base,
+        '@type': 'Article',
+        headline: title,
+        datePublished: publishedAt?.toISOString(),
+        dateModified: (updatedAt ?? publishedAt)?.toISOString(),
+        author: {
+          '@type': 'Organization',
+          name: author,
+          url: site.url.toString(),
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: site.name,
+          url: site.url.toString(),
+        },
+      }
+    : {
+        ...base,
+        '@type': 'WebSite',
+        publisher: {
+          '@type': 'Organization',
+          name: site.name,
+          url: site.url.toString(),
+        },
+      };
+---
+<script type="application/ld+json" set:html={JSON.stringify(data)} />

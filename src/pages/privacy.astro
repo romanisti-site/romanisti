@@ -1,0 +1,37 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Privacy"
+  description="Privacy information for visitors to Romanisti."
+>
+  <article class="container privacy">
+    <p class="eyebrow">Institutional</p>
+    <h1>Privacy</h1>
+    <div class="prose">
+      <p>
+        Romanisti is designed to collect as little personal information as
+        reasonably possible. This page will identify any analytics, forms, or
+        third-party services before they are enabled in production.
+      </p>
+      <p>
+        Build 1.0.3 does not include account registration, advertising
+        profiling, or the sale of visitor information.
+      </p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .privacy {
+    padding-block: var(--space-6);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 2rem + 5vw, 7rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    margin: var(--space-2) 0 var(--space-5);
+  }
+</style>

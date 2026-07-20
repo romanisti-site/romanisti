@@ -1,0 +1,22 @@
+:root {
+  --color-paper: #f4f0e8;
+  --color-paper-deep: #e8e0d3;
+  --color-ink: #211d19;
+  --color-muted: #6a625a;
+  --color-line: #c9bdaa;
+  --color-roman-red: #7f1822;
+  --color-gold: #a77b2c;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-body: "Source Serif 4", Georgia, serif;
+  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+  --measure: 44rem;
+  --page: 76rem;
+  --space-1: 0.375rem;
+  --space-2: 0.75rem;
+  --space-3: 1.125rem;
+  --space-4: 1.75rem;
+  --space-5: 2.75rem;
+  --space-6: 4.5rem;
+  --radius: 0.2rem;
+  --shadow-soft: 0 1rem 3rem rgb(33 29 25 / 8%);
+}

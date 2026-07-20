@@ -1,0 +1,66 @@
+---
+const plates = [
+  { src: '/images/plates/plate-1.jpg', alt: 'Ancient Roman path', book: 'Book I' },
+  { src: '/images/plates/plate-2.jpg', alt: 'Sidewalk table, chair, scarf, and espresso', book: 'Book II' },
+  { src: '/images/plates/plate-3.jpg', alt: 'Roman nasone fountain', book: 'Book III' },
+  { src: '/images/plates/plate-4.jpg', alt: 'SPQR manhole cover', book: 'Book IV' },
+  { src: '/images/plates/plate-5.jpg', alt: 'Roman steps', book: 'Book V' },
+];
+---
+<section class="plates" aria-labelledby="plates-title">
+  <div class="container">
+    <p class="eyebrow">Codex I</p>
+    <h2 id="plates-title">The Five Plates</h2>
+    <div class="grid">
+      {plates.map((plate) => (
+        <figure>
+          <div class="frame"><img src={plate.src} alt={plate.alt} loading="lazy" /></div>
+          <figcaption>{plate.book}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .plates {
+    border-top: 1px solid var(--color-line);
+    padding-block: var(--space-6);
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 1.8rem + 2vw, 4rem);
+    font-weight: 500;
+  }
+
+  .grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  }
+
+  figure {
+    margin: 0;
+  }
+
+  .frame {
+    background: var(--color-paper-deep);
+    border: 1px solid var(--color-line);
+    padding: 0.45rem;
+  }
+
+  img {
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  figcaption {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    padding-top: var(--space-2);
+    text-transform: uppercase;
+  }
+</style>

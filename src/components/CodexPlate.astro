@@ -1,0 +1,46 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  label: string;
+  id?: string;
+}
+
+const { src, alt, label, id } = Astro.props;
+---
+<figure id={id} class="codex-plate">
+  <div class="frame">
+    <img src={src} alt={alt} loading="lazy" />
+  </div>
+  <figcaption>{label}</figcaption>
+</figure>
+
+<style>
+  .codex-plate {
+    margin: var(--space-6) auto;
+    max-width: 30rem;
+  }
+
+  .frame {
+    background: var(--color-paper-deep);
+    border: 1px solid var(--color-line);
+    box-shadow: var(--shadow-soft);
+    padding: 0.55rem;
+  }
+
+  img {
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  figcaption {
+    color: var(--color-muted);
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    padding-top: var(--space-2);
+    text-align: center;
+    text-transform: uppercase;
+  }
+</style>

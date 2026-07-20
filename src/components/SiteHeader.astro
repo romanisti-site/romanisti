@@ -1,0 +1,104 @@
+---
+import { primaryNavigation } from '@/config/navigation';
+import { site } from '@/config/site';
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="identity" href="/" aria-label={`${site.name} home`}>
+      <span>{site.name}</span>
+      <small>{site.edition}</small>
+    </a>
+
+    <nav aria-label="Primary navigation">
+      <ul>
+        {primaryNavigation.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background: rgb(244 240 232 / 94%);
+    border-bottom: 1px solid var(--color-line);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .header-inner {
+    align-items: center;
+    display: flex;
+    gap: var(--space-4);
+    justify-content: space-between;
+    min-height: 5.5rem;
+  }
+
+  .identity {
+    display: grid;
+    font-family: var(--font-display);
+    text-decoration: none;
+  }
+
+  .identity span {
+    font-size: 1.55rem;
+    letter-spacing: 0.04em;
+  }
+
+  .identity small {
+    color: var(--color-muted);
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav a {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    text-decoration: none;
+  }
+
+  nav a:hover,
+  nav a:focus-visible,
+  nav a[aria-current='page'] {
+    text-decoration: underline;
+  }
+
+  @supports (backdrop-filter: blur(1rem)) {
+    .site-header {
+      backdrop-filter: blur(1rem);
+      background: rgb(244 240 232 / 82%);
+    }
+  }
+
+  @media (max-width: 42rem) {
+    .header-inner {
+      align-items: flex-start;
+      flex-direction: column;
+      padding-block: var(--space-3);
+    }
+  }
+</style>

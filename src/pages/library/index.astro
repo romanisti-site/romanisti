@@ -1,0 +1,74 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LibraryCard from '@/components/LibraryCard.astro';
+import PlateSequence from '@/components/PlateSequence.astro';
+import { getLibraryByCategory } from '@/lib/library';
+
+const groups = await getLibraryByCategory();
+const sections = [
+  ['codex', 'Codex'],
+  ['constitution', 'Constitutional Library'],
+  ['editorial', 'Editorial Canon'],
+  ['fabrication', 'Fabrication'],
+] as const;
+---
+<BaseLayout
+  title="The Library"
+  description="The canonical constitutional, editorial, and fabrication inheritance of Romanisti."
+>
+  <header class="container library-header">
+    <p class="eyebrow">Institutional Memory</p>
+    <h1>The Library</h1>
+    <p>
+      The canonical record of what Romanisti is, how it observes, and how it is built.
+    </p>
+  </header>
+
+  <div class="container library-sections">
+    {sections.map(([key, label]) => (
+      groups[key]?.length ? (
+        <section aria-labelledby={`section-${key}`}>
+          <h2 id={`section-${key}`}>{label}</h2>
+          {groups[key].map((entry) => <LibraryCard entry={entry} />)}
+        </section>
+      ) : null
+    ))}
+  </div>
+  <PlateSequence />
+</BaseLayout>
+
+<style>
+  .library-header {
+    border-bottom: 1px solid var(--color-line);
+    padding-block: var(--space-6);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 2rem + 6vw, 8rem);
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    line-height: 0.9;
+    margin: var(--space-2) 0 var(--space-4);
+  }
+
+  .library-header > p:last-child {
+    color: var(--color-muted);
+    font-size: 1.3rem;
+    line-height: 1.55;
+    max-width: 48rem;
+  }
+
+  .library-sections {
+    display: grid;
+    gap: var(--space-6);
+    padding-block: var(--space-6);
+  }
+
+  section > h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+    font-weight: 500;
+    margin-bottom: var(--space-3);
+  }
+</style>

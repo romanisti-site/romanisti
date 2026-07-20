@@ -1,0 +1,25 @@
+.astro
+dist
+node_modules
+package-lock.json
+
+# Canonical and editorial prose is not mechanically rewritten.
+src/content/**
+documentation/**
+README.md
+CHANGELOG.md
+
+# Existing application source is baselined for gradual formatting migration.
+src/components/**
+src/config/**
+src/layouts/**
+src/lib/**
+src/pages/**
+src/styles/**
+src/types/**
+
+# Existing repository tooling is baselined separately from feature work.
+scripts/**
+tools/**
+.github/**
+.husky/**

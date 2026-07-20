@@ -1,0 +1,15 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ObservationCard from '@/components/ObservationCard.astro';
+import Pagination from '@/components/Pagination.astro';
+import { pagination } from '@/config/pagination';
+import { getPublishedObservations } from '@/lib/content';
+const observations = await getPublishedObservations();
+const totalPages = Math.max(1, Math.ceil(observations.length / pagination.observationsPerPage));
+const pageEntries = observations.slice(0, pagination.observationsPerPage);
+---
+<BaseLayout title="Observations" description="Reporting, analysis, memory, and attention from Romanisti.">
+<header class="container page-header"><p class="eyebrow">Editorial</p><h1>Observations</h1><p>What has been observed, placed in context, and preserved with care.</p><a class="archive-link" href="/observations/archive/">View the complete archive</a></header>
+<section class="container list" aria-label="Published observations">{pageEntries.map((entry)=><ObservationCard entry={entry}/>)}<Pagination currentPage={1} totalPages={totalPages} basePath="/observations/"/></section>
+</BaseLayout>
+<style>.page-header{padding-block:var(--space-6)}h1{font-family:var(--font-display);font-size:clamp(3rem,2rem + 5vw,7rem);font-weight:500;letter-spacing:-.04em;margin:var(--space-2) 0}.page-header>p:last-of-type{color:var(--color-muted);font-size:1.25rem;max-width:42rem}.archive-link{display:inline-block;font-family:var(--font-sans);font-size:.8rem;margin-top:var(--space-3)}.list{padding-bottom:var(--space-6)}</style>

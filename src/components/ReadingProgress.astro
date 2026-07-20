@@ -1,0 +1,43 @@
+<div class="reading-progress" aria-hidden="true">
+  <span></span>
+</div>
+
+<script>
+  const indicator = document.querySelector<HTMLElement>('.reading-progress span');
+
+  const update = () => {
+    if (!indicator) return;
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
+    indicator.style.transform = `scaleX(${Math.min(1, Math.max(0, progress))})`;
+  };
+
+  update();
+  addEventListener('scroll', update, { passive: true });
+  addEventListener('resize', update);
+</script>
+
+<style>
+  .reading-progress {
+    height: 2px;
+    inset: 0 0 auto;
+    pointer-events: none;
+    position: fixed;
+    z-index: 100;
+  }
+
+  span {
+    background: var(--color-roman-red);
+    display: block;
+    height: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    width: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reading-progress {
+      display: none;
+    }
+  }
+</style>

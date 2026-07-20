@@ -1,0 +1,51 @@
+{
+  "name": "romanisti",
+  "version": "1.0.10",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "npm run validate:content && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "validate:content": "node scripts/validate-content.mjs",
+    "verify": "npm run diagnose && npm run audit:repository && npm run validate:content && npm run smoke && npm run format:check && npm run lint && npm run check && npm run build",
+    "prepare": "husky",
+    "lint-staged": "lint-staged",
+    "audit:repository": "node scripts/repository-audit.mjs",
+    "verify:source": "npm run audit:repository && npm run validate:content && npm run format:check && npm run lint && npm run check && npm run build",
+    "setup": "node scripts/setup.mjs",
+    "smoke": "node scripts/smoke-test.mjs",
+    "diagnose": "node scripts/diagnose.mjs"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.0",
+    "@astrojs/sitemap": "^3.0.0",
+    "astro": "^5.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.0",
+    "eslint": "^9.0.0",
+    "eslint-plugin-astro": "^1.0.0",
+    "husky": "^9.0.0",
+    "lint-staged": "^16.0.0",
+    "prettier": "^3.0.0",
+    "prettier-plugin-astro": "^0.14.0",
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.64.0"
+  },
+  "lint-staged": {
+    "*.{astro,css,js,json,md,mjs,ts,yaml,yml}": [
+      "prettier --write"
+    ],
+    "*.{astro,js,mjs,ts}": [
+      "eslint --fix"
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+---
+interface Props { title: string; canonical: string; }
+const { canonical } = Astro.props;
+---
+<div class="article-tools" aria-label="Article tools"><button type="button" data-copy-link data-url={canonical}>Copy link</button><button type="button" data-print>Print</button><span aria-live="polite" data-tool-status></span></div>
+<script>
+const copyButton=document.querySelector<HTMLButtonElement>('[data-copy-link]');const printButton=document.querySelector<HTMLButtonElement>('[data-print]');const status=document.querySelector<HTMLElement>('[data-tool-status]');copyButton?.addEventListener('click',async()=>{const url=copyButton.dataset.url??location.href;try{await navigator.clipboard.writeText(url);if(status)status.textContent='Link copied.'}catch{if(status)status.textContent='Unable to copy the link.'}});printButton?.addEventListener('click',()=>window.print());
+</script>
+<style>.article-tools{align-items:center;display:flex;flex-wrap:wrap;font-family:var(--font-sans);gap:var(--space-2);margin-top:var(--space-4)}button{background:transparent;border:1px solid var(--color-line);color:inherit;cursor:pointer;font:inherit;font-size:.75rem;padding:.5rem .75rem}button:hover,button:focus-visible{border-color:var(--color-ink)}span{color:var(--color-muted);font-size:.72rem}@media print{.article-tools{display:none}}</style>

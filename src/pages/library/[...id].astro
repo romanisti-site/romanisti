@@ -1,0 +1,39 @@
+---
+import {
+  getCollection,
+  render,
+  type CollectionEntry,
+} from 'astro:content';
+import LibraryLayout from '@/layouts/LibraryLayout.astro';
+
+type LibraryEntry = CollectionEntry<'library'>;
+
+export async function getStaticPaths() {
+  const entries = await getCollection(
+    'library',
+    (entry) =>
+      entry.id !== 'codex/codex-i-de-aeternitate',
+  );
+
+  return entries.map((entry) => ({
+    params: { id: entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: LibraryEntry;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<LibraryLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  category={entry.data.category}
+  status={entry.data.status}
+  sourcePath={entry.data.sourcePath}
+>
+  <Content />
+</LibraryLayout>

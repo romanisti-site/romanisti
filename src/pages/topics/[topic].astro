@@ -1,0 +1,64 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ObservationCard from '@/components/ObservationCard.astro';
+import {
+  getTopics,
+  type TopicRecord,
+} from '@/lib/topics';
+
+export async function getStaticPaths() {
+  const topics = await getTopics();
+
+  return topics.map((topic) => ({
+    params: { topic: topic.slug },
+    props: { topic },
+  }));
+}
+
+interface Props {
+  topic: TopicRecord;
+}
+
+const { topic } = Astro.props;
+---
+<BaseLayout
+  title={topic.label}
+  description={`Romanisti observations concerning ${topic.label}.`}
+>
+  <header class="container page-header">
+    <p class="eyebrow">Topic</p>
+    <h1>{topic.label}</h1>
+    <p>{topic.count} published observation{topic.count === 1 ? '' : 's'}.</p>
+  </header>
+
+  <section
+    class="container observations"
+    aria-label={`Observations concerning ${topic.label}`}
+  >
+    {topic.entries.map((entry) => (
+      <ObservationCard entry={entry} />
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding-block: var(--space-6);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 2rem + 5vw, 7rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    margin: var(--space-2) 0;
+  }
+
+  .page-header > p:last-child {
+    color: var(--color-muted);
+  }
+
+  .observations {
+    padding-bottom: var(--space-6);
+  }
+</style>

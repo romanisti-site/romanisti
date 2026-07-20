@@ -1,0 +1,160 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Search"
+  description="Search Romanisti observations and the institutional Library."
+>
+  <section class="container search-shell">
+    <p class="eyebrow">Discovery</p>
+    <h1>Search Romanisti</h1>
+    <label for="search-input">Search the record</label>
+    <input
+      id="search-input"
+      type="search"
+      autocomplete="off"
+      placeholder="Rome, stewardship, observation…"
+    />
+    <p id="search-status" aria-live="polite">Begin typing to search.</p>
+    <div id="search-results"></div>
+    <noscript>Search requires JavaScript. The Library and Observations remain fully browsable.</noscript>
+  </section>
+</BaseLayout>
+
+<script>
+  interface SearchRecord {
+    title: string;
+    description: string;
+    href: string;
+    type: 'observation' | 'library';
+    topics: string[];
+  }
+
+  const input = document.querySelector<HTMLInputElement>('#search-input');
+  const status = document.querySelector<HTMLElement>('#search-status');
+  const results = document.querySelector<HTMLElement>('#search-results');
+  let index: SearchRecord[] = [];
+
+  const normalize = (value: string) => value.toLocaleLowerCase().trim();
+
+  const render = (query: string) => {
+    if (!status || !results) return;
+    const needle = normalize(query);
+
+    if (!needle) {
+      status.textContent = 'Begin typing to search.';
+      results.replaceChildren();
+      return;
+    }
+
+    const matches = index.filter((record) =>
+      normalize(
+        [record.title, record.description, ...record.topics].join(' '),
+      ).includes(needle),
+    );
+
+    status.textContent = `${matches.length} result${matches.length === 1 ? '' : 's'}.`;
+    results.replaceChildren(
+      ...matches.map((record) => {
+        const article = document.createElement('article');
+        const eyebrow = document.createElement('p');
+        eyebrow.className = 'result-type';
+        eyebrow.textContent = record.type;
+        const heading = document.createElement('h2');
+        const link = document.createElement('a');
+        link.href = record.href;
+        link.textContent = record.title;
+        heading.append(link);
+        const description = document.createElement('p');
+        description.textContent = record.description;
+        article.append(eyebrow, heading, description);
+        return article;
+      }),
+    );
+  };
+
+  if (input) {
+    fetch('/search-index.json')
+      .then((response) => {
+        if (!response.ok) throw new Error('Search index unavailable.');
+        return response.json() as Promise<SearchRecord[]>;
+      })
+      .then((records) => {
+        index = records;
+        input.disabled = false;
+      })
+      .catch(() => {
+        input.disabled = true;
+        if (status) status.textContent = 'Search is temporarily unavailable.';
+      });
+
+    input.addEventListener('input', () => render(input.value));
+  }
+</script>
+
+<style>
+  .search-shell {
+    min-height: 65vh;
+    padding-block: var(--space-6);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 2rem + 5vw, 7rem);
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    margin: var(--space-2) 0 var(--space-5);
+  }
+
+  label {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+    text-transform: uppercase;
+  }
+
+  input {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-ink);
+    color: inherit;
+    font: inherit;
+    font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+    max-width: 46rem;
+    padding: var(--space-2) 0;
+    width: 100%;
+  }
+
+  #search-status {
+    color: var(--color-muted);
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    margin-block: var(--space-3);
+  }
+
+  :global(#search-results article) {
+    border-top: 1px solid var(--color-line);
+    padding-block: var(--space-4);
+  }
+
+  :global(#search-results h2) {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    margin: 0.35rem 0;
+  }
+
+  :global(#search-results h2 a) {
+    text-decoration: none;
+  }
+
+  :global(#search-results .result-type) {
+    color: var(--color-roman-red);
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+</style>

@@ -1,0 +1,162 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import InstitutionalStatement from '@/components/InstitutionalStatement.astro';
+import ObservationCard from '@/components/ObservationCard.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import { getPublishedObservations } from '@/lib/content';
+
+const observations = await getPublishedObservations();
+const featured = observations.find((entry) => entry.data.featured) ?? observations[0];
+const remaining = observations.filter((entry) => entry.id !== featured?.id).slice(0, 5);
+---
+<BaseLayout>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">Independent Journalism</p>
+        <h1>This is bigger than football.</h1>
+      </div>
+      <div class="hero-copy">
+        <p>
+          News, analysis, editorials, and institutional memory—without the noise.
+        </p>
+        <a href="/observations/">Enter the observations</a>
+      </div>
+    </div>
+  </section>
+
+  {featured && (
+    <section class="container featured" aria-labelledby="featured-heading">
+      <SectionHeading
+        eyebrow="Observed"
+        title="The First Reading"
+        description="Attention before reaction. Context before conclusion."
+        id="featured-heading"
+      />
+      <ObservationCard entry={featured} />
+    </section>
+  )}
+
+  <InstitutionalStatement />
+
+  <section class="container latest" aria-labelledby="latest-heading">
+    <SectionHeading
+      eyebrow="The Record"
+      title="Latest Observations"
+      description="What has been observed, placed in context, and preserved."
+      id="latest-heading"
+    />
+
+    {remaining.length > 0 ? (
+      remaining.map((entry) => <ObservationCard entry={entry} />)
+    ) : (
+      <p class="quiet">The record is being prepared.</p>
+    )}
+  </section>
+
+  <section class="library-callout">
+    <div class="container callout-grid">
+      <div>
+        <p class="eyebrow">Institutional Memory</p>
+        <h2>The Library</h2>
+      </div>
+      <div>
+        <p>
+          Codex I, the constitutional library, the editorial canon, and the
+          fabrication record belong to a single preserved inheritance.
+        </p>
+        <a href="/library/">Enter the Library</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    min-height: min(82vh, 54rem);
+    padding-block: clamp(5rem, 12vw, 10rem);
+  }
+
+  .hero-grid,
+  .callout-grid {
+    display: grid;
+    gap: var(--space-5);
+    grid-template-columns: minmax(0, 2fr) minmax(16rem, 1fr);
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 2rem + 8vw, 10rem);
+    font-weight: 500;
+    letter-spacing: -0.06em;
+    line-height: 0.84;
+    margin: var(--space-3) 0 0;
+    max-width: 64rem;
+  }
+
+  .hero-copy {
+    align-self: end;
+    border-left: 1px solid var(--color-line);
+    padding-left: var(--space-4);
+  }
+
+  .hero-copy p,
+  .callout-grid p {
+    color: var(--color-muted);
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+
+  .hero-copy a,
+  .callout-grid a {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    margin-top: var(--space-3);
+  }
+
+  .featured,
+  .latest {
+    padding-block: var(--space-6);
+  }
+
+  .quiet {
+    color: var(--color-muted);
+  }
+
+  .library-callout {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    padding-block: var(--space-6);
+  }
+
+  .library-callout h2 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 2rem + 5vw, 7rem);
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    margin: var(--space-2) 0;
+  }
+
+  .library-callout .eyebrow {
+    color: var(--color-gold);
+  }
+
+  .library-callout p {
+    color: var(--color-paper-deep);
+  }
+
+  @media (max-width: 48rem) {
+    .hero-grid,
+    .callout-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-copy {
+      border-left: 0;
+      border-top: 1px solid var(--color-line);
+      padding-left: 0;
+      padding-top: var(--space-4);
+    }
+  }
+</style>
