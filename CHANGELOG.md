@@ -1,3 +1,7 @@
+## 1.0.10c — 2026-07-20
+
+- Synchronize repository and site version to 1.0.10.
+
 # Changelog
 
 All notable repository changes are recorded here.
