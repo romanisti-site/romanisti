@@ -9,8 +9,8 @@ if (nodeMajor < 20) {
   failures.push(`Node.js 20+ required; found ${process.version}.`);
 }
 
-if (packageJson.version !== '1.0.5') {
-  failures.push(`Expected repository version 1.0.5; found ${packageJson.version}.`);
+if (packageJson.version !== '1.0.7') {
+  failures.push(`Expected repository version 1.0.7; found ${packageJson.version}.`);
 }
 
 for (const required of ['astro.config.mjs', 'src/content.config.ts', 'src/pages/index.astro']) {
