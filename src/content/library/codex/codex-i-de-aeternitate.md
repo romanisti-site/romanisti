@@ -6,11 +6,11 @@ category: "codex"
 order: 10
 status: "locked"
 language: "en"
-sourcePath: 01_CONST/01_FOUND/Codex_I_De_Aeternitate_Edition_1.0A.md
+sourcePath: "01_CONST/01_FOUND/Codex_I_De_Aeternitate_Edition_1.0A.md"
 edition: "Edition 1.0A"
 ---
 
-\---
+
 
 # CODEX I — DE AETERNITATE
 
