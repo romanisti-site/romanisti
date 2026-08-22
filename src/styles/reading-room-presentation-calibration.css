@@ -1,0 +1,124 @@
+/*
+ * RC2.2.1 — Presentation Calibration
+ *
+ * Purpose:
+ * - restore the architectural threshold fade
+ * - reveal more of the oculus and upper arch
+ * - eliminate exposed page background below the room
+ *
+ * This file is intentionally limited to presentation calibration.
+ */
+
+.reading-room--architectural-volume {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  margin: 0;
+  padding: 0;
+  background: #17120d;
+}
+
+/*
+ * Restore the transition as atmosphere rather than a flat bar.
+ * The fade begins dense at the threshold and dissolves into the room.
+ */
+.reading-room--architectural-volume::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 15;
+  height: clamp(116px, 18vh, 188px);
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(10, 7, 5, 0.94) 0%,
+      rgba(12, 8, 6, 0.78) 24%,
+      rgba(15, 10, 7, 0.45) 54%,
+      rgba(18, 12, 8, 0.16) 78%,
+      rgba(18, 12, 8, 0) 100%
+    );
+}
+
+/*
+ * The slight enlargement guarantees full bleed after translation.
+ * translateY reveals more of the ceiling and upper arch without
+ * changing the architecture or re-rendering the plate.
+ */
+.reading-room__architectural-plate {
+  position: absolute;
+  inset: -2.25%;
+  z-index: 0;
+  width: 104.5%;
+  height: 104.5%;
+  max-width: none;
+  display: block;
+  object-fit: cover;
+  object-position: 50% 50%;
+  transform: translateY(2.4%);
+  transform-origin: 50% 50%;
+}
+
+/*
+ * Navigation remains above the atmospheric fade.
+ */
+.reading-room__navigation-slot {
+  position: relative;
+  z-index: 20;
+}
+
+/*
+ * The institutional layer owns the complete viewport.
+ * Objects remain absent during the RC2.2.1 review.
+ */
+.reading-room__institutional-layer {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  height: 100vh;
+  height: 100svh;
+  pointer-events: none;
+}
+
+/*
+ * Guard against whitespace introduced by page-level layout spacing.
+ * Apply the class `reading-room-page` to the immediate page wrapper
+ * only if the existing layout adds bottom margin or padding.
+ */
+.reading-room-page {
+  min-height: 100vh;
+  min-height: 100svh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #17120d;
+}
+
+@media (max-width: 900px) {
+  .reading-room__architectural-plate {
+    inset: -3%;
+    width: 106%;
+    height: 106%;
+    transform: translateY(2%);
+    object-position: 50% 50%;
+  }
+
+  .reading-room--architectural-volume::before {
+    height: clamp(104px, 16vh, 154px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reading-room--architectural-volume,
+  .reading-room__architectural-plate {
+    animation: none !important;
+    transition: none !important;
+  }
+}

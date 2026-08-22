@@ -1,0 +1,208 @@
+---
+import { institutionalRoutes as routes } from '@/config/institutionalRoutes';
+
+interface Props {
+  title: string;
+  description: string;
+  status?: string;
+  latinSubtitle?: string;
+  returnHref: string;
+  returnLabel: string;
+}
+
+const {
+  title,
+  description,
+  status = 'Constitutionally Locked',
+  latinSubtitle,
+  returnHref,
+  returnLabel,
+} = Astro.props;
+---
+
+<article class="constitutional-document" aria-labelledby="document-title">
+  <header class="document-masthead">
+    <p class="institution">Romanisti</p>
+    <p class="document-class">Constitutional Document · Edition One</p>
+    <h1 id="document-title">{title}</h1>
+    {latinSubtitle && <p class="latin-subtitle">{latinSubtitle}</p>}
+    <div class="seal" aria-hidden="true">✦</div>
+    <p class="document-summary">{description}</p>
+    <p class="status">{status}</p>
+  </header>
+
+  <div class="rule" aria-hidden="true"></div>
+
+  <section class="manuscript" aria-label={`${title} manuscript`}>
+    <div class="constitutional-text">
+      <slot />
+    </div>
+  </section>
+
+  <footer class="document-footer">
+    <nav aria-label={`${title} navigation`}>
+      <a href={returnHref}>{returnLabel}</a>
+      <a href={routes.foundation}>Return to Foundation</a>
+      <a href={routes.bibliotheca}>Return to Bibliotheca</a>
+    </nav>
+  </footer>
+</article>
+
+<style>
+  .constitutional-document {
+    --manuscript-ink: #30251f;
+    --manuscript-muted: rgb(48 37 31 / 66%);
+    --manuscript-brass: #9a6b2f;
+    --manuscript-red: #8f1f2c;
+    min-height: 100svh;
+    padding: clamp(7rem, 10vw, 10rem) 1.5rem 5rem;
+    background:
+      radial-gradient(circle at 50% 5%, rgb(255 252 244 / 78%), transparent 31rem),
+      linear-gradient(rgb(242 235 222 / 88%), rgb(238 229 214 / 94%)),
+      repeating-linear-gradient(0deg, transparent 0 4px, rgb(73 51 38 / 1.8%) 4px 5px);
+    color: var(--manuscript-ink);
+  }
+
+  .document-masthead,
+  .manuscript,
+  .document-footer,
+  .rule {
+    width: min(100%, 52rem);
+    margin-inline: auto;
+  }
+
+  .document-masthead { text-align: center; }
+
+  .institution,
+  .document-class,
+  .status {
+    margin: 0;
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+  }
+
+  .institution {
+    margin-bottom: 2.2rem;
+    font-family: var(--font-display);
+    font-size: 0.73rem;
+    letter-spacing: 0.24em;
+  }
+
+  .document-class {
+    color: var(--manuscript-red);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+  }
+
+  h1 {
+    margin: 1rem 0 0;
+    font-family: var(--font-display);
+    font-size: clamp(3.2rem, 3.6rem + 3vw, 6.8rem);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    line-height: 0.92;
+  }
+
+  .latin-subtitle {
+    margin: 1rem 0 0;
+    color: var(--manuscript-muted);
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 1rem + 0.5vw, 1.45rem);
+    font-style: italic;
+  }
+
+  .seal {
+    margin: 2.4rem auto 1.9rem;
+    color: var(--manuscript-brass);
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  .document-summary {
+    margin: 0 auto;
+    max-width: 36rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 1rem + 0.45vw, 1.45rem);
+    line-height: 1.5;
+  }
+
+  .status {
+    margin-top: 1.3rem;
+    color: var(--manuscript-muted);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+  }
+
+  .rule {
+    height: 1px;
+    margin-top: clamp(3.5rem, 7vw, 5.5rem);
+    margin-bottom: clamp(3.5rem, 7vw, 5.5rem);
+    background: linear-gradient(90deg, transparent, rgb(154 107 47 / 72%) 18%, rgb(154 107 47 / 72%) 82%, transparent);
+  }
+
+  .manuscript { width: min(100%, 43rem); }
+
+  :global(.constitutional-text > h1:first-child) { display: none; }
+
+  :global(.constitutional-text h2),
+  :global(.constitutional-text h3) {
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 1.15;
+  }
+
+  :global(.constitutional-text h2) {
+    margin: 3.5rem 0 1.5rem;
+    font-size: clamp(1.8rem, 1.5rem + 1vw, 2.6rem);
+  }
+
+  :global(.constitutional-text h3) {
+    margin: 2.5rem 0 1rem;
+    font-size: clamp(1.35rem, 1.2rem + 0.65vw, 1.85rem);
+  }
+
+  :global(.constitutional-text p),
+  :global(.constitutional-text li) {
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 1rem + 0.2vw, 1.18rem);
+    line-height: 1.75;
+  }
+
+  :global(.constitutional-text blockquote) {
+    margin: 2.5rem 0;
+    padding-left: 1.35rem;
+    border-left: 2px solid var(--manuscript-brass);
+    color: rgb(48 37 31 / 82%);
+    font-style: italic;
+  }
+
+  .document-footer {
+    margin-top: clamp(4rem, 8vw, 7rem);
+    padding-top: 2rem;
+    border-top: 1px solid rgb(154 107 47 / 36%);
+  }
+
+  .document-footer nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem 1.7rem;
+  }
+
+  .document-footer a {
+    color: #4a3425;
+    font-family: var(--font-sans);
+    font-size: 0.67rem;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .document-footer a:hover,
+  .document-footer a:focus-visible {
+    color: var(--manuscript-red);
+    text-decoration: underline;
+    text-underline-offset: 0.28rem;
+  }
+</style>

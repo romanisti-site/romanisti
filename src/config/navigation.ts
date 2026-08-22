@@ -1,7 +1,8 @@
 import type { NavigationItem } from '@/types/navigation';
 
 export const primaryNavigation: NavigationItem[] = [
-  { label: 'Observations', href: '/observations/' },
+  { label: 'Observations', href: '/works/' },
+  { label: 'Works', href: '/works/' },
   { label: 'Topics', href: '/topics/' },
   { label: 'About', href: '/about/' },
   { label: 'Standards', href: '/standards/' },

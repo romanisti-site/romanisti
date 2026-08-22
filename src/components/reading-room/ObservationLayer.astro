@@ -1,0 +1,318 @@
+---
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('observations');
+
+const toSlug = (id: string) => id.replace(/\.(md|mdx)$/i, '').replace(/^\/+|\/+$/g, '');
+
+const observations = entries
+  .filter((entry) => entry.data.status === 'published')
+  .map((entry) => {
+    const published = entry.data.publishedAt;
+    const slug = toSlug(entry.id);
+
+    return {
+      title: entry.data.title,
+      category: 'Observation',
+      published,
+      href: `/observations/${slug}`,
+    };
+  })
+  .sort((a, b) => b.published.getTime() - a.published.getTime())
+  .slice(0, 5);
+
+const displayDate = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
+/*
+ * Canonical foreground Liber geometry.
+ * The Photoshop-restored architectural plate now contains clean, blank Liberi.
+ * Observation titles remain live HTML; no masking layer is used.
+ */
+const libri = [
+  { left: '13.15%', top: '71.20%', width: '13.20%', height: '26.10%' },
+  { left: '29.45%', top: '71.20%', width: '11.65%', height: '26.10%' },
+  { left: '44.65%', top: '71.20%', width: '11.20%', height: '26.10%' },
+  { left: '59.75%', top: '71.20%', width: '10.75%', height: '26.10%' },
+  { left: '74.45%', top: '71.20%', width: '10.85%', height: '26.10%' },
+];
+---
+
+<div class="observation-layer" aria-labelledby="reading-room-observations-title">
+  <header class="observation-heading">
+    <h2 id="reading-room-observations-title">Observations</h2>
+    <p>Five recent works currently on display.</p>
+  </header>
+
+  <ol class="observation-libri" aria-label="Five most recent observations">
+    {observations.map((observation, index) => {
+      const liber = libri[index];
+
+      return (
+        <li
+          style={`--left:${liber.left};--top:${liber.top};--width:${liber.width};--height:${liber.height};`}
+        >
+          <a href={observation.href} aria-label={`Read ${observation.title}`}>
+            <span class="category">{observation.category}</span>
+            <span class="title">{observation.title}</span>
+            <time datetime={observation.published.toISOString()}>
+              {displayDate.format(observation.published)}
+            </time>
+            <span class="arrow" aria-hidden="true">›</span>
+          </a>
+        </li>
+      );
+    })}
+  </ol>
+</div>
+
+<style>
+  .observation-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    color: rgba(54, 37, 23, 0.97);
+    pointer-events: none;
+  }
+
+  /* Inherits the Threshold's display family when the repository defines it. */
+
+
+  .observation-heading {
+    position: absolute;
+    z-index: 1;
+    left: 33.0%;
+    top: 19.3%;
+    width: 25.0%;
+    text-align: left;
+    color: rgba(245, 233, 211, 0.90);
+    text-shadow: 0 1px 12px rgba(40, 25, 13, 0.32);
+    opacity: 0;
+    animation: heading-arrival 700ms ease-out 300ms forwards;
+  }
+
+  .observation-heading h2 {
+    margin: 0;
+    color: #f4f0e8;
+    font-family: var(--font-display);
+    font-size: clamp(1.65rem, 2.4vw, 2.9rem);
+    font-weight: 500;
+    letter-spacing: -0.065em;
+    line-height: 0.78;
+    text-wrap: balance;
+    text-transform: none;
+    text-shadow: 0 0.08em 0.32em rgb(0 0 0 / 22%);
+  }
+
+  .observation-heading p {
+    margin: 0.75rem 0 0;
+    color: rgb(244 240 232 / 84%);
+    font-family: var(--font-display);
+    font-size: clamp(0.64rem, 0.78vw, 0.86rem);
+    font-weight: 400;
+    letter-spacing: 0.006em;
+    line-height: 1.38;
+  }
+
+  .observation-libri {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .observation-libri li {
+    position: absolute;
+    left: var(--left);
+    top: var(--top);
+    width: var(--width);
+    height: var(--height);
+    opacity: 0;
+    animation: inscriptions-arrival 620ms ease-out 520ms forwards;
+  }
+
+  .observation-libri a {
+    position: relative;
+    pointer-events: auto;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
+    align-items: start;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 13% 12% 10%;
+    color: inherit;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4% 4% 7% 7%;
+    text-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.56),
+      0 -1px 0 rgba(54, 34, 18, 0.22),
+      0 0 0.08rem rgba(76, 50, 28, 0.20);
+    transition: transform 180ms ease, color 180ms ease, filter 180ms ease;
+  }
+
+  .observation-libri a::before {
+    content: '';
+    position: absolute;
+    inset: 2% 3% 4%;
+    border-radius: inherit;
+    background: rgba(255, 248, 232, 0);
+    box-shadow: 0 0 0 rgba(46, 31, 18, 0);
+    transition: background-color 180ms ease, box-shadow 180ms ease;
+    z-index: -1;
+  }
+
+  .observation-libri a:hover,
+  .observation-libri a:focus-visible {
+    color: rgba(82, 56, 32, 0.98);
+    filter: brightness(1.035);
+    transform: translateY(-3px);
+    outline: none;
+  }
+
+  .observation-libri a:hover::before,
+  .observation-libri a:focus-visible::before {
+    background: rgba(255, 248, 232, 0.055);
+    box-shadow: 0 8px 13px rgba(46, 31, 18, 0.16);
+  }
+
+  .category {
+    display: block;
+    margin-bottom: 0.72em;
+    font-family: var(--font-body, Inter, Arial, sans-serif);
+    font-size: clamp(0.44rem, 0.58vw, 0.68rem);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    line-height: 1.1;
+    text-transform: uppercase;
+    text-align: left;
+    transform: translate(10px, -8px);
+  }
+
+  .title {
+    display: -webkit-box;
+    align-self: center;
+    overflow: hidden;
+    font-family: var(--font-display, var(--font-heading, 'Playfair Display', Georgia, serif));
+    font-size: clamp(0.70rem, 1.00vw, 1.16rem);
+    font-weight: 600;
+    letter-spacing: 0.005em;
+    line-height: 1.17;
+    text-wrap: balance;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    text-align: center;
+  }
+
+  time {
+    display: block;
+    margin-top: 0.75em;
+    font-family: var(--font-body, Inter, Arial, sans-serif);
+    font-size: clamp(0.38rem, 0.50vw, 0.58rem);
+    font-weight: 500;
+    letter-spacing: 0.055em;
+    line-height: 1.15;
+    text-align: center;
+  }
+
+  .arrow {
+    display: block;
+    margin-top: 0.34em;
+    font-family: Georgia, serif;
+    font-size: clamp(0.58rem, 0.78vw, 0.90rem);
+    font-weight: 400;
+    line-height: 0.9;
+    opacity: 0.68;
+    transition: opacity 180ms ease;
+  }
+
+  .observation-libri a:hover .arrow,
+  .observation-libri a:focus-visible .arrow {
+    opacity: 1;
+  }
+
+  @keyframes heading-arrival {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes inscriptions-arrival {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @media (max-width: 56rem) {
+
+
+  .observation-heading {
+      left: 31.5%;
+      top: 19.3%;
+      width: 29%;
+    }
+
+    .observation-libri a {
+      padding: 12% 9% 8%;
+    }
+
+    .category {
+      margin-bottom: 0.48em;
+    }
+  }
+
+  @media (max-width: 40rem) {
+
+
+  .observation-heading {
+      left: 30%;
+      top: 18.6%;
+      width: 32%;
+    }
+
+    .observation-heading p {
+      margin-top: 0.35em;
+    }
+
+    .observation-libri a {
+      padding: 11% 7% 6%;
+      transform: none;
+    }
+
+    .category,
+    time,
+    .arrow {
+      display: none;
+    }
+
+    .title {
+      align-self: center;
+      font-size: clamp(0.44rem, 1.62vw, 0.66rem);
+      line-height: 1.12;
+      -webkit-line-clamp: 4;
+    }
+
+    .observation-libri a:hover,
+    .observation-libri a:focus-visible {
+      transform: translateY(-2px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .observation-heading,
+    .observation-libri li {
+      opacity: 1;
+      animation: none;
+    }
+
+    .observation-libri a,
+    .observation-libri a::before,
+    .arrow {
+      transition: none;
+    }
+  }
+</style>

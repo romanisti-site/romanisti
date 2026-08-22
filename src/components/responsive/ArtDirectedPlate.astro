@@ -1,0 +1,50 @@
+---
+interface Props {
+  desktopSrc: string;
+  mobileSrc?: string;
+  alt?: string;
+  width?: number | string;
+  height?: number | string;
+  mobileWidth?: number | string;
+  mobileHeight?: number | string;
+  class?: string;
+  loading?: 'eager' | 'lazy';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  decoding?: 'sync' | 'async' | 'auto';
+}
+
+const {
+  desktopSrc,
+  mobileSrc,
+  alt = '',
+  width,
+  height,
+  mobileWidth,
+  mobileHeight,
+  class: className = '',
+  loading = 'eager',
+  fetchpriority = 'high',
+  decoding = 'async',
+} = Astro.props;
+---
+
+<picture class={`art-directed-plate ${className}`} data-mobile-source={mobileSrc ? 'dedicated' : 'desktop-fallback'}>
+  {mobileSrc ? (
+    <source
+      media="(max-width: 52rem)"
+      srcset={mobileSrc}
+      width={mobileWidth}
+      height={mobileHeight}
+    />
+  ) : null}
+
+  <img
+    src={desktopSrc}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={loading}
+    fetchpriority={fetchpriority}
+    decoding={decoding}
+  />
+</picture>

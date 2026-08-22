@@ -1,0 +1,34 @@
+.reading-room--architectural-volume{
+  position:relative;
+  min-height:100svh;
+  overflow:hidden;
+  isolation:isolate;
+  background:#17120d;
+}
+.reading-room__architectural-plate{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:50% 53%;
+}
+.reading-room__navigation-slot{position:relative;z-index:20;}
+.reading-room__institutional-layer{
+  position:relative;
+  z-index:10;
+  min-height:100svh;
+  pointer-events:none;
+}
+@media (max-aspect-ratio:4/5){
+  .reading-room__architectural-plate{object-position:50% 50%;}
+}
+@media (prefers-reduced-motion:reduce){
+  .reading-room--architectural-volume,
+  .reading-room__architectural-plate{
+    animation:none!important;
+    transition:none!important;
+  }
+}

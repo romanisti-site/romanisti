@@ -1,0 +1,24 @@
+{
+  "release": "RC9.2",
+  "bibliotheca_rooms": {
+    "foundation": {
+      "status": "locked",
+      "version": "1.0",
+      "plate": "/images/bibliotheca/canonical/foundation-room-architectural-plate-v1.webp",
+      "sha256": "1558c005a2ad14b32183a16a7076eb646c5ef482e65bbe01c994f86951552514",
+      "dimensions": {
+        "width": 1402,
+        "height": 1122
+      }
+    },
+    "works": {
+      "status": "concept"
+    },
+    "archive": {
+      "status": "concept"
+    },
+    "governance": {
+      "status": "concept"
+    }
+  }
+}

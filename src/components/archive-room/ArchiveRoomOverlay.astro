@@ -1,0 +1,681 @@
+---
+import { getObservationArchive } from '@/lib/archive';
+import { getTopics } from '@/lib/topics';
+
+const archiveGroups = await getObservationArchive();
+const years = archiveGroups.slice(0, 6).map((group) => ({
+  year: group.year,
+  count: group.entries.length,
+}));
+
+const topics = (await getTopics())
+  .sort((left, right) => right.count - left.count || left.label.localeCompare(right.label))
+  .slice(0, 8);
+
+type Region = {
+  left: string;
+  top: string;
+  width: string;
+  height: string;
+  rotate?: string;
+  radius?: string;
+};
+
+type NavigationItem = {
+  label: string;
+  href: string;
+  region: Region;
+  className?: string;
+};
+
+const catalogRegion: Region = {
+  left: '36.1%',
+  top: '35.8%',
+  width: '29.7%',
+  height: '39.2%',
+  radius: '0.28rem',
+};
+
+const navigationItems: NavigationItem[] = [
+  {
+    label: 'Collections',
+    href: '/special-editions/',
+    region: { left: '5.4%', top: '18.7%', width: '15.7%', height: '46.0%', radius: '0.28rem' },
+  },
+  {
+    label: 'Works Room',
+    href: '/works/',
+    region: { left: '84.8%', top: '28.2%', width: '10.8%', height: '38.2%', radius: '0.28rem' },
+  },
+  {
+    label: 'Observation Archive',
+    href: '/observations/archive/',
+    className: 'room-object--observation-archive',
+    region: { left: '38.2%', top: '79.0%', width: '23.1%', height: '12.4%', rotate: '-0.8deg', radius: '0.35rem' },
+  },
+
+];
+
+const regionStyle = (region: Region) => [
+  `--left:${region.left}`,
+  `--top:${region.top}`,
+  `--width:${region.width}`,
+  `--height:${region.height}`,
+  `--rotate:${region.rotate ?? '0deg'}`,
+  `--radius:${region.radius ?? '0.35rem'}`,
+].join(';');
+---
+
+<div class="archive-room-overlay" data-archive-room-overlay>
+  <button
+    class="room-object room-object--catalog"
+    type="button"
+    style={regionStyle(catalogRegion)}
+    aria-expanded="false"
+    aria-controls="archive-room-catalog-panel"
+    data-catalog-trigger
+  >
+    <span class="room-object__label">Archive Catalog</span>
+  </button>
+
+  <nav class="room-object-nav" aria-label="Archive Room collections">
+    {navigationItems.map((item) => (
+      <a
+        class:list={['room-object', item.className]}
+        style={regionStyle(item.region)}
+        href={item.href}
+        aria-label={item.label}
+      >
+        <span class="room-object__label">{item.label}</span>
+      </a>
+    ))}
+  </nav>
+
+  <section
+    class="catalog-panel"
+    id="archive-room-catalog-panel"
+    aria-labelledby="archive-room-catalog-heading"
+    aria-hidden="true"
+    data-catalog-panel
+  >
+    <div class="catalog-panel__header">
+      <div>
+        <p class="catalog-panel__eyebrow">The permanent record of published work</p>
+        <h2 id="archive-room-catalog-heading">Archive Catalog</h2>
+      </div>
+      <button class="catalog-panel__close" type="button" aria-label="Close archive catalog" data-catalog-close>
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+
+    <div class="catalog-panel__body">
+      <form class="catalog-search" action="/search/" method="get">
+        <label for="archive-catalog-search">Search the record</label>
+        <div class="catalog-search__row">
+          <input
+            id="archive-catalog-search"
+            name="q"
+            type="search"
+            autocomplete="off"
+            placeholder="Rome, stewardship, competition…"
+          />
+          <button type="submit">Search</button>
+        </div>
+      </form>
+
+      <div class="catalog-panel__grid">
+        <section class="catalog-section" aria-labelledby="archive-years-heading">
+          <div class="catalog-section__heading">
+            <h3 id="archive-years-heading">By Year</h3>
+            <a href="/observations/archive/">Complete chronology</a>
+          </div>
+          {years.length > 0 ? (
+            <ul class="catalog-link-list catalog-link-list--years">
+              {years.map((item) => (
+                <li>
+                  <a href={`/observations/archive/#year-${item.year}`}>
+                    <span>{item.year}</span>
+                    <small>{item.count} {item.count === 1 ? 'work' : 'works'}</small>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p class="catalog-empty">Published years will appear here.</p>
+          )}
+        </section>
+
+        <section class="catalog-section" aria-labelledby="archive-topics-heading">
+          <div class="catalog-section__heading">
+            <h3 id="archive-topics-heading">By Topic</h3>
+            <a href="/topics/">All topics</a>
+          </div>
+          {topics.length > 0 ? (
+            <ul class="catalog-link-list">
+              {topics.map((topic) => (
+                <li>
+                  <a href={`/topics/${topic.slug}/`}>
+                    <span>{topic.label}</span>
+                    <small>{topic.count}</small>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p class="catalog-empty">Published topics will appear here.</p>
+          )}
+        </section>
+      </div>
+
+      <nav class="catalog-panel__destinations" aria-label="Archive destinations">
+        <a href="/observations/archive/">
+          <span>Observation Archive</span>
+          <small>Every published observation</small>
+        </a>
+        <a href="/special-editions/">
+          <span>Collections</span>
+          <small>Special editions and permanent works</small>
+        </a>
+        <a href="/works/">
+          <span>Works Room</span>
+          <small>Return to current work</small>
+        </a>
+      </nav>
+    </div>
+  </section>
+</div>
+
+<script>
+  const overlays = document.querySelectorAll('[data-archive-room-overlay]');
+
+  overlays.forEach((overlay) => {
+    const trigger = overlay.querySelector('[data-catalog-trigger]');
+    const panel = overlay.querySelector('[data-catalog-panel]');
+    const closeButton = overlay.querySelector('[data-catalog-close]');
+
+    if (!(trigger instanceof HTMLButtonElement) || !(panel instanceof HTMLElement)) return;
+
+    let closeTimer;
+
+    const clearCloseTimer = () => {
+      if (closeTimer) window.clearTimeout(closeTimer);
+      closeTimer = undefined;
+    };
+
+    const openPanel = () => {
+      clearCloseTimer();
+      trigger.setAttribute('aria-expanded', 'true');
+      panel.setAttribute('aria-hidden', 'false');
+      panel.dataset.open = 'true';
+    };
+
+    const closePanel = ({ returnFocus = false } = {}) => {
+      clearCloseTimer();
+      trigger.setAttribute('aria-expanded', 'false');
+      panel.setAttribute('aria-hidden', 'true');
+      delete panel.dataset.open;
+      if (returnFocus) trigger.focus();
+    };
+
+    const scheduleClose = () => {
+      clearCloseTimer();
+      closeTimer = window.setTimeout(() => closePanel(), 260);
+    };
+
+    trigger.addEventListener('pointerenter', openPanel);
+    trigger.addEventListener('pointerleave', scheduleClose);
+    trigger.addEventListener('focus', openPanel);
+    trigger.addEventListener('click', () => {
+      if (trigger.getAttribute('aria-expanded') === 'true') closePanel();
+      else openPanel();
+    });
+
+    panel.addEventListener('pointerenter', clearCloseTimer);
+    panel.addEventListener('pointerleave', scheduleClose);
+    panel.addEventListener('focusin', openPanel);
+    panel.addEventListener('focusout', (event) => {
+      const next = event.relatedTarget;
+      if (!(next instanceof Node) || (!panel.contains(next) && next !== trigger)) scheduleClose();
+    });
+
+    closeButton?.addEventListener('click', () => closePanel({ returnFocus: true }));
+
+    document.addEventListener('pointerdown', (event) => {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (!panel.contains(target) && !trigger.contains(target)) closePanel();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && panel.dataset.open === 'true') {
+        closePanel({ returnFocus: true });
+      }
+    });
+  });
+</script>
+
+<style>
+  .archive-room-overlay,
+  .room-object-nav {
+    position: absolute;
+    inset: 0;
+  }
+
+  .archive-room-overlay {
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .room-object {
+    --halo: rgb(211 166 92 / 27%);
+    --halo-strong: rgb(231 190 119 / 96%);
+    position: absolute;
+    left: var(--left);
+    top: var(--top);
+    width: var(--width);
+    height: var(--height);
+    transform: rotate(var(--rotate));
+    pointer-events: auto;
+    display: block;
+    padding: 0;
+    color: rgb(249 238 217 / 98%);
+    border: 1.5px solid var(--halo);
+    border-radius: var(--radius);
+    background: rgb(29 20 12 / 2%);
+    box-shadow:
+      inset 0 0 1.15rem rgb(255 226 170 / 2%),
+      0 0 0 1px rgb(37 23 12 / 10%);
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      border-color 160ms ease,
+      background-color 160ms ease,
+      box-shadow 160ms ease;
+  }
+
+  button.room-object {
+    font: inherit;
+  }
+
+  .room-object:hover,
+  .room-object:focus-visible,
+  .room-object[aria-expanded='true'] {
+    border-color: var(--halo-strong);
+    background: rgb(255 231 183 / 9%);
+    box-shadow:
+      inset 0 0 1.75rem rgb(255 226 170 / 9%),
+      0 0 0 1px rgb(40 25 12 / 38%),
+      0 0 1.45rem rgb(218 164 87 / 25%);
+  }
+
+  .room-object:focus-visible {
+    outline: 2px solid rgb(244 211 153 / 96%);
+    outline-offset: 4px;
+  }
+
+  .room-object__label {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 58%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 1.65rem;
+    width: max-content;
+    max-width: 15rem;
+    padding: 0.28rem 0.58rem 0.3rem;
+    color: rgb(249 238 217 / 98%);
+    background: rgb(30 20 12 / 91%);
+    border: 1px solid rgb(207 163 92 / 72%);
+    border-radius: 0.14rem;
+    box-shadow: 0 0.3rem 0.9rem rgb(10 6 3 / 32%);
+    font-family: var(--font-sans, system-ui, sans-serif);
+    font-size: clamp(0.58rem, 0.49rem + 0.15vw, 0.72rem);
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    line-height: 1.1;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .room-object--catalog {
+    --halo: rgb(224 178 101 / 38%);
+    --halo-strong: rgb(248 207 136 / 100%);
+    z-index: 3;
+    border-width: 2px;
+  }
+
+  .room-object--catalog .room-object__label {
+    min-height: 1.9rem;
+    padding-inline: 0.78rem;
+    font-size: clamp(0.66rem, 0.56rem + 0.18vw, 0.84rem);
+  }
+
+  .room-object--observation-archive .room-object__label {
+    left: 55.2%;
+    top: -0.1rem;
+    bottom: auto;
+    transform: translateX(-50%);
+  }
+
+  .catalog-panel {
+    position: fixed;
+    z-index: 100;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, calc(-50% + 0.45rem));
+    width: min(44rem, calc(100vw - 2rem));
+    max-height: min(76svh, 44rem);
+    overflow: auto;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    color: rgb(245 235 216);
+    background:
+      linear-gradient(rgb(33 24 16 / 90%), rgb(22 16 11 / 92%)),
+      rgb(24 17 11 / 92%);
+    border: 1px solid rgb(199 151 79 / 66%);
+    border-radius: 0.32rem;
+    box-shadow:
+      0 1.25rem 3.5rem rgb(7 4 2 / 52%),
+      inset 0 0 2.5rem rgb(255 224 170 / 3%);
+    transition:
+      opacity 170ms ease,
+      transform 170ms ease,
+      visibility 170ms ease;
+  }
+
+  .catalog-panel[data-open='true'] {
+    pointer-events: auto;
+    visibility: visible;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+
+  .catalog-panel__header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: clamp(0.9rem, 1.5vw, 1.2rem);
+    background: rgb(29 21 14 / 93%);
+    border-bottom: 1px solid rgb(199 151 79 / 32%);
+  }
+
+  .catalog-panel__eyebrow {
+    margin: 0 0 0.3rem;
+    color: rgb(211 168 103 / 95%);
+    font-family: var(--font-sans, system-ui, sans-serif);
+    font-size: 0.67rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .catalog-panel h2 {
+    margin: 0;
+    font-family: var(--font-display, Georgia, serif);
+    font-size: clamp(1.55rem, 1.2rem + 1.35vw, 2.35rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .catalog-panel__close {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    color: rgb(245 235 216);
+    background: transparent;
+    border: 1px solid rgb(199 151 79 / 45%);
+    border-radius: 50%;
+    font: inherit;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .catalog-panel__close:hover,
+  .catalog-panel__close:focus-visible {
+    background: rgb(255 232 188 / 8%);
+    border-color: rgb(224 181 111 / 84%);
+  }
+
+  .catalog-panel__body {
+    display: grid;
+    gap: 0.8rem;
+    padding: clamp(0.8rem, 1.5vw, 1.1rem);
+  }
+
+  .catalog-search {
+    padding: 0.78rem;
+    background: rgb(255 239 207 / 3.5%);
+    border: 1px solid rgb(199 151 79 / 28%);
+  }
+
+  .catalog-search label {
+    display: block;
+    margin-bottom: 0.45rem;
+    color: rgb(211 168 103 / 95%);
+    font-family: var(--font-sans, system-ui, sans-serif);
+    font-size: 0.69rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .catalog-search__row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.7rem;
+  }
+
+  .catalog-search input {
+    min-width: 0;
+    width: 100%;
+    padding: 0.58rem 0.7rem;
+    color: inherit;
+    background: rgb(9 6 4 / 24%);
+    border: 1px solid rgb(199 151 79 / 38%);
+    border-radius: 0.16rem;
+    font: inherit;
+  }
+
+  .catalog-search button {
+    padding: 0.58rem 0.85rem;
+    color: rgb(36 24 13);
+    background: rgb(218 174 102);
+    border: 1px solid rgb(239 206 151 / 85%);
+    border-radius: 0.16rem;
+    font-family: var(--font-sans, system-ui, sans-serif);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .catalog-panel__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .catalog-section {
+    padding: 0.78rem;
+    background: rgb(255 239 207 / 3.5%);
+    border: 1px solid rgb(199 151 79 / 28%);
+  }
+
+  .catalog-section__heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid rgb(199 151 79 / 22%);
+  }
+
+  .catalog-section h3 {
+    margin: 0;
+    font-family: var(--font-display, Georgia, serif);
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  .catalog-section__heading a {
+    color: rgb(211 168 103);
+    font-family: var(--font-sans, system-ui, sans-serif);
+    font-size: 0.67rem;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .catalog-link-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.45rem;
+    margin: 0.6rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .catalog-link-list a,
+  .catalog-panel__destinations a {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.65rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .catalog-link-list a {
+    padding: 0.52rem 0.62rem;
+    background: rgb(255 239 207 / 2.5%);
+    border: 1px solid rgb(199 151 79 / 18%);
+  }
+
+  .catalog-link-list a:hover,
+  .catalog-link-list a:focus-visible,
+  .catalog-panel__destinations a:hover,
+  .catalog-panel__destinations a:focus-visible {
+    background: rgb(255 232 188 / 8%);
+    border-color: rgb(224 181 111 / 60%);
+  }
+
+  .catalog-link-list small,
+  .catalog-panel__destinations small {
+    color: rgb(195 177 148);
+    font-family: var(--font-sans, system-ui, sans-serif);
+    font-size: 0.66rem;
+  }
+
+  .catalog-empty {
+    color: rgb(195 177 148);
+  }
+
+  .catalog-panel__destinations {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+
+  .catalog-panel__destinations a {
+    align-items: flex-start;
+    flex-direction: column;
+    min-height: 4.1rem;
+    padding: 0.68rem 0.78rem;
+    background: rgb(255 239 207 / 3.5%);
+    border: 1px solid rgb(199 151 79 / 28%);
+  }
+
+  .catalog-panel__destinations span {
+    font-family: var(--font-display, Georgia, serif);
+    font-size: 1.02rem;
+  }
+
+  @media (max-width: 48rem) {
+    /* Mobile-only hotspot composition. These overrides affect only the
+       Archive Room overlay and do not alter desktop geometry. */
+    .room-object__label {
+      font-size: 0.56rem;
+    }
+
+    .room-object--catalog {
+      --left: 34%;
+      --top: 38%;
+      --width: 32%;
+      --height: 35%;
+    }
+
+    .room-object--observation-archive {
+      --left: 34%;
+      --top: 78%;
+      --width: 32%;
+      --height: 11%;
+    }
+
+    .room-object-nav .room-object:not(.room-object--observation-archive):first-child {
+      --left: 19%;
+      --top: 19%;
+      --width: 14%;
+      --height: 43%;
+    }
+
+    .room-object-nav .room-object:not(.room-object--observation-archive):nth-child(2) {
+      --left: 69%;
+      --top: 28%;
+      --width: 13%;
+      --height: 38%;
+    }
+
+    .catalog-panel {
+      top: auto;
+      bottom: 0;
+      transform: translate(-50%, 1rem);
+      width: 100%;
+      max-height: 86svh;
+      border-right: 0;
+      border-bottom: 0;
+      border-left: 0;
+      border-radius: 0;
+    }
+
+    .catalog-panel[data-open='true'] {
+      transform: translate(-50%, 0);
+    }
+
+    .catalog-panel__grid,
+    .catalog-panel__destinations {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 34rem) {
+    .catalog-search__row {
+      grid-template-columns: 1fr;
+    }
+
+    .catalog-link-list {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .room-object,
+    .catalog-panel {
+      transition: none;
+    }
+  }
+</style>

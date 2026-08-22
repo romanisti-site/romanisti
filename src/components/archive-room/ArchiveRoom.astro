@@ -1,0 +1,67 @@
+---
+import ArchiveRoomArchitecturalPlate from './ArchiveRoomArchitecturalPlate.astro';
+import ArchiveRoomOverlay from './ArchiveRoomOverlay.astro';
+import MobileArchiveRoom from '../mobile/MobileArchiveRoom.astro';
+---
+
+<section class="archive-room archive-room--desktop" aria-label="The Archive Room">
+  <div class="archive-room__scene">
+    <div class="archive-room__canvas">
+      <ArchiveRoomArchitecturalPlate />
+      <ArchiveRoomOverlay />
+    </div>
+  </div>
+</section>
+
+<div class="archive-room--mobile">
+  <MobileArchiveRoom />
+</div>
+
+<style>
+  .archive-room {
+    position: relative;
+    width: 100vw;
+    height: 100svh;
+    overflow: hidden;
+    isolation: isolate;
+    background: #17120d;
+  }
+
+  .archive-room__scene {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    isolation: isolate;
+    background: #241a12;
+  }
+
+  /*
+   * Desktop remains the locked Archive implementation.
+   * The locked Archive plate is 1640 × 959.
+   */
+  .archive-room__canvas {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: max(100vw, 171.012svh);
+    aspect-ratio: 1640 / 959;
+    transform: translate(-50%, -50%);
+    isolation: isolate;
+  }
+
+  .archive-room--mobile {
+    display: none;
+  }
+
+  @media (max-width: 48rem) {
+    .archive-room--desktop {
+      display: none;
+    }
+
+    .archive-room--mobile {
+      display: block;
+      width: 100vw;
+      height: 100svh;
+    }
+  }
+</style>

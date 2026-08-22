@@ -1,0 +1,24 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import WorksInstitutionalPage from '@/components/works-room/WorksInstitutionalPage.astro';
+
+const paragraphs = [
+  'Future Projects remain outside the permanent record until they enter active stewardship.',
+  'Ideas may be researched, tested, revised, or abandoned without asking the institution to treat possibility as achievement.',
+  'When a project is ready to become work, it will move from preparation into the record of Romanisti.',
+];
+---
+
+<BaseLayout
+  title="Future Projects | Romanisti"
+  description="Romanisti works in preparation and future institutional development."
+>
+  <WorksInstitutionalPage
+    title="Future Projects"
+    subtitle="Works in Preparation"
+    workClass="Institutional Development"
+    quotation="The work that has not yet begun."
+    heading="Possibility is not yet permanence."
+    paragraphs={paragraphs}
+  />
+</BaseLayout>

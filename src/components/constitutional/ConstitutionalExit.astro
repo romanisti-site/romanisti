@@ -1,0 +1,42 @@
+---
+interface ReturnLink {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  nextHref: string;
+  nextLabel: string;
+  kicker?: string;
+  returnLinks?: ReturnLink[];
+}
+
+const {
+  nextHref,
+  nextLabel,
+  kicker,
+  returnLinks = [
+    { label: 'Return to Foundation', href: '/library/foundation/' },
+    { label: 'Return to Bibliotheca', href: '/#bibliotheca' },
+  ],
+} = Astro.props;
+---
+
+<section class="constitutional-closing">
+  {kicker && <p class="constitutional-closing-kicker">{kicker}</p>}
+
+  <a class="constitutional-next-volume" href={nextHref}>
+    {nextLabel} <span aria-hidden="true">→</span>
+  </a>
+
+  {returnLinks.length > 0 && (
+    <nav class="constitutional-return-nav" aria-label="Constitutional return navigation">
+      {returnLinks.map((link, index) => (
+        <>
+          {index > 0 && <span aria-hidden="true">·</span>}
+          <a href={link.href}>{link.label}</a>
+        </>
+      ))}
+    </nav>
+  )}
+</section>

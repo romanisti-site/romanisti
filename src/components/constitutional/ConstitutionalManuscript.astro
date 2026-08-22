@@ -1,0 +1,17 @@
+---
+interface Props {
+  heading?: string;
+  id?: string;
+}
+
+const { heading, id = 'manuscript' } = Astro.props;
+---
+
+<section id={id} class="constitutional-manuscript">
+  <div class="constitutional-manuscript__inner">
+    {heading && <h2>{heading}</h2>}
+    <div class="constitutional-reading-column">
+      <slot />
+    </div>
+  </div>
+</section>

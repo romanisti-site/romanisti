@@ -1,0 +1,69 @@
+---
+import ArchitecturalLayout from '@/layouts/ArchitecturalLayout.astro';
+import GovernanceRoom from '@/components/governance-room/GovernanceRoom.astro';
+import MobileGovernanceRoom from '@/components/mobile/MobileGovernanceRoom.astro';
+---
+
+<ArchitecturalLayout
+  title="The Governance Room | Romanisti"
+  description="The Romanisti Governance Room: the constitutional chamber where charter, principles, standards, and institutional decisions remain visible and accountable."
+>
+  <div class="governance-desktop-composition">
+    <GovernanceRoom />
+  </div>
+  <div class="governance-mobile-composition">
+    <MobileGovernanceRoom />
+  </div>
+</ArchitecturalLayout>
+
+<style is:global>
+  html,
+  body.architectural-page {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #17120d;
+  }
+
+  body.architectural-page > main {
+    width: 100%;
+    height: 100svh;
+    overflow: hidden;
+  }
+
+  body.architectural-page .site-footer {
+    display: none;
+  }
+
+  .governance-mobile-composition {
+    display: none;
+  }
+
+  @media (max-width: 52rem) {
+    .governance-desktop-composition {
+      display: none !important;
+    }
+
+    .governance-mobile-composition {
+      display: block;
+      width: 100%;
+      height: 100svh;
+    }
+
+    @supports (height: 100dvh) {
+      .governance-mobile-composition {
+        height: 100dvh;
+      }
+    }
+  }
+
+  @media (min-width: 52.001rem) {
+    .governance-desktop-composition {
+      display: block;
+    }
+
+    .governance-mobile-composition {
+      display: none !important;
+    }
+  }
+</style>

@@ -1,0 +1,145 @@
+---
+import { institutionalRoutes as routes } from '@/config/institutionalRoutes';
+import plate from '@/assets/governance-room/mobile/governance-room-mobile-plate-v2.webp';
+
+type MobileGovernanceItem = {
+  label: string;
+  href: string;
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+};
+
+/*
+ * Governance Mobile RC3.
+ * Independent hotspot map registered to the dedicated 941 × 1988 portrait plate.
+ * Dedicated 941 × 1988 portrait plate rendered from the locked Governance plate reference.
+ * Architecture is not stretched or CSS-recomposed. Hotspots below are registered
+ * independently to this native mobile plate.
+ */
+const governanceItems: MobileGovernanceItem[] = [
+  { label: 'Charter',             href: routes.projectAurea,         left: 7.35,  top: 25.15, width: 15.55, height: 25.15 },
+  { label: 'Constitution',        href: routes.liberConstitutionis,  left: 23.70, top: 25.15, width: 15.65, height: 25.15 },
+  { label: 'Immutable Stones',    href: routes.liberLapidum,         left: 40.05, top: 25.15, width: 15.65, height: 25.15 },
+  { label: 'Editorial Standards', href: routes.editorialStandards,  left: 56.40, top: 25.15, width: 15.65, height: 25.15 },
+  { label: 'Decision Log',        href: routes.liberConventus,       left: 72.75, top: 25.15, width: 15.55, height: 25.15 },
+];
+---
+
+<section class="mobile-governance-room" aria-label="The Governance Room">
+  <img
+    class="mobile-governance-room__plate"
+    src={plate.src}
+    width={plate.width}
+    height={plate.height}
+    alt="The Governance Room, showing the Charter, Constitution, Immutable Stones, Editorial Standards, and Decision Log panels above the council table."
+    loading="eager"
+    decoding="async"
+    fetchpriority="high"
+  />
+
+  <nav class="mobile-governance-room__nav" aria-label="Governance Room documents">
+    {governanceItems.map((item) => (
+      <a
+        class="mobile-governance-room__object"
+        style={`--left-num:${item.left};--top-num:${item.top};--width-num:${item.width};--height-num:${item.height};`}
+        href={item.href}
+        aria-label={`Open ${item.label}`}
+      >
+        <span>{item.label}</span>
+      </a>
+    ))}
+  </nav>
+</section>
+
+<style>
+  .mobile-governance-room {
+    position: relative;
+    width: 100%;
+    height: 100svh;
+    min-height: 100svh;
+    overflow: hidden;
+    isolation: isolate;
+    background: #17120d;
+  }
+
+  @supports (height: 100dvh) {
+    .mobile-governance-room {
+      height: 100dvh;
+      min-height: 100dvh;
+    }
+  }
+
+  .mobile-governance-room__plate {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: 50% 50%;
+  }
+
+  .mobile-governance-room__nav {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .mobile-governance-room__object {
+    position: absolute;
+    /*
+     * Reproject the portrait-plate percentages through the same centered cover
+     * transform used by the image. Plate aspect ratio: 941 / 1988 = 0.4733400.
+     */
+    --cover-width: max(100vw, calc(100svh * 0.4733400));
+    --cover-height: max(100svh, calc(100vw / 0.4733400));
+    left: calc(50% + (var(--left-num) - 50) * var(--cover-width) / 100);
+    top: calc(50% + (var(--top-num) - 50) * var(--cover-height) / 100);
+    width: max(44px, calc(var(--width-num) * var(--cover-width) / 100));
+    height: max(44px, calc(var(--height-num) * var(--cover-height) / 100));
+    display: block;
+    pointer-events: auto;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 0.18rem;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @supports (height: 100dvh) {
+    .mobile-governance-room__object {
+      --cover-width: max(100vw, calc(100dvh * 0.4733400));
+      --cover-height: max(100dvh, calc(100vw / 0.4733400));
+    }
+  }
+
+  .mobile-governance-room__object span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .mobile-governance-room__object:focus-visible {
+    outline: 2px solid rgb(126 86 47 / 72%);
+    outline-offset: -3px;
+    background: rgb(255 244 220 / 5%);
+  }
+
+  .mobile-governance-room__object:active {
+    background: rgb(255 244 220 / 5%);
+  }
+
+  @media (min-width: 52.001rem) {
+    .mobile-governance-room { display: none; }
+  }
+</style>

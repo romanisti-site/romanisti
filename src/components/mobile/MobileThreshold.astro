@@ -1,0 +1,100 @@
+---
+import { site } from '@/config/site';
+---
+
+<section class="mobile-room mobile-threshold" aria-labelledby="mobile-threshold-title">
+  <img
+    class="mobile-room__plate mobile-threshold__plate"
+    src="/images/threshold/threshold-guardian-v1.png"
+    alt=""
+    width="1024"
+    height="1536"
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+  />
+  <div class="mobile-room__shade mobile-threshold__shade" aria-hidden="true"></div>
+
+  <div class="mobile-threshold__copy">
+    <h1 id="mobile-threshold-title">{site.name}</h1>
+    <div class="mobile-threshold__inscription">
+      <span aria-hidden="true"></span>
+      <p>
+        <b>Rome.</b>
+        <b>AS Roma.</b>
+        <b>And those that love them both.</b>
+      </p>
+    </div>
+  </div>
+
+  <div class="mobile-room__continuation" aria-hidden="true">⌄</div>
+</section>
+
+<style>
+  @media (max-width: 52rem) {
+    .mobile-threshold {
+      background: #090705;
+      color: #efe0cd;
+    }
+
+    .mobile-threshold__plate {
+      width: 148%;
+      height: 100%;
+      left: auto;
+      right: -37%;
+      object-fit: cover;
+      object-position: 52% 42%;
+    }
+
+    .mobile-threshold__shade {
+      background:
+        linear-gradient(180deg, rgb(5 3 2 / 12%) 0%, transparent 42%, rgb(5 3 2 / 35%) 67%, #090705 100%),
+        linear-gradient(90deg, rgb(5 3 2 / 38%) 0%, transparent 78%);
+    }
+
+    .mobile-threshold__copy {
+      position: absolute;
+      z-index: 2;
+      left: 1.25rem;
+      right: 1.25rem;
+      bottom: 4.2rem;
+    }
+
+    h1 {
+      margin: 0;
+      color: #efe0cd;
+      font-family: var(--font-display);
+      font-size: clamp(4.25rem, 19vw, 5.6rem);
+      font-weight: 400;
+      letter-spacing: -0.045em;
+      line-height: 0.82;
+    }
+
+    .mobile-threshold__inscription {
+      display: grid;
+      grid-template-columns: 2px 1fr;
+      gap: 1rem;
+      align-items: stretch;
+      margin-top: 1.85rem;
+    }
+
+    .mobile-threshold__inscription > span {
+      background: #c9a35f;
+    }
+
+    .mobile-threshold__inscription p {
+      display: grid;
+      gap: 0.12rem;
+      margin: 0;
+      color: rgb(239 224 205 / 94%);
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.35;
+    }
+
+    .mobile-threshold__inscription b {
+      font-weight: 400;
+    }
+  }
+</style>

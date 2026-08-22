@@ -1,0 +1,87 @@
+/*
+ * INSTITUTION MOBILE COMPOSITION FRAMEWORK — RC0
+ * Canonical mobile boundary: 52rem.
+ *
+ * These utilities are intentionally dormant unless a component opts into them.
+ * Desktop architectural plates remain untouched until each room receives a
+ * dedicated mobile composition.
+ */
+
+.institution-composition {
+  position: relative;
+  width: 100%;
+}
+
+.institution-composition__desktop {
+  display: contents;
+}
+
+.institution-composition__mobile {
+  display: none;
+}
+
+.art-directed-plate {
+  display: contents;
+}
+
+/* Standard portrait architectural viewport. */
+.institution-mobile-scene {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-height: 100svh;
+  overflow: hidden;
+}
+
+/* One coordinate surface shared by a mobile plate and its mobile hotspots. */
+.institution-mobile-canvas {
+  position: absolute;
+  inset: 0;
+  isolation: isolate;
+}
+
+/* Safe-area helpers for mobile-only controls and exits. */
+.institution-safe-top {
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+
+.institution-safe-bottom {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+/* Use on invisible architectural hotspots after mobile remapping. */
+.institution-touch-target {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+@media (max-width: 52rem) {
+  .institution-composition:has(.institution-composition__mobile) .institution-composition__desktop {
+    display: none;
+  }
+
+  .institution-composition__mobile {
+    display: block;
+  }
+
+  .institution-desktop-only {
+    display: none !important;
+  }
+
+  .institution-mobile-only {
+    display: revert !important;
+  }
+}
+
+@media (min-width: 52.001rem) {
+  .institution-mobile-only {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .institution-mobile-scene *,
+  .institution-mobile-canvas * {
+    scroll-behavior: auto !important;
+  }
+}

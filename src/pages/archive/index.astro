@@ -1,0 +1,31 @@
+---
+import ArchitecturalLayout from '@/layouts/ArchitecturalLayout.astro';
+import ArchiveRoom from '@/components/archive-room/ArchiveRoom.astro';
+---
+
+<ArchitecturalLayout
+  title="The Archive Room | Romanisti"
+  description="The Romanisti Archive Room: the institution's accumulated record, organized for retrieval, study, and preservation."
+>
+  <ArchiveRoom />
+</ArchitecturalLayout>
+
+<style is:global>
+  html,
+  body.architectural-page {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #17120d;
+  }
+
+  body.architectural-page > main {
+    width: 100%;
+    height: 100svh;
+    overflow: hidden;
+  }
+
+  body.architectural-page .site-footer {
+    display: none;
+  }
+</style>

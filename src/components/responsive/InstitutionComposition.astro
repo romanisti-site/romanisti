@@ -1,0 +1,31 @@
+---
+import '@/styles/institution-mobile.css';
+
+interface Props {
+  class?: string;
+  label?: string;
+}
+
+const {
+  class: className = '',
+  label,
+} = Astro.props;
+
+const hasMobile = Astro.slots.has('mobile');
+---
+
+<div
+  class={`institution-composition ${className}`}
+  data-mobile-composition={hasMobile ? 'art-directed' : 'desktop-fallback'}
+  aria-label={label}
+>
+  <div class="institution-composition__desktop">
+    <slot name="desktop" />
+  </div>
+
+  {hasMobile ? (
+    <div class="institution-composition__mobile">
+      <slot name="mobile" />
+    </div>
+  ) : null}
+</div>

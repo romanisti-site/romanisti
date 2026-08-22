@@ -1,0 +1,36 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title = 'Romanisti Reading Room' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
+  <body class="reading-room-page">
+    <main class="reading-room-page__viewport">
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  html,
+  body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #17120d;
+  }
+
+  body {
+    overflow: hidden;
+  }
+</style>

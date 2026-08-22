@@ -12,5 +12,3 @@ sourcePath: "01_CONST/01_FOUND/Liber_Constitutionis.md"
 ## Constitutional Lock
 
 > “The Codex inherits itself exactly as every generation inherits Romanisti.”
-
-Edition 1.0A · Edition 1.0A · Experience Study · Not a constitutional edition

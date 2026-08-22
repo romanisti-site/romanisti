@@ -1,0 +1,19 @@
+<div class="editorial-layer">
+  <slot />
+</div>
+
+<style>
+  .editorial-layer {
+    position: relative;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .editorial-layer :global(a),
+  .editorial-layer :global(button),
+  .editorial-layer :global(input),
+  .editorial-layer :global(select),
+  .editorial-layer :global(textarea) {
+    pointer-events: auto;
+  }
+</style>

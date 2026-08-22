@@ -1,0 +1,65 @@
+---
+import tableImage from '../../../assets/reading-room/librarians-table.png';
+---
+
+<div class="librarians-table" data-placement="C" aria-hidden="true">
+  <div class="librarians-table__contact-shadow"></div>
+  <img
+    class="librarians-table__image"
+    src={tableImage.src}
+    alt=""
+    width={tableImage.width}
+    height={tableImage.height}
+    loading="eager"
+    decoding="async"
+  />
+</div>
+
+<style>
+  .librarians-table {
+    position: absolute;
+    left: 52.5%;
+    bottom: clamp(2.2rem, 4.3svh, 3.6rem);
+    width: clamp(38rem, 50vw, 57rem);
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  .librarians-table__image {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    filter:
+      drop-shadow(0 .35rem .45rem rgb(20 13 8 / 12%))
+      drop-shadow(0 1rem 1.35rem rgb(20 13 8 / 16%));
+  }
+
+  .librarians-table__contact-shadow {
+    position: absolute;
+    z-index: 0;
+    left: 7%;
+    right: 7%;
+    bottom: 1.1%;
+    height: 7%;
+    border-radius: 50%;
+    background: rgb(20 14 9 / 18%);
+    filter: blur(1rem);
+    transform: scaleY(.34);
+  }
+
+  @media (max-width: 64rem) {
+    .librarians-table {
+      width: clamp(25rem, 48vw, 34rem);
+    }
+  }
+
+  @media (max-width: 52rem) {
+    .librarians-table {
+      left: 50%;
+      bottom: clamp(1rem, 3svh, 2rem);
+      width: min(78vw, 31rem);
+    }
+  }
+</style>

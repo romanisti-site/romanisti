@@ -1,0 +1,42 @@
+---
+import plate from '../../assets/archive-room/archive-room-architectural-plate-rc1.png';
+---
+
+<div class="archive-room-plate" aria-hidden="true">
+  <img
+    src={plate.src}
+    width={plate.width}
+    height={plate.height}
+    alt=""
+    loading="eager"
+    decoding="async"
+    fetchpriority="high"
+  />
+  <div class="archive-room-plate__depth"></div>
+</div>
+
+<style>
+  .archive-room-plate {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background: #241a12;
+  }
+
+  .archive-room-plate img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+  }
+
+  .archive-room-plate__depth {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow:
+      inset 0 0 7rem rgb(12 8 5 / 11%),
+      inset 0 -3rem 6rem rgb(12 8 5 / 8%);
+  }
+</style>

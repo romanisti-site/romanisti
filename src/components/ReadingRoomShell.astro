@@ -1,0 +1,158 @@
+<section class="reading-room-shell" aria-label="The Reading Room">
+  <div class="reading-room-shell__arrival" aria-hidden="true"></div>
+  <div class="reading-room-shell__wall" aria-hidden="true">
+    <div class="reading-room-shell__light-source"></div>
+  </div>
+  <div class="reading-room-shell__floor" aria-hidden="true"></div>
+</section>
+
+<style>
+  .reading-room-shell {
+    --arrival-depth: clamp(9rem, 18vh, 14rem);
+    position: relative;
+    isolation: isolate;
+    min-height: clamp(44rem, 88svh, 64rem);
+    overflow: hidden;
+    background: #d4c8b5;
+  }
+
+  /* The Threshold dissipates into the room; there is no section edge. */
+  .reading-room-shell__arrival {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 7;
+    height: var(--arrival-depth);
+    pointer-events: none;
+    background:
+      linear-gradient(
+        180deg,
+        #090705 0%,
+        rgb(20 16 11 / 96%) 12%,
+        rgb(55 45 33 / 76%) 36%,
+        rgb(126 108 83 / 38%) 64%,
+        rgb(216 205 187 / 0%) 100%
+      );
+  }
+
+  .reading-room-shell::before {
+    content: '';
+    position: absolute;
+    inset: var(--arrival-depth) 0 0;
+    z-index: 6;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse at 50% 34%, transparent 42%, rgb(63 49 34 / 8%) 100%),
+      linear-gradient(90deg, rgb(57 42 28 / 4%), transparent 13%, transparent 87%, rgb(57 42 28 / 4%));
+  }
+
+  .reading-room-shell__wall {
+    position: absolute;
+    inset: calc(var(--arrival-depth) - 1px) 0 24%;
+    overflow: hidden;
+    background:
+      linear-gradient(90deg, rgb(91 69 45 / 5%) 1px, transparent 1px) 0 0 / clamp(11rem, 18vw, 18rem) 100%,
+      linear-gradient(180deg, rgb(255 255 255 / 12%), transparent 24%, rgb(91 68 43 / 5%)),
+      #d8cdbb;
+    box-shadow:
+      inset 0 -2rem 3.8rem rgb(70 52 34 / 8%),
+      inset 0 1px rgb(255 255 255 / 20%);
+  }
+
+  /* Quiet stone variation, not a decorative texture. */
+  .reading-room-shell__wall::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.24;
+    pointer-events: none;
+    background-image:
+      radial-gradient(circle at 18% 24%, rgb(255 255 255 / 24%) 0 1px, transparent 1.6px),
+      radial-gradient(circle at 72% 46%, rgb(76 55 34 / 10%) 0 1px, transparent 1.7px),
+      radial-gradient(circle at 48% 78%, rgb(255 255 255 / 13%) 0 1px, transparent 1.5px);
+    background-size: 10rem 8rem, 13rem 11rem, 9rem 12rem;
+    mix-blend-mode: soft-light;
+  }
+
+  /*
+   * The opening is inferred rather than drawn. A shallow change in wall plane,
+   * slight occlusion, and daylight bloom imply an aperture beyond the surface.
+   */
+  .reading-room-shell__wall::after {
+    content: '';
+    position: absolute;
+    top: clamp(3.5rem, 7vh, 6rem);
+    left: 50%;
+    width: clamp(18rem, 34vw, 34rem);
+    height: clamp(23rem, 50vh, 36rem);
+    transform: translateX(-50%);
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgb(96 72 45 / 7%), transparent 7%, transparent 93%, rgb(96 72 45 / 7%)),
+      linear-gradient(180deg, rgb(255 253 243 / 18%), transparent 18%, transparent 82%, rgb(89 65 39 / 6%));
+    box-shadow:
+      inset 1.1rem 0 1.8rem -1.7rem rgb(70 50 30 / 42%),
+      inset -1.1rem 0 1.8rem -1.7rem rgb(70 50 30 / 42%),
+      inset 0 1.1rem 1.8rem -1.7rem rgb(70 50 30 / 30%);
+    opacity: 0.82;
+  }
+
+  .reading-room-shell__light-source {
+    position: absolute;
+    top: clamp(2.25rem, 4vh, 4rem);
+    left: 50%;
+    width: min(70rem, 86vw);
+    height: 78%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse at 50% 26%, rgb(255 249 225 / 55%) 0%, rgb(255 246 216 / 30%) 23%, rgb(255 245 219 / 12%) 46%, transparent 72%),
+      linear-gradient(180deg, rgb(255 251 236 / 13%), transparent 68%);
+    filter: blur(clamp(1rem, 2vw, 2rem));
+  }
+
+  .reading-room-shell__floor {
+    position: absolute;
+    inset: 76% 0 0;
+    background:
+      linear-gradient(90deg, transparent 0 49.86%, rgb(82 61 39 / 6%) 50%, transparent 50.14%) 0 0 / clamp(12rem, 20vw, 20rem) 100%,
+      linear-gradient(180deg, rgb(91 68 43 / 10%), transparent 26%),
+      linear-gradient(90deg, rgb(78 57 36 / 4%), transparent 15%, transparent 85%, rgb(78 57 36 / 4%)),
+      #c2b197;
+    box-shadow: inset 0 1px rgb(255 255 255 / 16%);
+  }
+
+  .reading-room-shell__floor::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 50% 0%, rgb(255 247 224 / 12%), transparent 60%);
+  }
+
+  @media (max-width: 52rem) {
+    .reading-room-shell {
+      --arrival-depth: 8rem;
+      min-height: max(40rem, 80svh);
+    }
+
+    .reading-room-shell__wall {
+      bottom: 25%;
+    }
+
+    .reading-room-shell__wall::after {
+      top: 4rem;
+      width: min(70vw, 25rem);
+      height: min(43vh, 29rem);
+    }
+
+    .reading-room-shell__floor {
+      top: 75%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reading-room-shell__light-source {
+      filter: none;
+    }
+  }
+</style>

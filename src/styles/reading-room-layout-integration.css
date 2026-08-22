@@ -1,0 +1,109 @@
+/*
+ * RC2.3 — Layout Integration
+ *
+ * The page owns the viewport.
+ * The threshold owns the fade.
+ * The Reading Room owns the architectural plate.
+ * Institutional objects remain a separate layer.
+ */
+
+.reading-room-page,
+.reading-room-page__viewport {
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 100vh;
+  min-height: 100svh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #17120d;
+}
+
+.reading-room-integrated {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 100vh;
+  min-height: 100svh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: #17120d;
+}
+
+/*
+ * The plate is displayed directly and faithfully.
+ * No inset, translate, scale, or secondary crop logic.
+ */
+.reading-room-integrated__plate {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  display: block;
+  object-fit: cover;
+
+  /*
+   * Lower percentage reveals more ceiling and oculus.
+   * This is the only composition control retained.
+   */
+  object-position: 50% 42%;
+}
+
+/*
+ * The transition belongs to the threshold layer, not the image.
+ * It dissolves downward without becoming a flat black band.
+ */
+.reading-room-threshold {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 12;
+  height: clamp(110px, 17vh, 176px);
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(8, 6, 4, 0.92) 0%,
+      rgba(10, 7, 5, 0.68) 28%,
+      rgba(12, 8, 6, 0.34) 58%,
+      rgba(12, 8, 6, 0.10) 80%,
+      rgba(12, 8, 6, 0) 100%
+    );
+}
+
+.reading-room-integrated__navigation {
+  position: relative;
+  z-index: 20;
+}
+
+.reading-room-integrated__institutional-layer {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .reading-room-integrated__plate {
+    object-position: 50% 44%;
+  }
+
+  .reading-room-threshold {
+    height: clamp(96px, 15vh, 148px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reading-room-integrated,
+  .reading-room-integrated__plate,
+  .reading-room-threshold {
+    animation: none !important;
+    transition: none !important;
+  }
+}

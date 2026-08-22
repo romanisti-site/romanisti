@@ -1,0 +1,159 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatEditorialDate } from '@/lib/date';
+
+interface Props {
+  entry?: CollectionEntry<'observations'>;
+  position: number;
+}
+
+const { entry, position } = Astro.props;
+const category = entry?.data.category ?? entry?.data.topics?.[0] ?? 'Editorial';
+---
+<article class:list={['liber', { 'liber--vacant': !entry }]} aria-label={entry ? undefined : `Vacant library position ${position}`}>
+  <div class="liber-object">
+    {entry ? (
+      <a class="liber-link" href={`/observations/${entry.id}/`}>
+        <span class="liber-category">{category}</span>
+        <h3>{entry.data.title}</h3>
+        <time datetime={entry.data.publishedAt.toISOString()}>{formatEditorialDate(entry.data.publishedAt)}</time>
+        <span class="liber-arrow" aria-hidden="true">→</span>
+      </a>
+    ) : (
+      <div class="liber-empty" aria-hidden="true">
+        <span class="liber-category">Collection</span>
+        <span class="vacant-title">Awaiting observation</span>
+        <span class="vacant-rule"></span>
+      </div>
+    )}
+  </div>
+  <div class="bronze-stand" aria-hidden="true"><span></span></div>
+</article>
+
+<style>
+  .liber {
+    position: relative;
+    min-width: 0;
+    padding-bottom: 1.35rem;
+    transform: rotate(var(--liber-tilt, 0deg));
+    transform-origin: 50% 100%;
+  }
+
+  .liber:nth-child(1) { --liber-tilt: -0.22deg; }
+  .liber:nth-child(2) { --liber-tilt: 0.12deg; }
+  .liber:nth-child(3) { --liber-tilt: -0.08deg; }
+  .liber:nth-child(4) { --liber-tilt: 0.16deg; }
+  .liber:nth-child(5) { --liber-tilt: -0.12deg; }
+
+  .liber-object {
+    position: relative;
+    z-index: 2;
+    min-height: clamp(13.5rem, 17vw, 16.25rem);
+    overflow: hidden;
+    background:
+      linear-gradient(135deg, rgb(255 253 247 / 98%), rgb(232 223 209 / 98%)),
+      repeating-linear-gradient(0deg, transparent 0 4px, rgb(66 49 31 / 2%) 4px 5px);
+    border: 1px solid rgb(113 87 57 / 31%);
+    border-radius: 0.15rem;
+    box-shadow:
+      0 1.05rem 1.55rem rgb(40 25 14 / 15%),
+      0 0.15rem 0.25rem rgb(40 25 14 / 16%),
+      inset 0 1px rgb(255 255 255 / 82%);
+  }
+
+  .liber-object::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 0.35rem;
+    background: linear-gradient(180deg, rgb(111 85 56 / 7%), rgb(76 55 35 / 18%));
+  }
+
+  .liber-link,
+  .liber-empty {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100%;
+    min-height: inherit;
+    padding: clamp(1.1rem, 1.55vw, 1.5rem);
+    color: #34271d;
+    text-decoration: none;
+  }
+
+  .liber-link:focus-visible { outline-offset: -0.45rem; }
+
+  .liber-category {
+    color: #7d3e2d;
+    font-family: var(--font-sans);
+    font-size: 0.59rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  h3,
+  .vacant-title {
+    align-self: center;
+    max-width: 10ch;
+    margin: 1.15rem 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 1rem + 0.7vw, 1.95rem);
+    font-weight: 400;
+    line-height: 1.04;
+    letter-spacing: -0.018em;
+  }
+
+  time {
+    color: #615246;
+    font-family: var(--font-sans);
+    font-size: 0.61rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .liber-arrow {
+    position: absolute;
+    right: 1.2rem;
+    bottom: 1.05rem;
+    color: #7d3e2d;
+    font-size: 1rem;
+    transition: transform 180ms ease;
+  }
+
+  .liber-link:hover .liber-arrow,
+  .liber-link:focus-visible .liber-arrow { transform: translateX(0.18rem); }
+
+  .bronze-stand {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    bottom: 0.25rem;
+    width: 58%;
+    height: 1.15rem;
+    transform: translateX(-50%);
+    border: 1px solid rgb(72 45 24 / 58%);
+    border-radius: 0.32rem 0.32rem 0.14rem 0.14rem;
+    background: linear-gradient(180deg, #b18b58 0%, #765333 38%, #40291a 100%);
+    box-shadow: 0 0.45rem 0.55rem rgb(35 20 10 / 25%), inset 0 1px rgb(255 231 183 / 45%);
+  }
+
+  .bronze-stand span {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    width: 72%;
+    height: 0.7rem;
+    transform: translateX(-50%);
+    border-inline: 0.18rem solid #68462b;
+    border-top: 0.16rem solid #8b6640;
+    border-radius: 0.2rem 0.2rem 0 0;
+  }
+
+  .liber--vacant { opacity: 0.42; }
+  .vacant-title { color: #74685c; font-style: italic; }
+  .vacant-rule { width: 2.4rem; height: 1px; background: rgb(111 83 49 / 42%); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .liber-arrow { transition: none; }
+  }
+</style>

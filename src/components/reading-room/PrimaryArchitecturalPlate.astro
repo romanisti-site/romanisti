@@ -1,0 +1,65 @@
+---
+import plate from '../../assets/reading-room/canonical/reading-room-layer-1-blank-libri.webp';
+---
+
+<div class="architectural-plate" aria-hidden="true">
+  <img
+    class="architectural-plate__image"
+    src={plate.src}
+    alt=""
+    width={plate.width}
+    height={plate.height}
+    loading="eager"
+    decoding="async"
+    fetchpriority="high"
+  />
+  <div class="architectural-plate__arrival"></div>
+  <div class="architectural-plate__depth"></div>
+</div>
+
+<style>
+  .architectural-plate {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background: #6f604d;
+  }
+
+  .architectural-plate__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: 50% 50%;
+  }
+
+  .architectural-plate__arrival {
+    position: absolute;
+    inset: 0 0 auto;
+    height: clamp(7.5rem, 14vh, 11rem);
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgb(9 7 5 / 94%) 0%,
+      rgb(17 13 9 / 82%) 18%,
+      rgb(42 31 20 / 47%) 48%,
+      rgb(84 63 40 / 16%) 76%,
+      transparent 100%
+    );
+  }
+
+  .architectural-plate__depth {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow:
+      inset 0 0 6rem rgb(18 12 8 / 11%),
+      inset 0 -4rem 6rem rgb(18 12 8 / 6%);
+  }
+
+  @media (max-width: 52rem) {
+    .architectural-plate__arrival { height: 6.75rem; }
+  }
+</style>

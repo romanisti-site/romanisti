@@ -1,0 +1,222 @@
+---
+import { institutionalRoutes as routes } from '@/config/institutionalRoutes';
+
+const collections = [
+  {
+    label: 'Foundation',
+    href: routes.foundation,
+    className: 'foundation',
+  },
+  {
+    label: 'Works',
+    href: routes.works,
+    className: 'works',
+  },
+  {
+    label: 'Archive',
+    href: routes.archiveRoom,
+    className: 'archive',
+  },
+  {
+    label: 'Governance',
+    href: routes.governance,
+    className: 'governance',
+  },
+];
+---
+
+<section id="bibliotheca" class="bibliotheca" aria-labelledby="bibliotheca-title">
+  <h2 id="bibliotheca-title" class="visually-hidden">The Bibliotheca</h2>
+
+  <img
+    class="architectural-plate"
+    src="/images/bibliotheca/canonical/bibliotheca-cloister-architectural-plate-v1.webp"
+    alt="The open-air Bibliotheca cloister with entrances to Foundation, Works, Archive, and Governance arranged around a central olive court."
+    width="1536"
+    height="1024"
+    loading="lazy"
+    decoding="async"
+  />
+
+  <div class="material-transition" aria-hidden="true"></div>
+
+  <nav class="collection-navigation" aria-label="Bibliotheca collections">
+    {collections.map((collection) => (
+      <a
+        class={`collection-door ${collection.className}`}
+        href={collection.href}
+        aria-label={`Enter ${collection.label}`}
+      >
+        <span>{collection.label}</span>
+      </a>
+    ))}
+  </nav>
+</section>
+
+<style>
+  .bibliotheca {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    /* Preserve the complete 3:2 architectural plate on wide desktop screens,
+       while never allowing the room to feel smaller than one viewport. */
+    min-height: max(100svh, 55vw);
+    overflow: hidden;
+    background: #bba37e;
+  }
+
+  .architectural-plate {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: 50% 50%;
+  }
+
+  .material-transition {
+    position: absolute;
+    z-index: 1;
+    inset: 0 0 auto;
+    /* Longer material dissolve so the Reading Room gives way to stone
+       without a visible hard section boundary. */
+    height: clamp(10rem, 22vh, 16rem);
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgb(243 237 226 / 88%) 0%,
+      rgb(243 237 226 / 80%) 14%,
+      rgb(241 232 216 / 60%) 34%,
+      rgb(236 221 198 / 32%) 58%,
+      rgb(229 207 174 / 10%) 80%,
+      transparent 100%
+    );
+  }
+
+  .collection-navigation {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+  }
+
+  .collection-door {
+    position: absolute;
+    display: grid;
+    place-items: end center;
+    border-radius: 0.2rem;
+    color: transparent;
+    text-decoration: none;
+    transition:
+      background-color 180ms ease,
+      box-shadow 180ms ease,
+      transform 180ms ease;
+  }
+
+  .collection-door::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid transparent;
+    border-radius: inherit;
+    transition: border-color 180ms ease;
+  }
+
+  .collection-door span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .collection-door:hover,
+  .collection-door:focus-visible {
+    background: linear-gradient(180deg, transparent 42%, rgb(190 143 65 / 18%) 100%);
+    box-shadow:
+      inset 0 0 2.5rem rgb(217 169 86 / 18%),
+      0 0 1.8rem rgb(202 151 68 / 12%);
+    transform: translateY(-1px);
+  }
+
+  .collection-door:hover::after,
+  .collection-door:focus-visible::after {
+    border-color: rgb(223 181 104 / 50%);
+  }
+
+  .collection-door:focus-visible {
+    outline: 2px solid #d7ad67;
+    outline-offset: 4px;
+  }
+
+  /* Hotspots map to the four architectural door openings in the locked plate. */
+  .foundation {
+    left: 8.1%;
+    top: 33.5%;
+    width: 12.2%;
+    height: 38%;
+  }
+
+  .works {
+    left: 33.1%;
+    top: 38.2%;
+    width: 13.2%;
+    height: 34%;
+  }
+
+  .archive {
+    left: 53.3%;
+    top: 38.2%;
+    width: 13.2%;
+    height: 34%;
+  }
+
+  .governance {
+    left: 82.2%;
+    top: 33.5%;
+    width: 11.6%;
+    height: 38%;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 64rem) {
+    .architectural-plate {
+      object-position: 50% 50%;
+    }
+
+    .foundation {
+      left: 5.5%;
+      width: 15.5%;
+    }
+
+    .works {
+      left: 31.3%;
+      width: 15.2%;
+    }
+
+    .archive {
+      left: 53.1%;
+      width: 15.2%;
+    }
+
+    .governance {
+      left: 80.3%;
+      width: 14.5%;
+    }
+  }
+
+  @media (max-width: 52rem) {
+    .bibliotheca {
+      min-height: max(39rem, 100svh);

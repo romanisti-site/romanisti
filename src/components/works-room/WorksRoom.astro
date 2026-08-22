@@ -1,0 +1,47 @@
+---
+import WorksRoomArchitecturalPlate from './WorksRoomArchitecturalPlate.astro';
+import WorksRoomOverlay from './WorksRoomOverlay.astro';
+---
+
+<section class="works-room" aria-label="The Works Room">
+  <div class="works-room__scene">
+    <div class="works-room__canvas">
+      <WorksRoomArchitecturalPlate />
+      <WorksRoomOverlay />
+    </div>
+  </div>
+</section>
+
+<style>
+  .works-room {
+    position: relative;
+    width: 100vw;
+    height: 100svh;
+    overflow: hidden;
+    isolation: isolate;
+    background: #17120d;
+  }
+
+  .works-room__scene {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    isolation: isolate;
+    background: #332519;
+  }
+
+  /*
+   * The locked plate is 1536 × 960 (8:5).
+   * The image and overlay now share one cover-sized coordinate canvas.
+   * This prevents hotspots from drifting when the viewport crops the plate.
+   */
+  .works-room__canvas {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: max(100vw, 160svh);
+    aspect-ratio: 8 / 5;
+    transform: translate(-50%, -50%);
+    isolation: isolate;
+  }
+</style>

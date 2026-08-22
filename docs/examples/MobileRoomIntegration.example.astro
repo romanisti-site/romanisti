@@ -1,0 +1,20 @@
+---
+/*
+ * REFERENCE ONLY — intentionally outside src/components so it cannot alter
+ * production output. Replace placeholders during an individual room migration.
+ */
+import InstitutionComposition from '@/components/responsive/InstitutionComposition.astro';
+---
+
+<InstitutionComposition label="Example architectural room">
+  <div slot="desktop">
+    <!-- Existing locked desktop plate + desktop overlay -->
+  </div>
+
+  <div slot="mobile" class="institution-mobile-scene">
+    <div class="institution-mobile-canvas">
+      <!-- Dedicated portrait plate -->
+      <!-- Dedicated portrait hotspot map -->
+    </div>
+  </div>
+</InstitutionComposition>

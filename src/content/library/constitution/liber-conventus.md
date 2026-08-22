@@ -13,4 +13,3 @@ People create meaning.
 
 Places preserve it.
 
-Status: Pending constitutional evaluation.

@@ -1,0 +1,15 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  number: string;
+  title: string;
+}
+const { src, alt, number, title } = Astro.props;
+---
+<figure class="codex-plate-interlude">
+  <div class="codex-plate-frame">
+    <img src={src} alt={alt} loading="lazy" />
+  </div>
+  <figcaption>Plate {number} · {title}</figcaption>
+</figure>

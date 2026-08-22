@@ -1,0 +1,31 @@
+---
+import ArchitecturalLayout from '@/layouts/ArchitecturalLayout.astro';
+import WorksRoom from '@/components/works-room/WorksRoom.astro';
+---
+
+<ArchitecturalLayout
+  title="The Works Room | Romanisti"
+  description="The Romanisti Works Room: observation pieces in active consideration, supported by the institution's permanent works."
+>
+  <WorksRoom />
+</ArchitecturalLayout>
+
+<style is:global>
+  html,
+  body.architectural-page {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #17120d;
+  }
+
+  body.architectural-page > main {
+    width: 100%;
+    height: 100svh;
+    overflow: hidden;
+  }
+
+  body.architectural-page .site-footer {
+    display: none;
+  }
+</style>

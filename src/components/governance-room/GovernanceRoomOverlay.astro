@@ -1,0 +1,180 @@
+---
+import { institutionalRoutes as routes } from '@/config/institutionalRoutes';
+
+type Region = {
+  left: string;
+  top: string;
+  width: string;
+  height: string;
+  radius?: string;
+};
+
+type GovernanceItem = {
+  label: string;
+  href: string;
+  description: string;
+  region: Region;
+};
+
+/*
+ * RC1.7 performs the final micro-calibration of the five carved governance panels in the locked 1672 × 941 plate.
+ * Each region remains percentage-based so the halos stay aligned with the
+ * cover-sized architectural canvas at every viewport ratio.
+ */
+const governanceItems: GovernanceItem[] = [
+  {
+    label: 'Charter',
+    href: routes.projectAurea,
+    description: 'Project Aurea — Charter, North Star, mission, purpose, and stewardship.',
+    region: { left: '22.60%', top: '19.45%', width: '9.45%', height: '35.40%', radius: '0.22rem' },
+  },
+  {
+    label: 'Constitution',
+    href: routes.liberConstitutionis,
+    description: 'Liber Constitutionis — the institutional framework.',
+    region: { left: '33.58%', top: '19.45%', width: '10.17%', height: '35.40%', radius: '0.22rem' },
+  },
+  {
+    label: 'Immutable Stones',
+    href: routes.liberLapidum,
+    description: 'Liber Lapidum — the Immutable Stones and enduring truths.',
+    region: { left: '44.70%', top: '19.45%', width: '10.59%', height: '35.40%', radius: '0.22rem' },
+  },
+  {
+    label: 'Editorial Standards',
+    href: routes.editorialStandards,
+    description: 'The standards governing observation, analysis, correction, and stewardship.',
+    region: { left: '55.97%', top: '19.45%', width: '9.99%', height: '35.40%', radius: '0.22rem' },
+  },
+  {
+    label: 'Decision Log',
+    href: routes.liberConventus,
+    description: 'Liber Conventus — conventions, amendments, edition history, and stewardship notes.',
+    region: { left: '67.52%', top: '19.45%', width: '9.69%', height: '35.40%', radius: '0.22rem' },
+  },
+];
+
+const regionStyle = (region: Region) => [
+  `--left:${region.left}`,
+  `--top:${region.top}`,
+  `--width:${region.width}`,
+  `--height:${region.height}`,
+  `--radius:${region.radius ?? '0.22rem'}`,
+].join(';');
+---
+
+<div class="governance-room-overlay">
+  <nav class="governance-object-nav" aria-label="Governance Room documents">
+    {governanceItems.map((item) => (
+      <a
+        class="governance-object"
+        style={regionStyle(item.region)}
+        href={item.href}
+        aria-label={`Open ${item.label}`}
+        title={item.description}
+      >
+        <span class="governance-object__label">{item.label}</span>
+      </a>
+    ))}
+  </nav>
+</div>
+
+<style>
+  .governance-room-overlay,
+  .governance-object-nav {
+    position: absolute;
+    inset: 0;
+  }
+
+  .governance-room-overlay {
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .governance-object-nav {
+    pointer-events: none;
+  }
+
+  .governance-object {
+    --halo: rgb(183 137 71 / 24%);
+    --halo-strong: rgb(214 168 94 / 88%);
+    position: absolute;
+    left: var(--left);
+    top: var(--top);
+    width: var(--width);
+    height: var(--height);
+    display: block;
+    pointer-events: auto;
+    border: 1.35px solid var(--halo);
+    border-radius: var(--radius);
+    background: rgb(255 244 220 / 1.5%);
+    box-shadow:
+      inset 0 0 1.1rem rgb(255 231 184 / 1.8%),
+      0 0 0 1px rgb(71 46 21 / 8%);
+    color: rgb(249 238 217 / 98%);
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      border-color 170ms ease,
+      background-color 170ms ease,
+      box-shadow 170ms ease,
+      filter 170ms ease;
+  }
+
+  .governance-object:hover,
+  .governance-object:focus-visible {
+    border-color: var(--halo-strong);
+    background: rgb(255 235 196 / 7%);
+    box-shadow:
+      inset 0 0 1.55rem rgb(255 228 175 / 8%),
+      0 0 0 1px rgb(73 47 21 / 25%),
+      0 0 1.25rem rgb(203 151 79 / 18%);
+    filter: brightness(1.025);
+  }
+
+  .governance-object:focus-visible {
+    outline: 2px solid rgb(224 184 115 / 92%);
+    outline-offset: 4px;
+  }
+
+  .governance-object__label {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 56%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    max-width: 12rem;
+    min-height: 1.55rem;
+    padding: 0.25rem 0.52rem 0.27rem;
+    color: rgb(249 238 217 / 98%);
+    background: rgb(30 20 12 / 89%);
+    border: 1px solid rgb(197 151 82 / 68%);
+    border-radius: 0.13rem;
+    box-shadow: 0 0.25rem 0.8rem rgb(10 6 3 / 28%);
+    font-family: var(--font-sans, system-ui, sans-serif);
+    font-size: clamp(0.54rem, 0.46rem + 0.14vw, 0.68rem);
+    font-weight: 700;
+    letter-spacing: 0.085em;
+    line-height: 1.08;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 52rem) {
+    .governance-object__label {
+      min-height: 1.4rem;
+      padding: 0.22rem 0.42rem 0.24rem;
+      font-size: clamp(0.5rem, 1.35vw, 0.62rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .governance-object {
+      transition: none;
+    }
+  }
+</style>

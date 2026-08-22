@@ -1,0 +1,112 @@
+---
+const collections = [
+  { label: 'Foundation', href: '/library/foundation/' },
+  { label: 'Works', href: '/works/' },
+  { label: 'Archive', href: '/archive/' },
+  { label: 'Governance', href: '/governance/' },
+];
+import mobileBibliothecaPlate from '../../assets/bibliotheca/mobile/bibliotheca-mobile-plate-v1.webp';
+---
+
+<section class="mobile-room mobile-bibliotheca" aria-label="Bibliotheca">
+  <img
+    class="mobile-room__plate mobile-bibliotheca__plate"
+    src="/images/bibliotheca/mobile/bibliotheca-mobile-plate-v1.webp"
+    alt="The Bibliotheca courtyard, with Foundation and Governance below and Works and Archive above."
+    width="1024"
+    height="1536"
+    loading="lazy"
+    decoding="async"
+  />
+
+  <nav class="mobile-bibliotheca__architectural-nav" aria-label="Bibliotheca rooms">
+    <a class="room-hit room-hit--works" href="/works/" aria-label="Enter Works Room"><span>Works</span></a>
+    <a class="room-hit room-hit--archive" href="/archive/" aria-label="Enter Archive Room"><span>Archive</span></a>
+    <a class="room-hit room-hit--foundation" href="/library/foundation/" aria-label="Enter Foundation Room"><span>Foundation</span></a>
+    <a class="room-hit room-hit--governance" href="/governance/" aria-label="Enter Governance Room"><span>Governance</span></a>
+  </nav>
+</section>
+
+<style>
+  @media (max-width: 52rem) {
+    .mobile-bibliotheca {
+      background: #bba37e;
+    }
+
+    .mobile-bibliotheca__plate {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+      object-position: 50% 50%;
+    }
+
+    .mobile-bibliotheca__architectural-nav {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .room-hit {
+      position: absolute;
+      display: block;
+      pointer-events: auto;
+      background: transparent;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .room-hit span {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Invisible touch layers aligned to the four engraved rooms. */
+    .room-hit--works {
+      left: 8%;
+      top: 16%;
+      width: 40%;
+      height: 33%;
+    }
+
+    .room-hit--archive {
+      left: 52%;
+      top: 16%;
+      width: 40%;
+      height: 33%;
+    }
+
+    .room-hit--foundation {
+      left: 8%;
+      top: 49%;
+      width: 40%;
+      height: 31%;
+    }
+
+    .room-hit--governance {
+      left: 52%;
+      top: 49%;
+      width: 40%;
+      height: 31%;
+    }
+
+    .room-hit:focus-visible {
+      outline: 1px solid rgb(239 224 205 / 50%);
+      outline-offset: -0.35rem;
+    }
+
+    .room-hit:active {
+      background: rgb(255 248 232 / 4%);
+    }
+  }
+</style>

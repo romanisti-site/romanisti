@@ -1,0 +1,47 @@
+---
+import GovernanceRoomArchitecturalPlate from './GovernanceRoomArchitecturalPlate.astro';
+import GovernanceRoomOverlay from './GovernanceRoomOverlay.astro';
+---
+
+<section class="governance-room" aria-label="The Governance Room">
+  <div class="governance-room__scene">
+    <div class="governance-room__canvas">
+      <GovernanceRoomArchitecturalPlate />
+      <GovernanceRoomOverlay />
+    </div>
+  </div>
+</section>
+
+<style>
+  .governance-room {
+    position: relative;
+    width: 100vw;
+    height: 100svh;
+    overflow: hidden;
+    isolation: isolate;
+    background: #17120d;
+  }
+
+  .governance-room__scene {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    isolation: isolate;
+    background: #21170f;
+  }
+
+  /*
+   * The locked Governance Room plate is 1672 × 941.
+   * Image and overlay share one cover-sized coordinate canvas so document
+   * hotspots remain registered to the carved wall panels at every viewport.
+   */
+  .governance-room__canvas {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: max(100vw, 177.683svh);
+    aspect-ratio: 1672 / 941;
+    transform: translate(-50%, -50%);
+    isolation: isolate;
+  }
+</style>

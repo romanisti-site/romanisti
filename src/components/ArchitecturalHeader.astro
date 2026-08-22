@@ -1,0 +1,160 @@
+---
+import { primaryNavigation } from '@/config/navigation';
+import { site } from '@/config/site';
+
+const currentPath = Astro.url.pathname;
+const isItalian = currentPath === '/it' || currentPath.startsWith('/it/');
+const isActive = (href: string) =>
+  href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+---
+
+<header class="architectural-header" data-architectural-header>
+  <div class="container architectural-header__inner">
+    <a class="architectural-header__identity" href="/" aria-label={`${site.name} home`}>
+      <span>{site.name}</span>
+    </a>
+
+    <nav aria-label="Primary navigation">
+      <ul>
+        {primaryNavigation.map((item) => (
+          <li>
+            <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+        <li class="language-utility" aria-label="Language selection">
+          <a class:list={{ active: !isItalian }} href="/" lang="en" aria-current={!isItalian ? 'page' : undefined}>EN</a>
+          <span aria-hidden="true">|</span>
+          <a class:list={{ active: isItalian }} href="/it/" lang="it" aria-current={isItalian ? 'page' : undefined}>IT</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .architectural-header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    width: 100%;
+    color: #241b16;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    pointer-events: none;
+  }
+
+  .architectural-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: 4.75rem;
+  }
+
+  .architectural-header__identity,
+  nav {
+    pointer-events: auto;
+  }
+
+  .architectural-header__identity {
+    color: inherit;
+    font-family: var(--font-display);
+    text-decoration: none;
+  }
+
+  .architectural-header__identity span {
+    color: #241b16;
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: 0.035em;
+    text-shadow:
+      0 1px 0 rgb(255 252 245 / 76%),
+      0 0 0.4rem rgb(255 252 245 / 46%);
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1.1rem, 2.15vw, 1.9rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  nav a {
+    color: rgb(36 27 22 / 96%);
+    font-family: var(--font-sans);
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-shadow:
+      0 1px 0 rgb(255 252 245 / 78%),
+      0 0 0.34rem rgb(255 252 245 / 52%),
+      0 1px 1px rgb(255 252 245 / 38%);
+    transition: color 180ms ease;
+  }
+
+  nav a:hover,
+  nav a:focus-visible,
+  nav a[aria-current='page'] {
+    color: #17100d;
+  }
+
+  nav a[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-color: rgb(143 102 55 / 48%);
+    text-underline-offset: 0.38em;
+  }
+
+  .language-utility {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.38rem;
+    margin-left: clamp(0.75rem, 1.4vw, 1.35rem);
+    white-space: nowrap;
+  }
+
+  .language-utility span {
+    color: rgb(36 27 22 / 56%);
+    font-family: var(--font-sans);
+    font-size: 0.66rem;
+    text-shadow:
+      0 1px 0 rgb(255 252 245 / 72%),
+      0 0 0.3rem rgb(255 252 245 / 44%);
+  }
+
+  .language-utility a {
+    color: rgb(36 27 22 / 88%);
+  }
+
+  .language-utility a.active,
+  .language-utility a:hover,
+  .language-utility a:focus-visible {
+    color: #8d672f;
+  }
+
+  @media (max-width: 42rem) {
+    .architectural-header__inner {
+      min-height: 4.5rem;
+    }
+
+    .architectural-header__identity {
+      font-size: 1rem;
+    }
+
+    nav {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    nav a {
+      transition: none;
+    }
+  }
+</style>

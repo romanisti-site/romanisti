@@ -1,0 +1,24 @@
+---
+const books = [
+  { number: 'I', title: 'The Eternal City', href: '#book-1' },
+  { number: 'II', title: 'The Romanisti', href: '#book-2' },
+  { number: 'III', title: 'The Publication', href: '#book-3' },
+  { number: 'IV', title: 'Rome and AS Roma', href: '#book-4' },
+  { number: 'V', title: 'Among Romans', href: '#book-5' },
+];
+---
+<section class="codex-books-nav" aria-labelledby="codex-books-title">
+  <div class="codex-books-nav__inner">
+    <p class="constitutional-kicker">Codex I</p>
+    <h2 id="codex-books-title">Five Books</h2>
+    <nav aria-label="Codex I books">
+      {books.map((book) => (
+        <a href={book.href} class="codex-book-link">
+          <span class="codex-book-link__number">{book.number}</span>
+          <strong>{book.title}</strong>
+          <span class="codex-book-link__arrow" aria-hidden="true">↓</span>
+        </a>
+      ))}
+    </nav>
+  </div>
+</section>

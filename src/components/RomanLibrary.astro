@@ -1,0 +1,144 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import LibrarianTable from './LibrarianTable.astro';
+
+interface Props {
+  entries: CollectionEntry<'observations'>[];
+}
+
+const { entries } = Astro.props;
+---
+<section class="roman-library" aria-labelledby="observations-heading" data-library-interior>
+  <div class="material-threshold" aria-hidden="true"></div>
+  <div class="window-light" aria-hidden="true"></div>
+  <div class="masonry" aria-hidden="true"></div>
+
+  <div class="library-shell">
+    <div class="library-heading">
+      <h2 id="observations-heading"><span>Today’s</span><span>Observations</span></h2>
+      <span class="heading-rule" aria-hidden="true"></span>
+      <p class="library-introduction">What has been observed today.<br />Placed before you for reading.</p>
+    </div>
+
+    <p class="library-inscription" aria-hidden="true">Veritas observata<br />memoria servata</p>
+
+    <figure class="caesar-resident">
+      <div class="caesar-alcove" aria-hidden="true"></div>
+      <img src="/images/caesar-bust-extracted.png" alt="Marble bust of Julius Caesar" width="912" height="1200" loading="eager" decoding="async" />
+    </figure>
+
+    <LibrarianTable entries={entries} />
+
+    <a class="all-observations" href="/observations/">View all observations <span aria-hidden="true">→</span></a>
+  </div>
+</section>
+
+<style>
+  .roman-library {
+    position: relative;
+    isolation: isolate;
+    min-height: 108svh;
+    overflow: hidden;
+    margin-top: -1px;
+    padding: clamp(10rem, 17vh, 14rem) 0 clamp(6.5rem, 11vh, 9rem);
+    color: #2f241b;
+    background:
+      linear-gradient(90deg, rgb(57 42 29 / 20%), transparent 12%, transparent 84%, rgb(52 38 25 / 23%)),
+      linear-gradient(180deg, #c4af8f 0%, #d8c8ad 13%, #ded2bd 41%, #d7c9b2 100%);
+  }
+
+  .material-threshold {
+    position: absolute;
+    z-index: -2;
+    inset: 0 0 auto;
+    height: clamp(12rem, 22vh, 19rem);
+    background: linear-gradient(180deg, #080604 0%, #21150d 13%, #5d412b 35%, #9d7b59 59%, transparent 100%);
+  }
+
+  .window-light,
+  .masonry { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+
+  .window-light {
+    background:
+      linear-gradient(105deg, rgb(255 251 235 / 58%) 0 4%, transparent 18%),
+      radial-gradient(ellipse at 18% 36%, rgb(255 250 231 / 78%) 0%, rgb(255 250 231 / 31%) 27%, transparent 56%),
+      linear-gradient(90deg, transparent 68%, rgb(44 31 20 / 16%) 100%);
+  }
+
+  .masonry {
+    opacity: 0.52;
+    background:
+      linear-gradient(90deg, transparent 0 18%, rgb(78 60 43 / 21%) 18.05% 18.12%, transparent 18.18% 43%, rgb(78 60 43 / 17%) 43.05% 43.12%, transparent 43.18% 69%, rgb(78 60 43 / 20%) 69.05% 69.12%, transparent 69.18% 88%, rgb(78 60 43 / 18%) 88.05% 88.12%, transparent 88.18%),
+      repeating-linear-gradient(180deg, transparent 0 15.8rem, rgb(75 57 40 / 20%) 15.84rem 15.91rem, transparent 15.98rem 31.7rem);
+  }
+
+  .library-shell { position: relative; width: min(calc(100% - 2rem), 96rem); margin-inline: auto; }
+
+  .library-heading { position: relative; z-index: 5; width: min(52rem, 58%); margin-left: clamp(0rem, 7vw, 7rem); }
+
+  h2 { margin: 0; font-family: var(--font-display); font-size: clamp(4.3rem, 7.25vw, 7.4rem); font-weight: 400; line-height: 0.86; letter-spacing: -0.035em; }
+  h2 span { display: block; }
+
+  .heading-rule { display: block; width: 4.4rem; height: 1px; margin: clamp(2rem, 3vw, 2.8rem) 0 1.55rem; background: #8b3b2d; }
+  .library-introduction { margin: 0; font-size: clamp(1.12rem, 1rem + 0.35vw, 1.38rem); line-height: 1.55; }
+
+  .library-inscription {
+    position: absolute;
+    z-index: 2;
+    top: clamp(16rem, 25vw, 23rem);
+    left: 47%;
+    margin: 0;
+    color: rgb(84 62 43 / 62%);
+    font-family: var(--font-display);
+    font-size: clamp(0.95rem, 1.35vw, 1.25rem);
+    letter-spacing: 0.09em;
+    line-height: 1.25;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .library-inscription::after { content: ''; display: block; width: 5rem; height: 1px; margin: 1rem auto 0; background: rgb(84 62 43 / 38%); }
+
+  .caesar-resident { position: absolute; z-index: 3; top: clamp(-4.5rem, -5vw, -2rem); right: clamp(-0.5rem, 1vw, 1.5rem); width: clamp(17rem, 25vw, 24rem); height: clamp(33rem, 46vw, 45rem); margin: 0; }
+
+  .caesar-resident img {
+    position: absolute;
+    z-index: 2;
+    inset: auto 50% 0 auto;
+    width: auto;
+    height: 88%;
+    max-width: 100%;
+    object-fit: contain;
+    transform: translateX(50%);
+    filter: drop-shadow(0 1.45rem 1.25rem rgb(45 28 17 / 26%));
+  }
+
+  .caesar-alcove {
+    position: absolute;
+    z-index: 1;
+    inset: 0 -12% -2%;
+    border: 1px solid rgb(88 64 42 / 24%);
+    border-radius: 48% 48% 4% 4% / 18% 18% 3% 3%;
+    background:
+      radial-gradient(ellipse at 48% 24%, rgb(255 248 224 / 52%), transparent 58%),
+      linear-gradient(90deg, rgb(65 46 30 / 17%), transparent 18% 82%, rgb(61 43 28 / 22%));
+    box-shadow: inset 0 1.8rem 4rem rgb(48 31 18 / 14%);
+  }
+
+  .all-observations { display: block; width: fit-content; margin: clamp(2.4rem, 5vh, 4rem) auto 0; color: #5c3d28; font-family: var(--font-sans); font-size: 0.67rem; letter-spacing: 0.18em; text-decoration: none; text-transform: uppercase; }
+  .all-observations span { margin-left: 0.6rem; }
+  .all-observations:hover, .all-observations:focus-visible { text-decoration: underline; }
+
+  @media (max-width: 72rem) {
+    .library-heading { width: 61%; margin-left: 1rem; }
+    .caesar-resident { right: -1rem; width: clamp(16rem, 27vw, 21rem); }
+    .library-inscription { display: none; }
+  }
+
+  @media (max-width: 48rem) {
+    .roman-library { padding-top: 9.5rem; }
+    .library-shell { width: 100%; }
+    .library-heading { width: calc(100% - 2rem); margin-inline: 1rem; }
+    .caesar-resident { position: relative; top: auto; right: auto; width: min(66vw, 20rem); height: min(86vw, 28rem); margin: 2.5rem 1rem -2rem auto; }
+  }
+</style>

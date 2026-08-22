@@ -1,15 +1,7 @@
 import { defineConfig } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://romanisti.org',
   output: 'static',
-  trailingSlash: 'always',
-  compressHTML: true,
-  integrations: [sitemap()],
-  markdown: {
-    shikiConfig: {
-      wrap: true,
-    },
-  },
+  build: { format: 'directory' }
 });

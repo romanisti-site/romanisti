@@ -1,0 +1,73 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ConstitutionalHero from '@/components/constitutional/ConstitutionalHero.astro';
+import ConstitutionalManuscript from '@/components/constitutional/ConstitutionalManuscript.astro';
+import ConstitutionalVolumeNavigator from '@/components/constitutional/ConstitutionalVolumeNavigator.astro';
+import ConstitutionalQuietTransition from '@/components/constitutional/ConstitutionalQuietTransition.astro';
+import ConstitutionalExit from '@/components/constitutional/ConstitutionalExit.astro';
+import '@/styles/constitutional-library.css';
+
+const entry = await getEntry('library', 'constitution/liber-conventus');
+
+if (!entry) {
+  throw new Error('Liber Conventus content entry was not found.');
+}
+
+const { Content } = await render(entry);
+
+const volumes = [
+  {
+    numeral: 'I',
+    title: 'Liber Constitutionis',
+    description: 'The governing constitution.',
+    href: '/library/liber-constitutionis/',
+  },
+  {
+    numeral: 'II',
+    title: 'Liber Lapidum',
+    description: 'The Immutable Stones.',
+    href: '/library/liber-lapidum/',
+  },
+  {
+    numeral: 'III',
+    title: 'Liber Conventus',
+    description: 'The institutional record.',
+    href: '/library/liber-conventus/',
+  },
+  {
+    numeral: 'IV',
+    title: 'Codex I — De Aeternitate',
+    description: 'The philosophical foundation.',
+    href: '/library/codex/codex-i-de-aeternitate/',
+  },
+];
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.description} type="article">
+  <article class="constitutional-work">
+    <ConstitutionalHero
+      libraryMark="Romanisti · Constitutional Library"
+      edition="Edition One"
+      workClass="Constitutional Document"
+      title={entry.data.title}
+      subtitle="The Book of Record"
+      quotation="The institutional memory of Romanisti."
+      enterLabel="Enter the Work"
+      enterHref="#manuscript"
+    />
+
+    <ConstitutionalManuscript id="manuscript">
+      <Content />
+    </ConstitutionalManuscript>
+
+    <ConstitutionalQuietTransition text="Stewardship, not ownership." />
+
+    <ConstitutionalVolumeNavigator volumes={volumes} />
+
+    <ConstitutionalExit
+      nextHref="/library/codex/codex-i-de-aeternitate/"
+      nextLabel="Enter Codex I — De Aeternitate"
+    />
+  </article>
+</BaseLayout>

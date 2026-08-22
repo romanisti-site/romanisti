@@ -1,0 +1,588 @@
+---
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('observations');
+const toSlug = (id: string) => id.replace(/\.(md|mdx)$/i, '').replace(/^\/+|\/+$/g, '');
+const titleCase = (value: string) => value
+  .split(/[-_\s]+/)
+  .filter(Boolean)
+  .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+  .join(' ');
+
+const observations = entries
+  .filter((entry) => entry.data.status === 'published')
+  .map((entry) => ({
+    title: entry.data.title,
+    category: entry.data.topics[0] ? titleCase(entry.data.topics[0]) : 'Observation',
+    href: `/observations/${toSlug(entry.id)}`,
+    published: entry.data.publishedAt,
+  }))
+  .sort((a, b) => b.published.getTime() - a.published.getTime())
+  .slice(0, 10);
+
+type Region = {
+  left: string;
+  top: string;
+  width: string;
+  height: string;
+  rotate?: string;
+  radius?: string;
+};
+
+type NavigationItem = {
+  label: string;
+  href: string;
+  region: Region;
+};
+
+/*
+ * RC14.3 uses five permanent, overt navigation objects. Coordinates remain
+ * percentages of the locked 1586 × 992 plate and therefore stay aligned with
+ * the cover-sized Works Room canvas at every viewport ratio.
+ */
+const observationRegion: Region = {
+  left: '36.2%',
+  top: '72.0%',
+  width: '27.8%',
+  height: '13.8%',
+  rotate: '0deg',
+  radius: '0.55rem',
+};
+
+const navigationItems: NavigationItem[] = [
+  {
+    label: 'Observation Archive',
+    href: '/observations/archive/',
+    region: { left: '88.3%', top: '49.0%', width: '10.4%', height: '11.2%', rotate: '0deg', radius: '0.28rem' },
+  },
+  {
+    label: 'Special Editions',
+    href: '/special-editions/',
+    region: { left: '8.05%', top: '48.2%', width: '8.55%', height: '10.8%', rotate: '0deg', radius: '0.28rem' },
+  },
+  {
+    label: 'Future Projects',
+    href: '/research/',
+    region: { left: '24.0%', top: '72.1%', width: '7.4%', height: '6.2%', rotate: '-2.5deg', radius: '0.24rem' },
+  },
+];
+
+const regionStyle = (region: Region) => [
+  `--left:${region.left}`,
+  `--top:${region.top}`,
+  `--width:${region.width}`,
+  `--height:${region.height}`,
+  `--rotate:${region.rotate ?? '0deg'}`,
+  `--radius:${region.radius ?? '0.35rem'}`,
+].join(';');
+---
+
+<div class="works-room-overlay" data-works-room-overlay>
+  <button
+    class="room-object room-object--observations"
+    type="button"
+    style={regionStyle(observationRegion)}
+    aria-expanded="false"
+    aria-controls="works-room-observation-panel"
+    data-observation-trigger
+  >
+    <span class="room-object__label">Observations</span>
+  </button>
+
+  <nav class="room-object-nav" aria-label="Works Room collections">
+    {navigationItems.map((item) => (
+      <a
+        class="room-object"
+        style={regionStyle(item.region)}
+        href={item.href}
+        aria-label={item.label}
+      >
+        <span class="room-object__label">{item.label}</span>
+      </a>
+    ))}
+  </nav>
+
+  <section
+    class="observation-panel"
+    id="works-room-observation-panel"
+    aria-labelledby="works-room-observation-heading"
+    aria-hidden="true"
+    data-observation-panel
+  >
+    <div class="observation-panel__header">
+      <div>
+        <p class="observation-panel__eyebrow">Editorial Notebook</p>
+        <h2 id="works-room-observation-heading">Observations</h2>
+      </div>
+      <button class="observation-panel__close" type="button" aria-label="Close observations" data-observation-close>
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+
+    {observations.length > 0 ? (
+      <ol class="observation-panel__list">
+        {observations.map((observation) => (
+          <li>
+            <a class="observation-card" href={observation.href}>
+              <span class="observation-card__category">{observation.category}</span>
+              <span class="observation-card__title">{observation.title}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    ) : (
+      <p class="observation-panel__empty">Published observations will appear here.</p>
+    )}
+
+    <nav class="observation-panel__mobile-links" aria-label="Works Room collections">
+      <a href="/special-editions/">Special Editions</a>
+      <a href="/research/">Future Projects</a>
+    </nav>
+
+    <footer class="observation-panel__footer">
+      <a href="/observations/archive/">Observation Archive <span aria-hidden="true">→</span></a>
+    </footer>
+  </section>
+</div>
+
+<script>
+  const overlays = document.querySelectorAll('[data-works-room-overlay]');
+
+  overlays.forEach((overlay) => {
+    const trigger = overlay.querySelector('[data-observation-trigger]');
+    const panel = overlay.querySelector('[data-observation-panel]');
+    const closeButton = overlay.querySelector('[data-observation-close]');
+
+    if (!(trigger instanceof HTMLButtonElement) || !(panel instanceof HTMLElement)) return;
+
+    let closeTimer;
+
+    const clearCloseTimer = () => {
+      if (closeTimer) window.clearTimeout(closeTimer);
+      closeTimer = undefined;
+    };
+
+    const openPanel = () => {
+      clearCloseTimer();
+      trigger.setAttribute('aria-expanded', 'true');
+      panel.setAttribute('aria-hidden', 'false');
+      panel.dataset.open = 'true';
+    };
+
+    const closePanel = ({ returnFocus = false } = {}) => {
+      clearCloseTimer();
+      trigger.setAttribute('aria-expanded', 'false');
+      panel.setAttribute('aria-hidden', 'true');
+      delete panel.dataset.open;
+      if (returnFocus) trigger.focus();
+    };
+
+    const scheduleClose = () => {
+      clearCloseTimer();
+      closeTimer = window.setTimeout(() => closePanel(), 240);
+    };
+
+    trigger.addEventListener('pointerenter', openPanel);
+    trigger.addEventListener('pointerleave', scheduleClose);
+    trigger.addEventListener('focus', openPanel);
+    trigger.addEventListener('click', () => {
+      if (trigger.getAttribute('aria-expanded') === 'true') closePanel();
+      else openPanel();
+    });
+
+    panel.addEventListener('pointerenter', clearCloseTimer);
+    panel.addEventListener('pointerleave', scheduleClose);
+    panel.addEventListener('focusin', openPanel);
+    panel.addEventListener('focusout', (event) => {
+      const next = event.relatedTarget;
+      if (!(next instanceof Node) || (!panel.contains(next) && next !== trigger)) scheduleClose();
+    });
+
+    closeButton?.addEventListener('click', () => closePanel({ returnFocus: true }));
+
+    document.addEventListener('pointerdown', (event) => {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (!panel.contains(target) && !trigger.contains(target)) closePanel();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && panel.dataset.open === 'true') {
+        closePanel({ returnFocus: true });
+      }
+    });
+  });
+</script>
+
+<style>
+  .works-room-overlay,
+  .room-object-nav {
+    position: absolute;
+    inset: 0;
+  }
+
+  .works-room-overlay {
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .room-object {
+    --halo: rgb(211 166 92 / 30%);
+    --halo-strong: rgb(231 190 119 / 96%);
+    position: absolute;
+    left: var(--left);
+    top: var(--top);
+    width: var(--width);
+    height: var(--height);
+    transform: rotate(var(--rotate));
+    pointer-events: auto;
+    display: block;
+    padding: 0;
+    color: rgb(249 238 217 / 98%);
+    border: 1.5px solid var(--halo);
+    border-radius: var(--radius);
+    background: rgb(29 20 12 / 3%);
+    box-shadow:
+      inset 0 0 1.15rem rgb(255 226 170 / 2%),
+      0 0 0 1px rgb(37 23 12 / 12%);
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      border-color 160ms ease,
+      background-color 160ms ease,
+      box-shadow 160ms ease;
+  }
+
+  button.room-object {
+    font: inherit;
+  }
+
+  .room-object:hover,
+  .room-object:focus-visible,
+  .room-object[aria-expanded='true'] {
+    border-color: var(--halo-strong);
+    background: rgb(255 231 183 / 10%);
+    box-shadow:
+      inset 0 0 1.75rem rgb(255 226 170 / 10%),
+      0 0 0 1px rgb(40 25 12 / 38%),
+      0 0 1.45rem rgb(218 164 87 / 28%);
+  }
+
+  .room-object:focus-visible {
+    outline: 2px solid rgb(244 211 153 / 96%);
+    outline-offset: 4px;
+  }
+
+  .room-object__label {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 58%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 1.65rem;
+    width: max-content;
+    max-width: 15rem;
+    padding: 0.28rem 0.58rem 0.3rem;
+    color: rgb(249 238 217 / 98%);
+    background: rgb(30 20 12 / 91%);
+    border: 1px solid rgb(207 163 92 / 72%);
+    border-radius: 0.14rem;
+    box-shadow: 0 0.3rem 0.9rem rgb(10 6 3 / 32%);
+    font-family: var(--font-sans, system-ui, sans-serif);
+    font-size: clamp(0.58rem, 0.49rem + 0.15vw, 0.72rem);
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    line-height: 1.1;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .room-object--observations {
+    --halo: rgb(224 178 101 / 44%);
+    --halo-strong: rgb(248 207 136 / 100%);
+    z-index: 3;
+    border-width: 2px;
+  }
+
+  .room-object--observations .room-object__label {
+    min-height: 1.9rem;
+    padding-inline: 0.78rem;
+    font-size: clamp(0.66rem, 0.56rem + 0.18vw, 0.84rem);
+  }
+
+  .observation-panel {
+    position: fixed;
+    z-index: 100;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, calc(-50% + 0.45rem));
+    width: min(52rem, calc(100vw - 2rem));
+    max-height: min(78svh, 48rem);
+    overflow: auto;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    color: rgb(245 235 216);
+    background:
+      linear-gradient(rgb(33 24 16 / 97%), rgb(22 16 11 / 98%)),
+      rgb(24 17 11);
+    border: 1px solid rgb(199 151 79 / 66%);
+    border-radius: 0.32rem;
+    box-shadow:
+      0 1.6rem 5rem rgb(7 4 2 / 62%),
+      inset 0 0 2.5rem rgb(255 224 170 / 3%);
+    transition:
+      opacity 170ms ease,
+      transform 170ms ease,
+      visibility 170ms ease;
+  }
+
+  .observation-panel[data-open='true'] {
+    pointer-events: auto;
+    visibility: visible;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+
+  .observation-panel__header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: clamp(1.15rem, 2vw, 1.7rem);
+    background: rgb(29 21 14 / 97%);
+    border-bottom: 1px solid rgb(199 151 79 / 32%);
+  }
+
+  .observation-panel__eyebrow {
+    margin: 0 0 0.3rem;
+    color: rgb(211 168 103 / 95%);
+    font-family: var(--font-sans, system-ui, sans-serif);
+    font-size: 0.67rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .observation-panel h2 {
+    margin: 0;
+    font-family: var(--font-display, Georgia, serif);
+    font-size: clamp(1.8rem, 1.25rem + 2vw, 3rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .observation-panel__close {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 2.35rem;
+    height: 2.35rem;
+    padding: 0;
+    color: rgb(245 235 216);
+    background: transparent;
+    border: 1px solid rgb(199 151 79 / 45%);
+    border-radius: 50%;
+    font: inherit;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .observation-panel__close:hover,
+  .observation-panel__close:focus-visible {
+    background: rgb(255 232 188 / 8%);
+    border-color: rgb(224 181 111 / 84%);
+  }
+
+  .observation-panel__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+    margin: 0;
+    padding: clamp(1rem, 2vw, 1.55rem);
+    list-style: none;
+  }
+
+  .observation-card {
+    display: grid;
+    align-content: start;
+    gap: 0.42rem;
+    min-height: 7.3rem;
+    padding: 1rem 1.05rem 1.1rem;
+    color: inherit;
+    background: rgb(255 239 207 / 3.5%);
+    border: 1px solid rgb(199 151 79 / 28%);
+    border-radius: 0.2rem;
+    text-decoration: none;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      transform 150ms ease;
+  }
+
+  .observation-card:hover,
+  .observation-card:focus-visible {
+    background: rgb(255 239 207 / 7%);
+    border-color: rgb(218 172 101 / 72%);
+    transform: translateY(-1px);
+  }
+
+  .observation-card:focus-visible,
+  .observation-panel__close:focus-visible {
+    outline: 2px solid rgb(239 200 135 / 92%);
+    outline-offset: 2px;
+  }
+
+  .observation-card__category {
+    color: rgb(211 168 103 / 94%);
+    font-family: var(--font-sans, system-ui, sans-serif);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  .observation-card__title {
+    font-family: var(--font-serif, Georgia, serif);
+    font-size: clamp(1rem, 0.9rem + 0.3vw, 1.2rem);
+    line-height: 1.28;
+  }
+
+  .observation-panel__empty {
+    margin: 0;
+    padding: 2rem;
+    color: rgb(220 209 190 / 78%);
+    font-family: var(--font-serif, Georgia, serif);
+  }
+
+
+  .observation-panel__mobile-links {
+    display: none;
+  }
+
+  .observation-panel__footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.95rem clamp(1rem, 2vw, 1.35rem) 1.1rem;
+    border-top: 1px solid rgb(199 151 79 / 24%);
+  }
+
+  .observation-panel__footer a {
+    color: rgb(211 168 103 / 96%);
+    font-family: var(--font-sans, system-ui, sans-serif);
+    font-size: 0.69rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .observation-panel__footer a:hover,
+  .observation-panel__footer a:focus-visible {
+    color: rgb(245 235 216);
+  }
+
+  @media (max-width: 48rem) {
+    /* Mobile-only consolidation: the plate keeps Observations as its single
+     * architectural control. Desktop navigation remains unchanged above 48rem. */
+    .room-object-nav {
+      display: none;
+    }
+
+    .room-object__label {
+      min-height: 1.45rem;
+      max-width: 9.5rem;
+      padding-inline: 0.42rem;
+      font-size: 0.54rem;
+      letter-spacing: 0.07em;
+      white-space: normal;
+    }
+
+    .observation-panel {
+      top: auto;
+      bottom: 0;
+      /* The Works canvas is deliberately cover-sized and transformed. On a
+       * portrait viewport it is much wider than the screen, so percentage
+       * width here resolves against that off-screen canvas. Keep the mobile
+       * sheet explicitly tied to the viewport instead. */
+      width: 100vw;
+      max-width: 100vw;
+      max-height: 84svh;
+      border-right: 0;
+      border-bottom: 0;
+      border-left: 0;
+      border-radius: 0.45rem 0.45rem 0 0;
+      transform: translate(-50%, 1rem);
+    }
+
+    .observation-panel[data-open='true'] {
+      transform: translate(-50%, 0);
+    }
+
+    .observation-panel__list {
+      grid-template-columns: 1fr;
+    }
+
+    .observation-card {
+      min-height: 0;
+    }
+
+    .observation-panel__mobile-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.65rem;
+      padding: 0.95rem 1rem 1rem;
+      border-top: 1px solid rgb(199 151 79 / 24%);
+    }
+
+    .observation-panel__mobile-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.8rem;
+      padding: 0.65rem 0.7rem;
+      color: rgb(211 168 103 / 96%);
+      background: rgb(255 239 207 / 3.5%);
+      border: 1px solid rgb(199 151 79 / 28%);
+      border-radius: 0.2rem;
+      font-family: var(--font-sans, system-ui, sans-serif);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      line-height: 1.2;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .observation-panel__mobile-links a:hover,
+    .observation-panel__mobile-links a:focus-visible {
+      color: rgb(245 235 216);
+      background: rgb(255 239 207 / 7%);
+      border-color: rgb(218 172 101 / 72%);
+    }
+
+    .observation-panel__mobile-links a:focus-visible {
+      outline: 2px solid rgb(239 200 135 / 92%);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .room-object,
+    .observation-panel,
+    .observation-card {
+      transition: none;
+    }
+  }
+</style>

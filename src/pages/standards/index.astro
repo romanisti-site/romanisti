@@ -1,0 +1,127 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ConstitutionalHero from '@/components/constitutional/ConstitutionalHero.astro';
+import ConstitutionalManuscript from '@/components/constitutional/ConstitutionalManuscript.astro';
+import ConstitutionalQuietTransition from '@/components/constitutional/ConstitutionalQuietTransition.astro';
+import '@/styles/constitutional-library.css';
+
+const entry = await getEntry('pages', 'standards');
+
+if (!entry) {
+  throw new Error('Editorial Standards content entry was not found.');
+}
+
+const { Content } = await render(entry);
+---
+
+<BaseLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  type="article"
+>
+  <article class="constitutional-work editorial-standards">
+    <ConstitutionalHero
+      libraryMark="Romanisti · Governance Room"
+      edition="Edition One"
+      workClass="Governing Document"
+      title={entry.data.title}
+      subtitle="The Editorial Covenant"
+      quotation="Our commitment to truth, accuracy and independence."
+      enterLabel="Enter the Standards"
+      enterHref="#manuscript"
+    />
+
+    <ConstitutionalManuscript id="manuscript" heading="Editorial Standards">
+      <Content />
+    </ConstitutionalManuscript>
+
+    <ConstitutionalQuietTransition text="Standards govern the work before the work is published." />
+
+    <section class="governance-document-closing">
+      <p class="governance-document-closing__kicker">Continue Through the Institution</p>
+
+      <nav class="governance-document-closing__primary" aria-label="Editorial Standards destinations">
+        <a href="/governance/">Governance Room</a>
+        <span aria-hidden="true">·</span>
+        <a href="/works/">Works Room</a>
+      </nav>
+
+      <a class="governance-document-closing__secondary" href="/#bibliotheca">
+        Return to Bibliotheca
+      </a>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .governance-document-closing {
+    width: min(calc(100% - 2rem), 60rem);
+    margin-inline: auto;
+    padding: clamp(9rem, 17vw, 15rem) 0;
+    text-align: center;
+  }
+
+  .governance-document-closing__kicker {
+    margin: 0;
+    color: var(--color-muted);
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+  }
+
+  .governance-document-closing__primary {
+    display: flex;
+    justify-content: center;
+    gap: 0.85rem;
+    align-items: baseline;
+    flex-wrap: wrap;
+    margin-top: 5rem;
+  }
+
+  .governance-document-closing__primary a {
+    color: inherit;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.6rem);
+    line-height: 1.08;
+    text-decoration: none;
+  }
+
+  .governance-document-closing__primary span {
+    color: var(--color-muted);
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.6rem);
+  }
+
+  .governance-document-closing__secondary {
+    display: inline-block;
+    margin-top: 3rem;
+    color: var(--color-muted);
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .governance-document-closing__primary a:hover,
+  .governance-document-closing__primary a:focus-visible,
+  .governance-document-closing__secondary:hover,
+  .governance-document-closing__secondary:focus-visible {
+    color: var(--color-roman-red);
+  }
+
+  @media (max-width: 48rem) {
+    .governance-document-closing__primary {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .governance-document-closing__primary span {
+      display: none;
+    }
+  }
+</style>

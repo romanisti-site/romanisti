@@ -1,0 +1,254 @@
+---
+import { site } from '@/config/site';
+
+
+---
+
+<section class="threshold" aria-labelledby="threshold-title">
+  <div class="threshold-image" aria-hidden="true">
+    <img
+      src="/images/threshold/threshold-guardian-v1.png"
+      alt=""
+      width="1024"
+      height="1536"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
+  </div>
+
+  <div class="threshold-shade" aria-hidden="true"></div>
+
+  <div class="container threshold-inner">
+    <div class="threshold-copy">
+      <h1 id="threshold-title">{site.name}</h1>
+
+      <div class="inscription-block">
+        <span class="rule" aria-hidden="true"></span>
+        <p class="inscription" aria-label="Rome. AS Roma. And those that love them both.">
+          <span>Rome.</span>
+          <span>AS Roma.</span>
+          <span>And those that love them both.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="threshold-transition" aria-hidden="true"></div>
+</section>
+
+<style>
+  .threshold {
+    position: relative;
+    isolation: isolate;
+    min-height: 100svh;
+    overflow: hidden;
+    background: #090705;
+    color: #e7ddca;
+  }
+
+  .threshold-image,
+  .threshold-shade,
+  .threshold-transition {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .threshold-image {
+    z-index: -3;
+    overflow: hidden;
+  }
+
+  .threshold-image img {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: min(65vw, 72rem);
+    max-width: none;
+    height: auto;
+    transform: translateY(-39%);
+    transform-origin: center right;
+  }
+
+  .threshold-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #090705 0%, rgb(9 7 5 / 98%) 22%, rgb(9 7 5 / 72%) 42%, transparent 66%);
+  }
+
+  .threshold-shade {
+    z-index: -2;
+    background:
+      linear-gradient(90deg, rgb(4 3 2 / 38%) 0%, rgb(4 3 2 / 12%) 38%, transparent 72%),
+      linear-gradient(180deg, rgb(3 2 2 / 23%) 0%, transparent 23%, transparent 72%, rgb(3 2 2 / 46%) 100%);
+  }
+
+  .threshold-inner {
+    display: flex;
+    align-items: flex-end;
+    min-height: 100svh;
+    padding-top: clamp(7rem, 12vh, 9rem);
+    padding-bottom: clamp(6.5rem, 11vh, 9rem);
+  }
+
+  .threshold-copy {
+    position: relative;
+    z-index: 1;
+    width: min(82vw, 78rem);
+    transform: translateX(clamp(-7rem, -6vw, -3.5rem));
+  }
+
+h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(5.6rem, 10.5vw, 11.1rem);
+    font-weight: 400;
+    color: #efe0cd;
+    letter-spacing: -0.025em;
+    line-height: 0.76;
+    text-wrap: nowrap;
+    text-shadow: 0 0.08em 0.28em rgb(0 0 0 / 24%);
+    transform: translate(-2rem, -1rem);
+}
+
+
+  .inscription-block {
+    display: grid;
+    grid-template-columns: 2px auto;
+    gap: clamp(1.1rem, 1.8vw, 1.65rem);
+    align-items: stretch;
+    width: fit-content;
+    margin-top: clamp(2.35rem, 4.7vh, 3.75rem);
+    margin-left: clamp(0.25rem, 0.8vw, 0.75rem);
+  }
+
+  .rule {
+    display: block;
+    width: 2px;
+    background: #c9a35f;
+  }
+
+  .inscription {
+    display: grid;
+    gap: 0.12rem;
+    margin: 0;
+    color: rgb(231 221 202 / 94%);
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 1.02rem + 0.5vw, 1.72rem);
+    line-height: 1.36;
+    letter-spacing: 0;
+    text-shadow: 0 0.1em 0.45em rgb(0 0 0 / 36%);
+  }
+
+  .inscription span {
+    display: block;
+  }
+
+  .threshold-transition {
+    z-index: 0;
+    top: auto;
+    height: clamp(2.5rem, 5vh, 4.5rem);
+    background: linear-gradient(180deg, transparent, rgb(9 7 5 / 72%));
+  }
+
+  @media (min-width: 90rem) {
+    .threshold-image img {
+      right: 0;
+      width: min(61vw, 76rem);
+    }
+
+    .threshold-copy {
+      width: min(76vw, 82rem);
+    }
+  }
+
+  @media (max-width: 72rem) {
+    .threshold-image img {
+      right: -4vw;
+      width: 78vw;
+    }
+
+    .threshold-image::after {
+      background: linear-gradient(90deg, #090705 0%, rgb(9 7 5 / 96%) 20%, rgb(9 7 5 / 62%) 44%, transparent 72%);
+    }
+
+    .threshold-copy {
+      width: min(86vw, 66rem);
+    }
+
+    h1 {
+      font-size: clamp(5.58rem, 12.6vw, 9.45rem);
+    }
+  }
+
+  @media (max-width: 52rem) {
+    .threshold {
+      min-height: max(48rem, 100svh);
+    }
+
+    .threshold-image img {
+      top: 42%;
+      right: -17vw;
+      width: 122vw;
+      transform: translateY(-42%);
+    }
+
+    .threshold-image::after {
+      background: linear-gradient(180deg, transparent 0%, rgb(9 7 5 / 8%) 42%, rgb(9 7 5 / 84%) 84%, #090705 100%);
+    }
+
+    .threshold-shade {
+      background:
+        linear-gradient(180deg, rgb(3 2 2 / 18%) 0%, transparent 38%, rgb(3 2 2 / 20%) 58%, rgb(3 2 2 / 84%) 100%),
+        linear-gradient(90deg, rgb(3 2 2 / 20%) 0%, transparent 72%);
+    }
+
+    .threshold-inner {
+      min-height: max(48rem, 100svh);
+      padding-top: 6.5rem;
+      padding-bottom: clamp(3.75rem, 8vh, 5.5rem);
+    }
+
+    .threshold-copy {
+      width: 100%;
+    }
+
+    h1 {
+      font-size: clamp(4.5rem, 18vw, 7.2rem);
+      line-height: 0.8;
+      text-wrap: balance;
+    }
+  }
+
+  @media (max-width: 38rem) {
+    .threshold-image img {
+      top: 38%;
+      right: -29vw;
+      width: 148vw;
+      transform: translateY(-38%);
+    }
+
+    .threshold-inner {
+      align-items: flex-end;
+      padding-bottom: 3.5rem;
+    }
+
+    h1 {
+      font-size: clamp(3.915rem, 19.35vw, 5.85rem);
+      letter-spacing: -0.05em;
+    }
+
+    .inscription-block {
+      margin-top: 2rem;
+      margin-left: 0.1rem;
+    }
+
+    .inscription {
+      font-size: clamp(1.08rem, 4.4vw, 1.3rem);
+    }
+  }
+
+
+</style>

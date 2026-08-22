@@ -1,0 +1,29 @@
+---
+import plate from '../../assets/reading-room/PrimaryArchitecturalPlate-v2.webp';
+import ReadingRoomThreshold from './ReadingRoomThreshold.astro';
+import '../../styles/reading-room-layout-integration.css';
+---
+
+<section class="reading-room-integrated" aria-label="Romanisti Reading Room">
+  <img
+    class="reading-room-integrated__plate"
+    src={plate.src}
+    width={plate.width}
+    height={plate.height}
+    alt=""
+    aria-hidden="true"
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+  />
+
+  <ReadingRoomThreshold />
+
+  <div class="reading-room-integrated__navigation">
+    <slot name="navigation" />
+  </div>
+
+  <div class="reading-room-integrated__institutional-layer">
+    <slot />
+  </div>
+</section>

@@ -2,12 +2,356 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getObservationArchive } from '@/lib/archive';
 import { formatEditorialDate } from '@/lib/date';
+
 const groups = await getObservationArchive();
 ---
-<BaseLayout title="Observation Archive" description="The complete chronological record of published Romanisti observations.">
-<header class="container archive-header"><p class="eyebrow">The Record</p><h1>Archive</h1><p>Every published observation, preserved in chronological order.</p></header>
-<div class="container archive">{groups.map((group)=>(<section aria-labelledby={`year-${group.year}`}><h2 id={`year-${group.year}`}>{group.year}</h2><ol>{group.entries.map((entry)=>(<li><time datetime={entry.data.publishedAt.toISOString()}>{formatEditorialDate(entry.data.publishedAt)}</time><a href={`/observations/${entry.id}/`}>{entry.data.title}</a></li>))}</ol></section>))}</div>
+
+<BaseLayout
+  title="Observation Archive"
+  description="The complete chronological record of published Romanisti observations."
+>
+  <article class="observation-archive">
+    <section class="observation-archive__cover" aria-labelledby="observation-archive-title">
+      <div class="observation-archive__cover-inner">
+        <p class="observation-archive__mark">Romanisti · Archive</p>
+        <p class="observation-archive__edition">Edition One</p>
+
+        <div class="observation-archive__identity">
+          <p class="observation-archive__class">Institutional Record</p>
+          <h1 id="observation-archive-title">Observation Archive</h1>
+          <p class="observation-archive__subtitle">The Record</p>
+        </div>
+
+        <blockquote class="observation-archive__quotation">
+          “Every published observation, preserved in chronological order.”
+        </blockquote>
+
+        <a class="observation-archive__enter" href="#chronology">
+          Enter the Record <span aria-hidden="true">↓</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="chronology" class="observation-archive__chronology" aria-labelledby="chronology-heading">
+      <div class="observation-archive__chronology-inner">
+        <p class="observation-archive__kicker">Published Observations</p>
+        <h2 id="chronology-heading">Chronology</h2>
+
+        <div class="observation-archive__years">
+          {groups.length > 0 ? (
+            groups.map((group) => (
+              <section class="observation-year" aria-labelledby={`year-${group.year}`}>
+                <h3 id={`year-${group.year}`}>{group.year}</h3>
+                <ol>
+                  {group.entries.map((entry) => (
+                    <li>
+                      <time datetime={entry.data.publishedAt.toISOString()}>
+                        {formatEditorialDate(entry.data.publishedAt)}
+                      </time>
+                      <a href={`/observations/${entry.id}/`}>
+                        {entry.data.title}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            ))
+          ) : (
+            <p class="observation-archive__empty">Published observations will appear here.</p>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <section class="observation-archive__closing">
+      <p>Continue through the Institution</p>
+
+      <nav class="observation-archive__primary" aria-label="Observation Archive return destinations">
+        <a href="/archive/">Archive Room</a>
+        <span aria-hidden="true">·</span>
+        <a href="/works/">Works Room</a>
+      </nav>
+
+      <a class="observation-archive__secondary" href="/#bibliotheca">
+        Return to Bibliotheca
+      </a>
+    </section>
+  </article>
 </BaseLayout>
+
 <style>
-.archive-header{padding-block:var(--space-6)}h1{font-family:var(--font-display);font-size:clamp(3rem,2rem + 5vw,7rem);font-weight:500;letter-spacing:-.045em;margin:var(--space-2) 0 var(--space-4)}.archive-header>p:last-child{color:var(--color-muted);font-size:1.2rem;max-width:44rem}.archive{padding-bottom:var(--space-6)}section{border-top:1px solid var(--color-line);padding-block:var(--space-5)}h2{font-family:var(--font-display);font-size:2.6rem;font-weight:500}ol{list-style:none;margin:0;padding:0}li{display:grid;gap:var(--space-3);grid-template-columns:minmax(9rem,12rem) 1fr;padding-block:var(--space-2)}time{color:var(--color-muted);font-family:var(--font-sans);font-size:.75rem}a{text-decoration:none}a:hover,a:focus-visible{text-decoration:underline}@media(max-width:38rem){li{grid-template-columns:1fr;gap:var(--space-1)}}
+  .observation-archive {
+    color: var(--color-ink);
+  }
+
+  .observation-archive__cover {
+    min-height: calc(100svh - 5rem);
+    display: grid;
+    place-items: center;
+    padding: clamp(5rem, 10vw, 9rem) 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--color-line);
+    background:
+      radial-gradient(circle at 50% 34%, rgb(255 252 244 / 92%), transparent 34rem),
+      linear-gradient(rgb(244 240 232 / 84%), rgb(244 240 232 / 98%));
+  }
+
+  .observation-archive__cover-inner {
+    width: min(54rem, 100%);
+  }
+
+  .observation-archive__mark,
+  .observation-archive__edition,
+  .observation-archive__class,
+  .observation-archive__kicker,
+  .observation-archive__closing > p {
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+  }
+
+  .observation-archive__mark {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+  }
+
+  .observation-archive__edition {
+    margin: 0.8rem 0 0;
+    color: rgb(106 98 90 / 76%);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+  }
+
+  .observation-archive__identity {
+    margin-top: clamp(5rem, 12vh, 8rem);
+  }
+
+  .observation-archive__class,
+  .observation-archive__kicker {
+    margin: 0 0 1rem;
+    color: var(--color-roman-red);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+  }
+
+  .observation-archive__identity h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(3.75rem, 7.3vw, 8rem);
+    font-weight: 400;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+  }
+
+  .observation-archive__subtitle {
+    margin: 1.7rem 0 0;
+    color: var(--color-muted);
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2.1vw, 1.55rem);
+  }
+
+  .observation-archive__quotation {
+    max-width: 40rem;
+    margin: clamp(4.5rem, 10vh, 7rem) auto 0;
+    padding: 0;
+    border: 0;
+    color: #493326;
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .observation-archive__enter {
+    display: inline-flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-top: 4rem;
+    color: var(--color-muted);
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .observation-archive__enter:hover,
+  .observation-archive__enter:focus-visible {
+    color: var(--color-roman-red);
+  }
+
+  .observation-archive__chronology {
+    padding: clamp(8rem, 15vw, 13rem) 1rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .observation-archive__chronology-inner {
+    width: min(100%, 70rem);
+    margin-inline: auto;
+  }
+
+  .observation-archive__chronology h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(3.25rem, 6vw, 6rem);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    line-height: 0.96;
+  }
+
+  .observation-archive__years {
+    margin-top: clamp(5rem, 9vw, 7rem);
+  }
+
+  .observation-year {
+    display: grid;
+    grid-template-columns: minmax(7rem, 11rem) minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    padding: clamp(3rem, 6vw, 5rem) 0;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .observation-year:last-child {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .observation-year h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 400;
+  }
+
+  .observation-year ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .observation-year li {
+    display: grid;
+    grid-template-columns: minmax(8rem, 11rem) minmax(0, 1fr);
+    gap: 1.75rem;
+    align-items: baseline;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid rgb(123 103 82 / 16%);
+  }
+
+  .observation-year li:first-child {
+    padding-top: 0;
+  }
+
+  .observation-year time {
+    color: var(--color-muted);
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+  }
+
+  .observation-year a {
+    color: inherit;
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2vw, 1.5rem);
+    text-decoration: none;
+  }
+
+  .observation-year a:hover,
+  .observation-year a:focus-visible {
+    color: var(--color-roman-red);
+  }
+
+  .observation-archive__empty {
+    color: var(--color-muted);
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-style: italic;
+  }
+
+  .observation-archive__closing {
+    width: min(calc(100% - 2rem), 60rem);
+    margin-inline: auto;
+    padding: clamp(9rem, 17vw, 15rem) 0;
+    text-align: center;
+  }
+
+  .observation-archive__closing > p {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.17em;
+  }
+
+  .observation-archive__primary {
+    display: flex;
+    justify-content: center;
+    gap: 0.85rem;
+    align-items: baseline;
+    flex-wrap: wrap;
+    margin-top: 5rem;
+  }
+
+  .observation-archive__primary a {
+    color: inherit;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.6rem);
+    line-height: 1.08;
+    text-decoration: none;
+  }
+
+  .observation-archive__primary span {
+    color: var(--color-muted);
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.6rem);
+  }
+
+  .observation-archive__secondary {
+    display: inline-block;
+    margin-top: 3rem;
+    color: var(--color-muted);
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .observation-archive__primary a:hover,
+  .observation-archive__primary a:focus-visible,
+  .observation-archive__secondary:hover,
+  .observation-archive__secondary:focus-visible {
+    color: var(--color-roman-red);
+  }
+
+  @media (max-width: 48rem) {
+    .observation-archive__cover {
+      min-height: 82svh;
+    }
+
+    .observation-year,
+    .observation-year li {
+      grid-template-columns: 1fr;
+    }
+
+    .observation-year {
+      gap: 2rem;
+    }
+
+    .observation-year li {
+      gap: 0.45rem;
+    }
+
+    .observation-archive__primary {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .observation-archive__primary span {
+      display: none;
+    }
+  }
 </style>

@@ -1,0 +1,42 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  quotation?: string;
+  libraryMark?: string;
+  edition?: string;
+  workClass?: string;
+  enterHref?: string;
+  enterLabel?: string;
+}
+
+const {
+  title,
+  subtitle,
+  quotation,
+  libraryMark = 'Romanisti · Constitutional Library',
+  edition = 'Edition One',
+  workClass = 'A Constitutional Work',
+  enterHref = '#manuscript',
+  enterLabel = 'Enter the Work',
+} = Astro.props;
+---
+
+<section class="constitutional-cover" aria-labelledby="constitutional-title">
+  <div class="constitutional-cover__inner">
+    <p class="constitutional-library-mark">{libraryMark}</p>
+    <p class="constitutional-edition-mark">{edition}</p>
+
+    <div class="constitutional-cover__title">
+      <p class="constitutional-work-class">{workClass}</p>
+      <h1 id="constitutional-title">{title}</h1>
+      {subtitle && <p class="constitutional-subtitle">{subtitle}</p>}
+    </div>
+
+    {quotation && <blockquote class="constitutional-quotation">“{quotation}”</blockquote>}
+
+    <a class="constitutional-enter" href={enterHref}>
+      {enterLabel} <span aria-hidden="true">↓</span>
+    </a>
+  </div>
+</section>

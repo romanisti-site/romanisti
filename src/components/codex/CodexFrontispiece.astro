@@ -1,0 +1,12 @@
+---
+interface Props {
+  number: string;
+  title: string;
+  id: string;
+}
+const { number, title, id } = Astro.props;
+---
+<header id={id} class="codex-book-frontispiece">
+  <p class="codex-book-number">Book {number}</p>
+  <h2>{title}</h2>
+</header>

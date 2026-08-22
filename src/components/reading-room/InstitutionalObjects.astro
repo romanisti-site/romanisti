@@ -1,0 +1,24 @@
+---
+import LibrariansTable from './InstitutionalObjects/LibrariansTable.astro';
+---
+
+<div class="institutional-objects" aria-hidden="true">
+  <LibrariansTable />
+
+  <div class="institutional-object institutional-object--caesar" data-object="caesar"></div>
+  <div class="institutional-object institutional-object--reading-stand" data-object="reading-stand"></div>
+  <div class="institutional-object institutional-object--libri" data-object="libri"></div>
+</div>
+
+<style>
+  .institutional-objects,
+  .institutional-object {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .institutional-objects {
+    z-index: 1;
+  }
+</style>

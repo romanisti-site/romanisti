@@ -1,0 +1,25 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import WorksInstitutionalPage from '@/components/works-room/WorksInstitutionalPage.astro';
+
+const paragraphs = [
+  'Edition One contains no published Special Editions.',
+  'This collection is reserved for long-form editorial works and special publications that have earned a place beyond the regular Observation sequence.',
+  'Nothing is placed here simply because it is new. A Special Edition enters the permanent record only when the work itself is ready to endure.',
+];
+---
+
+<BaseLayout
+  title="Special Editions | Romanisti"
+  description="Curated long-form Romanisti editorial works and special publications."
+>
+  <WorksInstitutionalPage
+    title="Special Editions"
+    subtitle="Curated Collections"
+    workClass="Editorial Collection"
+    quotation="Long-form editorial works and special publications."
+    heading="A place prepared for permanent work."
+    paragraphs={paragraphs}
+    showArchiveReturn={true}
+  />
+</BaseLayout>

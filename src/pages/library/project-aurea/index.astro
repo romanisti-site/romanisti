@@ -1,0 +1,102 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ConstitutionalHero from '@/components/constitutional/ConstitutionalHero.astro';
+import ConstitutionalManuscript from '@/components/constitutional/ConstitutionalManuscript.astro';
+import ConstitutionalVolumeNavigator from '@/components/constitutional/ConstitutionalVolumeNavigator.astro';
+import ConstitutionalExit from '@/components/constitutional/ConstitutionalExit.astro';
+import '@/styles/constitutional-library.css';
+
+const title = 'Project Aurea';
+const description = 'The constitutional architecture of Romanisti.';
+
+const permanentVolumes = [
+  {
+    numeral: 'I',
+    title: 'Liber Constitutionis',
+    description: 'The governing constitution.',
+    href: '/library/liber-constitutionis/',
+  },
+  {
+    numeral: 'II',
+    title: 'Liber Lapidum',
+    description: 'The Immutable Stones.',
+    href: '/library/liber-lapidum/',
+  },
+  {
+    numeral: 'III',
+    title: 'Liber Conventus',
+    description: 'The institutional record.',
+    href: '/library/liber-conventus/',
+  },
+  {
+    numeral: 'IV',
+    title: 'Codex I — De Aeternitate',
+    description: 'The philosophical foundation.',
+    href: '/library/codex/codex-i-de-aeternitate/',
+  },
+];
+---
+
+<BaseLayout title={title} description={description} type="article">
+  <article class="constitutional-work">
+    <ConstitutionalHero
+      title="Project Aurea"
+      subtitle="The Constitutional Architecture of Romanisti"
+      quotation="A publication that sets out to be as eternal as the city itself."
+    />
+
+    <ConstitutionalManuscript heading="The work begins before publication.">
+      <p class="lead">Project Aurea exists because institutions rarely disappear all at once.</p>
+
+      <p>
+        They are forgotten a decision at a time. A principle left unwritten.
+        A lesson remembered differently. A standard quietly abandoned because
+        no one could say with certainty why it had once mattered.
+      </p>
+
+      <p>
+        Romanisti cannot ask to endure while leaving its identity to memory alone.
+        What is learned must be recorded. What proves permanent must be distinguished
+        from what is temporary. Decisions must carry their reasons with them so that
+        another generation can inherit more than the result.
+      </p>
+
+      <p>
+        Project Aurea is the constitutional architecture through which that work
+        is carried forward. It gives the institution a place to name its principles,
+        preserve its discoveries, record its amendments, and protect the works that
+        have earned permanence.
+      </p>
+
+      <p>
+        Its purpose is not to make Romanisti resistant to change. An institution
+        that cannot change cannot serve the future. But change should remember what
+        it is changing, why it exists, and whom it serves.
+      </p>
+
+      <p>
+        Every generation will encounter questions the previous generation could
+        not anticipate. Project Aurea does not attempt to answer those questions
+        in advance. It attempts to leave behind enough clarity that the next steward
+        can answer them without beginning again.
+      </p>
+
+      <p>
+        The work is therefore less concerned with preserving decisions than with
+        preserving judgment. Less concerned with ownership than with responsibility.
+        Less concerned with permanence for its own sake than with remaining worthy
+        of permanence.
+      </p>
+
+      <p class="quiet-line">Stewardship, not ownership.</p>
+    </ConstitutionalManuscript>
+
+    <ConstitutionalVolumeNavigator volumes={permanentVolumes} />
+
+    <ConstitutionalExit
+      nextHref="/library/liber-constitutionis/"
+      nextLabel="Enter Liber Constitutionis"
+      kicker="The Constitutional Library continues"
+    />
+  </article>
+</BaseLayout>

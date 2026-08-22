@@ -1,0 +1,11 @@
+---
+interface Props {
+  text?: string;
+}
+
+const { text } = Astro.props;
+---
+
+<section class="constitutional-quiet-transition" aria-hidden={!text}>
+  {text && <p>{text}</p>}
+</section>

@@ -1,0 +1,58 @@
+---
+import PrimaryArchitecturalPlate from './PrimaryArchitecturalPlate.astro';
+import ObservationLayer from './ObservationLayer.astro';
+import EditorialLayer from './EditorialLayer.astro';
+---
+
+<section class="reading-room" aria-label="The Reading Room">
+  <div class="reading-room__canvas">
+    <PrimaryArchitecturalPlate />
+    <ObservationLayer />
+  </div>
+
+  <EditorialLayer>
+    <slot />
+  </EditorialLayer>
+</section>
+
+<style>
+  .reading-room {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    height: 100svh;
+    min-height: 100svh;
+    overflow: hidden;
+    background: #6f604d;
+  }
+
+  /*
+   * Institutional desktop rule:
+   * one architectural room = one viewport.
+   *
+   * The Reading Room canvas is therefore governed by the viewport,
+   * not by the source image's intrinsic aspect ratio.
+   */
+  .reading-room__canvas {
+    position: absolute;
+    inset: 0;
+    isolation: isolate;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #6f604d;
+  }
+
+  /*
+   * RC1.1 intentionally leaves the mobile fallback alone conceptually:
+   * the dedicated portrait composition established by Institution Mobile RC0
+   * will replace desktop art direction in a later room-specific mobile RC.
+   */
+  @media (max-width: 52rem) {
+    .reading-room,
+    .reading-room__canvas {
+      min-height: 100svh;
+      height: 100svh;
+    }
+  }
+</style>

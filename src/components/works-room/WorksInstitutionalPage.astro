@@ -1,0 +1,302 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  workClass: string;
+  quotation: string;
+  heading: string;
+  paragraphs: string[];
+  showArchiveReturn?: boolean;
+}
+
+const {
+  title,
+  subtitle,
+  workClass,
+  quotation,
+  heading,
+  paragraphs,
+  showArchiveReturn = false,
+} = Astro.props;
+---
+
+<article class="works-institutional-page">
+  <section class="works-institutional-cover" aria-labelledby="works-institutional-title">
+    <div class="works-institutional-cover__inner">
+      <p class="works-institutional-mark">Romanisti · Works Room</p>
+      <p class="works-institutional-edition">Edition One</p>
+
+      <div class="works-institutional-title">
+        <p class="works-institutional-class">{workClass}</p>
+        <h1 id="works-institutional-title">{title}</h1>
+        <p class="works-institutional-subtitle">{subtitle}</p>
+      </div>
+
+      <blockquote class="works-institutional-quotation">“{quotation}”</blockquote>
+
+      <a class="works-institutional-enter" href="#institutional-note">
+        Read the Note <span aria-hidden="true">↓</span>
+      </a>
+    </div>
+  </section>
+
+  <section id="institutional-note" class="works-institutional-note">
+    <div class="works-institutional-note__inner">
+      <h2>{heading}</h2>
+
+      <div class="works-institutional-reading">
+        {paragraphs.map((paragraph, index) => (
+          <p class:list={{ lead: index === 0 }}>{paragraph}</p>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="works-institutional-closing">
+    {showArchiveReturn ? (
+      <>
+        <p class="works-institutional-closing__kicker">Continue Reading</p>
+        <nav class="works-institutional-destinations" aria-label={`${title} related destinations`}>
+          <a href="/archive/">Archive Room</a>
+          <span aria-hidden="true">·</span>
+          <a href="/works/">Works Room</a>
+        </nav>
+      </>
+    ) : (
+      <a class="works-institutional-primary" href="/works/">Works Room</a>
+    )}
+
+    <nav class="works-institutional-return" aria-label={`${title} return navigation`}>
+      <a href="/#bibliotheca">Return to Bibliotheca</a>
+    </nav>
+  </section>
+</article>
+
+<style>
+  .works-institutional-page {
+    color: var(--color-ink);
+  }
+
+  .works-institutional-cover {
+    min-height: calc(100svh - 5rem);
+    display: grid;
+    place-items: center;
+    padding: clamp(5rem, 10vw, 9rem) 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--color-line);
+    background:
+      radial-gradient(circle at 50% 34%, rgb(255 252 244 / 92%), transparent 34rem),
+      linear-gradient(rgb(244 240 232 / 84%), rgb(244 240 232 / 98%));
+  }
+
+  .works-institutional-cover__inner {
+    width: min(50rem, 100%);
+  }
+
+  .works-institutional-mark,
+  .works-institutional-edition,
+  .works-institutional-class {
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+  }
+
+  .works-institutional-mark {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+  }
+
+  .works-institutional-edition {
+    margin: 0.8rem 0 0;
+    color: rgb(106 98 90 / 76%);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+  }
+
+  .works-institutional-title {
+    margin-top: clamp(5rem, 12vh, 8rem);
+  }
+
+  .works-institutional-class {
+    margin: 0 0 1rem;
+    color: var(--color-roman-red);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+  }
+
+  .works-institutional-title h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(3.65rem, 7.25vw, 8rem);
+    font-weight: 400;
+    letter-spacing: -0.042em;
+    line-height: 0.92;
+  }
+
+  .works-institutional-subtitle {
+    max-width: 34rem;
+    margin: 1.7rem auto 0;
+    color: var(--color-muted);
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2.1vw, 1.55rem);
+    line-height: 1.4;
+  }
+
+  .works-institutional-quotation {
+    max-width: 38rem;
+    margin: clamp(4.5rem, 10vh, 7rem) auto 0;
+    padding: 0;
+    border: 0;
+    color: #493326;
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .works-institutional-enter {
+    display: inline-flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-top: 4rem;
+    color: var(--color-muted);
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .works-institutional-enter:hover,
+  .works-institutional-enter:focus-visible {
+    color: var(--color-roman-red);
+  }
+
+  .works-institutional-note {
+    padding: clamp(7rem, 14vw, 13rem) 1rem clamp(8rem, 16vw, 14rem);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .works-institutional-note__inner {
+    width: min(100%, 70rem);
+    margin-inline: auto;
+  }
+
+  .works-institutional-note h2 {
+    max-width: 46rem;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 6rem);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    line-height: 0.98;
+  }
+
+  .works-institutional-reading {
+    width: min(100%, 42rem);
+    margin: clamp(4rem, 8vw, 6rem) auto 0;
+    font-size: clamp(1.08rem, 1rem + 0.3vw, 1.28rem);
+    line-height: 1.86;
+  }
+
+  .works-institutional-reading p {
+    margin: 0 0 1.75em;
+  }
+
+  .works-institutional-reading .lead {
+    font-family: var(--font-display);
+    font-size: 1.4em;
+    line-height: 1.55;
+  }
+
+  .works-institutional-closing {
+    width: min(calc(100% - 2rem), 58rem);
+    margin-inline: auto;
+    padding-block: clamp(8rem, 15vw, 13rem);
+    text-align: center;
+  }
+
+
+  .works-institutional-closing__kicker {
+    margin: 0;
+    color: var(--color-muted);
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+  }
+
+  .works-institutional-destinations {
+    display: flex;
+    justify-content: center;
+    gap: 0.85rem;
+    align-items: baseline;
+    flex-wrap: wrap;
+    margin-top: 5rem;
+  }
+
+  .works-institutional-destinations a {
+    color: inherit;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.6rem);
+    line-height: 1.08;
+    text-decoration: none;
+  }
+
+  .works-institutional-destinations span {
+    color: var(--color-muted);
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.6rem);
+  }
+
+  .works-institutional-primary {
+    display: inline-block;
+    color: inherit;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.6rem);
+    line-height: 1.1;
+    text-decoration: none;
+  }
+
+  .works-institutional-primary:hover,
+  .works-institutional-primary:focus-visible {
+    color: var(--color-roman-red);
+  }
+
+  .works-institutional-return {
+    margin-top: 4rem;
+    color: var(--color-muted);
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .works-institutional-return a {
+    text-decoration: none;
+  }
+
+  .works-institutional-return a:hover,
+  .works-institutional-return a:focus-visible {
+    color: var(--color-roman-red);
+  }
+
+  @media (max-width: 48rem) {
+    .works-institutional-cover {
+      min-height: 82svh;
+    }
+    .works-institutional-destinations {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .works-institutional-destinations span {
+      display: none;
+    }
+  }
+</style>

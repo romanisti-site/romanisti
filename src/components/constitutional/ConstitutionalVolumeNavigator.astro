@@ -1,0 +1,40 @@
+---
+export interface ConstitutionalVolume {
+  numeral: string;
+  title: string;
+  description: string;
+  href: string;
+}
+
+interface Props {
+  volumes: ConstitutionalVolume[];
+  kicker?: string;
+  heading?: string;
+}
+
+const {
+  volumes,
+  kicker = 'Constitutional Library',
+  heading = 'The permanent volumes',
+} = Astro.props;
+---
+
+<section class="constitutional-contents" aria-labelledby="constitutional-contents-title">
+  <div class="constitutional-contents__inner">
+    <p class="constitutional-section-kicker">{kicker}</p>
+    <h2 id="constitutional-contents-title">{heading}</h2>
+
+    <nav class="constitutional-volume-list" aria-label="Constitutional Library volumes">
+      {volumes.map((volume) => (
+        <a href={volume.href} class="constitutional-volume">
+          <span class="constitutional-volume__roman">{volume.numeral}</span>
+          <span class="constitutional-volume__copy">
+            <strong>{volume.title}</strong>
+            <span>{volume.description}</span>
+          </span>
+          <span class="constitutional-volume__arrow" aria-hidden="true">→</span>
+        </a>
+      ))}
+    </nav>
+  </div>
+</section>

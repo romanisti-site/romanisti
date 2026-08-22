@@ -1,0 +1,201 @@
+---
+import MobileThreshold from './MobileThreshold.astro';
+import MobileReadingRoom from './MobileReadingRoom.astro';
+import MobileBibliotheca from './MobileBibliotheca.astro';
+import { primaryNavigation } from '@/config/navigation';
+---
+
+<div class="institution-mobile" data-institution-mobile>
+  <details class="mobile-menu-only">
+    <summary aria-label="Open mobile navigation">MENU</summary>
+    <nav aria-label="Mobile navigation">
+      <ul>
+        {primaryNavigation.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </details>
+
+<main class="mobile-institution">
+    <MobileThreshold />
+    <MobileReadingRoom />
+    <MobileBibliotheca />
+  </main>
+</div>
+
+<style is:global>
+  /* Desktop Preservation Rule:
+     the mobile institution is absent from layout until the mobile breakpoint. */
+  .institution-mobile {
+    display: none;
+  }
+
+  @media (max-width: 52rem) {
+
+    /* RC5.0 — Room alignment only.
+       The document remains the scroll container. Threshold, Reading Room,
+       and Bibliotheca keep their existing proven geometry; we only make
+       the browser settle at each room's top edge instead of resting
+       partway into the following footer. */
+    html:has(.institution-mobile) {
+      scroll-snap-type: y mandatory;
+      scroll-padding-top: 0;
+    }
+
+    /* The global footer remains available after Bibliotheca, but it is not
+       itself a snap target. The final architectural snap point therefore
+       remains the top of Bibliotheca. */
+
+        /* Hide only the homepage's established desktop architectural sequence.
+       Desktop CSS and components themselves remain untouched. */
+    body:has(.institution-mobile) > .site-header,
+    body:has(.institution-mobile) .threshold,
+    body:has(.institution-mobile) .reading-room,
+    body:has(.institution-mobile) .bibliotheca {
+      display: none !important;
+    }
+
+    .institution-mobile {
+      display: block;
+      width: 100%;
+      background: #090705;
+    }
+
+    .mobile-institution {
+      width: 100%;
+    }
+
+    .mobile-room {
+      position: relative;
+      isolation: isolate;
+      width: 100%;
+      height: 100svh;
+      min-height: 40rem;
+      overflow: hidden;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    .mobile-room__plate {
+      position: absolute;
+      inset: 0;
+      z-index: -3;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      max-width: none;
+    }
+
+    .mobile-room__shade {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .mobile-room__copy {
+      position: absolute;
+      z-index: 2;
+      inset: auto 1.25rem 2.6rem;
+    }
+
+    .mobile-room__eyebrow {
+      margin: 0 0 0.65rem;
+      font-family: var(--font-sans);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .mobile-room__title {
+      margin: 0;
+      font-family: var(--font-display);
+      font-weight: 400;
+    }
+
+    .mobile-room__continuation {
+      position: absolute;
+      z-index: 3;
+      left: 50%;
+      bottom: 0.85rem;
+      transform: translateX(-50%);
+      font-family: Georgia, serif;
+      font-size: 1.35rem;
+      opacity: 0.58;
+    }
+  }
+
+  @media (min-width: 52.001rem) {
+    .institution-mobile {
+      display: none !important;
+    }
+  }
+
+
+  .mobile-menu-only {
+    display: none;
+  }
+
+  @media (max-width: 52rem) {
+    .mobile-menu-only {
+      display: block;
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 100;
+      margin: 0;
+      color: #efe0cd;
+    }
+
+    .mobile-menu-only summary {
+      list-style: none;
+      cursor: pointer;
+      font-family: var(--font-sans, Arial, sans-serif);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-shadow: 0 1px 8px rgb(0 0 0 / 55%);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .mobile-menu-only summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .mobile-menu-only nav {
+      position: absolute;
+      top: 1.75rem;
+      right: 0;
+      min-width: 11rem;
+      padding: 0.65rem 0.8rem;
+      background: rgb(20 15 11 / 96%);
+      border: 1px solid rgb(239 224 205 / 18%);
+      box-shadow: 0 0.75rem 2rem rgb(0 0 0 / 28%);
+    }
+
+    .mobile-menu-only ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .mobile-menu-only li + li {
+      border-top: 1px solid rgb(239 224 205 / 10%);
+    }
+
+    .mobile-menu-only a {
+      display: block;
+      padding: 0.65rem 0.2rem;
+      color: #efe0cd;
+      font-family: var(--font-sans, Arial, sans-serif);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+  }
+
+</style>
