@@ -1,5 +1,5 @@
 ---
-import { primaryNavigation } from '@/config/navigation';
+import { desktopPrimaryNavigation } from '@/config/navigation';
 import { site } from '@/config/site';
 
 const currentPath = Astro.url.pathname;
@@ -16,7 +16,7 @@ const isActive = (href: string) =>
 
     <nav aria-label="Primary navigation">
       <ul>
-        {primaryNavigation.map((item) => (
+        {desktopPrimaryNavigation.map((item) => (
           <li>
             <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
               {item.label}

@@ -9,3 +9,12 @@ export const primaryNavigation: NavigationItem[] = [
   { label: 'Library', href: '/library/' },
   { label: 'Search', href: '/search/' },
 ];
+
+
+export const desktopPrimaryNavigation: NavigationItem[] = [
+  { label: 'Observations', href: '/#reading-room' },
+  { label: 'Works', href: '/works/' },
+  { label: 'Standards', href: '/standards/' },
+  { label: 'Bibliotheca', href: '/#bibliotheca' },
+  { label: 'Search', href: '/search/' },
+];
