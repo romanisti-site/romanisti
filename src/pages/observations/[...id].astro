@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import EditorialLayout from '@/layouts/EditorialLayout.astro';
 import RelatedObservations from '@/components/RelatedObservations.astro';
 import { getRelatedObservations } from '@/lib/related';
+import { observationSlug } from '@/lib/url';
 
 export async function getStaticPaths() {
   const entries = await getCollection(
@@ -11,7 +12,7 @@ export async function getStaticPaths() {
   );
 
   return entries.map((entry) => ({
-    params: { id: entry.id },
+    params: { id: observationSlug(entry.id) },
     props: { entry },
   }));
 }

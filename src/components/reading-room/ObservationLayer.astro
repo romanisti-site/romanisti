@@ -1,21 +1,21 @@
 ---
 import { getCollection } from 'astro:content';
+import { observationSlug } from '@/lib/url';
 
 const entries = await getCollection('observations');
 
-const toSlug = (id: string) => id.replace(/\.(md|mdx)$/i, '').replace(/^\/+|\/+$/g, '');
 
 const observations = entries
   .filter((entry) => entry.data.status === 'published')
   .map((entry) => {
     const published = entry.data.publishedAt;
-    const slug = toSlug(entry.id);
+    const slug = observationSlug(entry.id);
 
     return {
       title: entry.data.title,
       category: 'Observation',
       published,
-      href: `/observations/${slug}`,
+      href: `/observations/${slug}/`,
     };
   })
   .sort((a, b) => b.published.getTime() - a.published.getTime())

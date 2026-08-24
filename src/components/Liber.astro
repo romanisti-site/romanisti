@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { formatEditorialDate } from '@/lib/date';
+import { observationSlug } from '@/lib/url';
 
 interface Props {
   entry?: CollectionEntry<'observations'>;
@@ -13,7 +14,7 @@ const category = entry?.data.category ?? entry?.data.topics?.[0] ?? 'Editorial';
 <article class:list={['liber', { 'liber--vacant': !entry }]} aria-label={entry ? undefined : `Vacant library position ${position}`}>
   <div class="liber-object">
     {entry ? (
-      <a class="liber-link" href={`/observations/${entry.id}/`}>
+      <a class="liber-link" href={`/observations/${observationSlug(entry.id)}/`}>
         <span class="liber-category">{category}</span>
         <h3>{entry.data.title}</h3>
         <time datetime={entry.data.publishedAt.toISOString()}>{formatEditorialDate(entry.data.publishedAt)}</time>

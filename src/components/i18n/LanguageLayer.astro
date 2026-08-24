@@ -1,0 +1,425 @@
+---
+---
+
+<script is:inline>
+  (() => {
+    const STORAGE_KEY = 'romanisti-language';
+    const VALID = new Set(['en', 'it']);
+
+    const translations = {
+      // Primary institutional navigation
+      'Observations': 'Osservazioni',
+      'Works': 'Opere',
+      'Standards': 'Standard Editoriali',
+      'Bibliotheca': 'Bibliotheca',
+      'Search': 'Cerca',
+      'Topics': 'Argomenti',
+      'About': 'Chi siamo',
+      'Library': 'Biblioteca',
+
+      // Threshold / shared institutional language
+      'Rome.': 'Roma.',
+      'AS Roma.': 'AS Roma.',
+      'And those that love them both.': 'E coloro che le amano entrambe.',
+      'Stewardship, not ownership.': 'Custodia, non proprietà.',
+      'Skip to content': 'Vai al contenuto',
+      'MENU': 'MENU',
+
+      // Reading Room / observations
+      'Observation': 'Osservazione',
+      'Five recent works currently on display.': 'Cinque lavori recenti attualmente in mostra.',
+      'Five most recent observations': 'Le cinque osservazioni più recenti',
+      'Observations': 'Osservazioni',
+      'Editorial Notebook': 'Quaderno editoriale',
+      'Published observations will appear here.': 'Le osservazioni pubblicate appariranno qui.',
+      'Close observations': 'Chiudi osservazioni',
+
+      // Bibliotheca / rooms
+      'Foundation': 'Fondazione',
+      'Archive': 'Archivio',
+      'Governance': 'Governance',
+      'Enter Foundation Room': 'Entra nella Sala della Fondazione',
+      'Enter Works Room': 'Entra nella Sala delle Opere',
+      'Enter Archive Room': "Entra nella Sala dell'Archivio",
+      'Enter Governance Room': 'Entra nella Sala della Governance',
+      'Bibliotheca rooms': 'Sale della Bibliotheca',
+      'Bibliotheca collections': 'Collezioni della Bibliotheca',
+
+      // Works Room
+      'Observation Archive': 'Archivio delle Osservazioni',
+      'Special Editions': 'Edizioni Speciali',
+      'Future Projects': 'Progetti Futuri',
+      'Works Room': 'Sala delle Opere',
+      'Works Room collections': 'Collezioni della Sala delle Opere',
+
+      // Archive Room
+      'Archive Catalog': "Catalogo dell'Archivio",
+      'Collections': 'Collezioni',
+      'The permanent record of published work': 'Il registro permanente del lavoro pubblicato',
+      'Close archive catalog': "Chiudi il catalogo dell'archivio",
+      'Search the record': 'Cerca nel registro',
+      'Rome, stewardship, competition…': 'Roma, custodia, competizione…',
+      'By Year': 'Per anno',
+      'Complete chronology': 'Cronologia completa',
+      'Published years will appear here.': 'Gli anni pubblicati appariranno qui.',
+      'By Topic': 'Per argomento',
+      'All topics': 'Tutti gli argomenti',
+      'Published topics will appear here.': 'Gli argomenti pubblicati appariranno qui.',
+      'Archive destinations': "Destinazioni dell'Archivio",
+      'Every published observation': 'Ogni osservazione pubblicata',
+      'Special editions and permanent works': 'Edizioni speciali e opere permanenti',
+      'Return to current work': 'Ritorna al lavoro corrente',
+      'The Archive Room': "La Sala dell'Archivio",
+
+      // Foundation
+      'Permanent Documents': 'Documenti Permanenti',
+      'Foundation documents': 'Documenti della Fondazione',
+      'Close Foundation documents': 'Chiudi i documenti della Fondazione',
+      'Return to the Bibliotheca': 'Ritorna alla Bibliotheca',
+      'Foundation room navigation': 'Navigazione della Sala della Fondazione',
+      'Project Aurea': 'Progetto Aurea',
+      'Liber Constitutionis': 'Liber Constitutionis',
+      'Liber Lapidum': 'Liber Lapidum',
+      'Liber Conventus': 'Liber Conventus',
+      'Codex I — De Aeternitate': 'Codex I — De Aeternitate',
+
+      // Governance
+      'Charter': 'Carta',
+      'Constitution': 'Costituzione',
+      'Immutable Stones': 'Pietre Immutabili',
+      'Editorial Standards': 'Standard Editoriali',
+      'Decision Log': 'Registro delle Decisioni',
+      'Governance Room documents': 'Documenti della Sala della Governance',
+      'The Governance Room': 'La Sala della Governance',
+
+      // Search
+      'Discovery': 'Scoperta',
+      'Search Romanisti': 'Cerca Romanisti',
+      'Begin typing to search.': 'Inizia a digitare per cercare.',
+      'Search is temporarily unavailable.': 'La ricerca è temporaneamente non disponibile.',
+      'Search requires JavaScript. The Library and Observations remain fully browsable.': 'La ricerca richiede JavaScript. La Biblioteca e le Osservazioni restano completamente consultabili.',
+      'observation': 'osservazione',
+      'library': 'biblioteca',
+
+      // Standards / constitutional interface
+      'Romanisti · Governance Room': 'Romanisti · Sala della Governance',
+      'Edition One': 'Edizione Uno',
+      'Governing Document': 'Documento di Governo',
+      'The Editorial Covenant': 'Il Patto Editoriale',
+      'Our commitment to truth, accuracy and independence.': 'Il nostro impegno per verità, accuratezza e indipendenza.',
+      'Enter the Standards': 'Entra negli Standard',
+      'Standards govern the work before the work is published.': 'Gli standard governano il lavoro prima che venga pubblicato.',
+      'Continue Through the Institution': "Continua attraverso l'Istituzione",
+      'Governance Room': 'Sala della Governance',
+      'Return to Bibliotheca': 'Ritorna alla Bibliotheca',
+
+      // Observation Archive / published record
+      'Romanisti · Archive': 'Romanisti · Archivio',
+      'Institutional Record': 'Registro Istituzionale',
+      'The Record': 'Il Registro',
+      'Every published observation, preserved in chronological order.': 'Ogni osservazione pubblicata, conservata in ordine cronologico.',
+      'Enter the Record': 'Entra nel Registro',
+      'Published Observations': 'Osservazioni Pubblicate',
+      'Chronology': 'Cronologia',
+      'Continue through the Institution': "Continua attraverso l’Istituzione",
+      'Observation Archive return destinations': "Destinazioni di ritorno dell’Archivio delle Osservazioni",
+
+      // Current Observation / editorial record
+      'Institution': 'Istituzione',
+      'An Institution Begins by Observing': 'Un’Istituzione Comincia Osservando',
+      'Romanisti · Observation': 'Romanisti · Osservazione',
+      'Romanisti begins with attention: to Rome, to AS Roma, and to the relationship that endures between them.': 'Romanisti comincia dall’attenzione: a Roma, all’AS Roma e al rapporto che perdura tra loro.',
+      'By Romanisti': 'Di Romanisti',
+      'Copy link': 'Copia link',
+      'Print': 'Stampa',
+      'Continue Reading': 'Continua a leggere',
+      'Related Observations': 'Osservazioni correlate',
+      'Awaiting observation': 'In attesa di osservazione',
+
+      // Reading Room
+      'The Reading Room': 'La Sala di Lettura',
+      'Placed before you for reading.': 'Posto davanti a voi per la lettura.',
+
+      // Archive page / room language
+      'Archive Room': "Sala dell’Archivio",
+      'Archive Room collections': "Collezioni della Sala dell’Archivio",
+      'Observation Archive return destinations': "Destinazioni di ritorno dell’Archivio delle Osservazioni",
+
+      // Bibliotheca / institutional room labels
+      'The Bibliotheca': 'La Bibliotheca',
+      'Works': 'Opere',
+      'The Institution': "L’Istituzione",
+      'Institutional Memory': 'Memoria Istituzionale',
+      'Constitutional Library': 'Biblioteca Costituzionale',
+      'Editorial Canon': 'Canone Editoriale',
+      'Fabrication': 'Costruzione',
+
+      // Foundation / Constitutional Library interface
+      'Romanisti · Constitutional Library': 'Romanisti · Biblioteca Costituzionale',
+      'Constitutional Document': 'Documento Costituzionale',
+      'Constitutional Document · Edition One': 'Documento Costituzionale · Edizione Uno',
+      'The Book of Constitution': 'Il Libro della Costituzione',
+      'The Book of Stones': 'Il Libro delle Pietre',
+      'The Book of Record': 'Il Libro del Registro',
+      'The immutable principles of Romanisti.': 'I principi immutabili di Romanisti.',
+      'The institutional memory of Romanisti.': 'La memoria istituzionale di Romanisti.',
+      'Enter the Work': 'Entra nell’Opera',
+      'Enter the Constitution': 'Entra nella Costituzione',
+      'Enter Liber Constitutionis': 'Entra nel Liber Constitutionis',
+      'Enter Liber Lapidum': 'Entra nel Liber Lapidum',
+      'Enter Liber Conventus': 'Entra nel Liber Conventus',
+      'Enter Codex I — De Aeternitate': 'Entra nel Codex I — De Aeternitate',
+      'The Constitutional Library continues': 'La Biblioteca Costituzionale continua',
+      'The Constitutional Architecture of Romanisti': 'L’Architettura Costituzionale di Romanisti',
+      'A publication that sets out to be as eternal as the city itself.': 'Una pubblicazione che aspira a essere eterna quanto la città stessa.',
+      'The work begins before publication.': 'Il lavoro comincia prima della pubblicazione.',
+      'Return to Foundation': 'Ritorna alla Fondazione',
+      'Constitutional return navigation': 'Navigazione di ritorno costituzionale',
+      'Constitutional Library volumes': 'Volumi della Biblioteca Costituzionale',
+
+      // Governance / Standards completion
+      'Editorial Standards destinations': 'Destinazioni degli Standard Editoriali',
+      'Continue Through the Institution': "Continua attraverso l’Istituzione",
+
+      // Search completion
+      'Search index unavailable.': 'Indice di ricerca non disponibile.',
+      'Search Romanisti observations and the institutional Library.': 'Cerca tra le osservazioni di Romanisti e la Biblioteca istituzionale.',
+
+      // Legacy informational pages, retained even when not in primary navigation
+      'About Romanisti': 'Romanisti',
+      'An independent publication devoted to the enduring relationship between Rome and AS Roma.': 'Una pubblicazione indipendente dedicata al rapporto duraturo tra Roma e l’AS Roma.',
+      'Topics': 'Argomenti',
+      'Browse the record': 'Esplora il registro',
+      'A living index of the subjects Romanisti has observed and preserved.': 'Un indice vivo dei temi che Romanisti ha osservato e conservato.',
+
+      // Error / utility states
+      'Nothing was observed here.': 'Qui non è stato osservato nulla.',
+      'The page may have moved, or it may never have belonged to the record.': 'La pagina potrebbe essere stata spostata, oppure potrebbe non aver mai fatto parte del registro.',
+      'Return to Romanisti': 'Ritorna a Romanisti',
+      'Open mobile navigation': 'Apri la navigazione mobile',
+
+      // Observation body — Edition One published observation
+      'Observation is the beginning of editorial work.': 'L’osservazione è l’inizio del lavoro editoriale.',
+      'Romanisti does not begin by manufacturing urgency. It begins by paying attention—to what has been said, what has changed, what has endured, and what may otherwise pass unnoticed.': 'Romanisti non comincia fabbricando urgenza. Comincia prestando attenzione—a ciò che è stato detto, a ciò che è cambiato, a ciò che è durato e a ciò che altrimenti potrebbe passare inosservato.',
+      'This first published entry exists to verify the complete editorial pipeline of Edition One.': 'Questa prima pubblicazione esiste per verificare l’intero percorso editoriale dell’Edizione Uno.',
+
+      // Works institutional-page shell
+      'Romanisti · Works Room': 'Romanisti · Sala delle Opere',
+      'Editorial Collection': 'Collezione Editoriale',
+      'Institutional Development': 'Sviluppo Istituzionale',
+      'Read the Note': 'Leggi la Nota',
+      'Continue Reading': 'Continua la Lettura',
+      'Archive Room': 'Sala dell’Archivio',
+      'Works Room': 'Sala delle Opere',
+      'Return to Bibliotheca': 'Ritorna alla Bibliotheca',
+
+      // Special Editions — complete visible page copy
+      'Special Editions': 'Edizioni Speciali',
+      'Curated Collections': 'Collezioni Curate',
+      'Long-form editorial works and special publications.': 'Opere editoriali di ampio respiro e pubblicazioni speciali.',
+      'A place prepared for permanent work.': 'Un luogo preparato per un’opera destinata a durare.',
+      'Edition One contains no published Special Editions.': 'L’Edizione Uno non contiene ancora Edizioni Speciali pubblicate.',
+      'This collection is reserved for long-form editorial works and special publications that have earned a place beyond the regular Observation sequence.': 'Questa collezione è riservata a opere editoriali di ampio respiro e pubblicazioni speciali che hanno meritato un posto oltre la normale sequenza delle Osservazioni.',
+      'Nothing is placed here simply because it is new. A Special Edition enters the permanent record only when the work itself is ready to endure.': 'Nulla viene collocato qui semplicemente perché è nuovo. Un’Edizione Speciale entra nel registro permanente solo quando l’opera stessa è pronta a durare.',
+
+      // Future Projects / Research — complete visible page copy
+      'Future Projects': 'Progetti Futuri',
+      'Works in Preparation': 'Opere in Preparazione',
+      'The work that has not yet begun.': 'Il lavoro che non è ancora cominciato.',
+      'Possibility is not yet permanence.': 'La possibilità non è ancora permanenza.',
+      'Future Projects remain outside the permanent record until they enter active stewardship.': 'I Progetti Futuri restano fuori dal registro permanente finché non entrano in una fase di custodia attiva.',
+      'Ideas may be researched, tested, revised, or abandoned without asking the institution to treat possibility as achievement.': 'Le idee possono essere studiate, messe alla prova, riviste o abbandonate senza chiedere all’istituzione di trattare la possibilità come un risultato.',
+      'When a project is ready to become work, it will move from preparation into the record of Romanisti.': 'Quando un progetto è pronto a diventare opera, passerà dalla preparazione al registro di Romanisti.',
+
+      // Search page — complete visible copy
+      'Discovery': 'Scoperta',
+      'Search Romanisti': 'Cerca in Romanisti',
+      'Search the record': 'Cerca nel registro',
+      'Begin typing to search.': 'Inizia a digitare per cercare.',
+      'Search requires JavaScript. The Library and Observations remain fully browsable.': 'La ricerca richiede JavaScript. La Bibliotheca e le Osservazioni restano completamente consultabili.',
+
+      // Archive / record completion
+      'Published observations will appear here.': 'Le osservazioni pubblicate appariranno qui.',
+      'Published observations': 'Osservazioni pubblicate',
+      'Observation': 'Osservazione',
+      'Year': 'Anno',
+      'By Year': 'Per Anno',
+      'Complete Chronology': 'Cronologia Completa',
+      'By Topic': 'Per Argomento',
+      'All Topics': 'Tutti gli Argomenti',
+      'Collections': 'Collezioni',
+      'Every published observation': 'Ogni osservazione pubblicata',
+      'Special editions and permanent works': 'Edizioni speciali e opere permanenti',
+      'Return to current work': 'Ritorna al lavoro corrente',
+      'Search the Record': 'Cerca nel Registro',
+
+      // Governance / standards labels frequently exposed outside the plate
+      'Governance Room': 'Sala della Governance',
+      'Editorial Standards': 'Standard Editoriali',
+      'Governing Document': 'Documento di Governance',
+      'The Editorial Covenant': 'Il Patto Editoriale',
+      'Our commitment to truth, accuracy and independence.': 'Il nostro impegno per la verità, l’accuratezza e l’indipendenza.',
+
+      // General institutional UI
+      'Edition One': 'Edizione Uno',
+      'Return to the Bibliotheca': 'Ritorna alla Bibliotheca',
+      'Return to Bibliotheca': 'Ritorna alla Bibliotheca',
+      'Stewardship, not ownership.': 'Custodia, non proprietà.',
+      'Permanent Documents': 'Documenti Permanenti',
+      'Foundation': 'Fondazione',
+      'Project Aurea': 'Project Aurea',
+      'Liber Constitutionis': 'Liber Constitutionis',
+      'Liber Lapidum': 'Liber Lapidum',
+      'Liber Conventus': 'Liber Conventus',
+
+      // Quoted-render variants emitted by shared institutional components
+      '“Long-form editorial works and special publications.”': '“Opere editoriali di ampio respiro e pubblicazioni speciali.”',
+      '“The work that has not yet begun.”': '“Il lavoro che non è ancora cominciato.”',
+      '“Our commitment to truth, accuracy and independence.”': '“Il nostro impegno per la verità, l’accuratezza e l’indipendenza.”',
+      '“The immutable principles of Romanisti.”': '“I principi immutabili di Romanisti.”',
+      '“A publication that sets out to be as eternal as the city itself.”': '“Una pubblicazione che aspira a essere eterna quanto la città stessa.”',
+      '“The institutional memory of Romanisti.”': '“La memoria istituzionale di Romanisti.”',
+      'The philosophical foundation of Romanisti.': 'Il fondamento filosofico di Romanisti.',
+      '“The philosophical foundation of Romanisti.”': '“Il fondamento filosofico di Romanisti.”',
+
+      // Common actions / labels
+      'Close': 'Chiudi',
+      'Search the archive': "Cerca nell'archivio",
+      'Primary navigation': 'Navigazione principale',
+      'Mobile navigation': 'Navigazione mobile',
+      'Language selection': 'Selezione lingua',
+    };
+
+    const originals = new WeakMap();
+    const attrOriginals = new WeakMap();
+    const translatedAttributes = ['aria-label', 'placeholder', 'title'];
+
+    const getLanguage = () => {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        return VALID.has(stored) ? stored : 'en';
+      } catch {
+        return 'en';
+      }
+    };
+
+    const rememberAttribute = (element, attribute) => {
+      let values = attrOriginals.get(element);
+      if (!values) {
+        values = {};
+        attrOriginals.set(element, values);
+      }
+      if (!(attribute in values)) values[attribute] = element.getAttribute(attribute);
+      return values[attribute];
+    };
+
+    const translateTextNode = (node, language) => {
+      if (!originals.has(node)) originals.set(node, node.nodeValue ?? '');
+      const original = originals.get(node) ?? '';
+      if (language === 'en') {
+        if (node.nodeValue !== original) node.nodeValue = original;
+        return;
+      }
+
+      const trimmed = original.trim();
+      if (!trimmed) return;
+      const leading = original.match(/^\s*/)?.[0] ?? '';
+      const trailing = original.match(/\s*$/)?.[0] ?? '';
+
+      if (trimmed in translations) {
+        node.nodeValue = `${leading}${translations[trimmed]}${trailing}`;
+        return;
+      }
+
+      const resultMatch = trimmed.match(/^(\d+) results?\.$/);
+      if (resultMatch) {
+        const count = Number(resultMatch[1]);
+        node.nodeValue = `${leading}${count} ${count === 1 ? 'risultato' : 'risultati'}.${trailing}`;
+      }
+    };
+
+    const translateElementAttributes = (element, language) => {
+      for (const attribute of translatedAttributes) {
+        if (!element.hasAttribute(attribute)) continue;
+        const original = rememberAttribute(element, attribute);
+        if (original == null) continue;
+        if (language === 'en') {
+          if (element.getAttribute(attribute) !== original) element.setAttribute(attribute, original);
+        } else if (original in translations) {
+          element.setAttribute(attribute, translations[original]);
+        }
+      }
+    };
+
+    const translateSubtree = (root, language) => {
+      if (root.nodeType === Node.TEXT_NODE) {
+        translateTextNode(root, language);
+        return;
+      }
+      if (!(root instanceof Element) && !(root instanceof Document)) return;
+
+      if (root instanceof Element) translateElementAttributes(root, language);
+
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT);
+      let node = walker.nextNode();
+      while (node) {
+        if (node.nodeType === Node.TEXT_NODE) translateTextNode(node, language);
+        else if (node instanceof Element) translateElementAttributes(node, language);
+        node = walker.nextNode();
+      }
+    };
+
+    const syncToggles = (language) => {
+      document.querySelectorAll('[data-language-toggle]').forEach((control) => {
+        const target = control.getAttribute('data-language-toggle');
+        const active = target === language;
+        control.classList.toggle('active', active);
+        if (active) control.setAttribute('aria-current', 'page');
+        else control.removeAttribute('aria-current');
+      });
+    };
+
+    const applyLanguage = (language) => {
+      if (!VALID.has(language)) language = 'en';
+      document.documentElement.lang = language;
+      document.documentElement.dataset.language = language;
+      translateSubtree(document.body, language);
+      syncToggles(language);
+      window.dispatchEvent(new CustomEvent('romanisti:languagechange', { detail: { language } }));
+    };
+
+    const setLanguage = (language) => {
+      if (!VALID.has(language)) return;
+      try { localStorage.setItem(STORAGE_KEY, language); } catch {}
+      applyLanguage(language);
+    };
+
+    const initialise = () => {
+      let language = getLanguage();
+      applyLanguage(language);
+
+      document.addEventListener('click', (event) => {
+        const target = event.target instanceof Element ? event.target.closest('[data-language-toggle]') : null;
+        if (!target) return;
+        const requested = target.getAttribute('data-language-toggle');
+        if (!VALID.has(requested)) return;
+        event.preventDefault();
+        language = requested;
+        setLanguage(language);
+      });
+
+      const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+          mutation.addedNodes.forEach((node) => translateSubtree(node, language));
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initialise, { once: true });
+    } else {
+      initialise();
+    }
+  })();
+</script>

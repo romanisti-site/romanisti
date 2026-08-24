@@ -1,15 +1,15 @@
 ---
 import { getCollection } from 'astro:content';
+import { observationSlug } from '@/lib/url';
 import plate from '@/assets/reading-room/mobile/reading-room-mobile-plate-v1.webp';
 
 const entries = await getCollection('observations');
-const toSlug = (id: string) => id.replace(/\.(md|mdx)$/i, '').replace(/^\/+|\/+$/g, '');
 
 const observations = entries
   .filter((entry) => entry.data.status === 'published')
   .map((entry) => ({
     title: entry.data.title,
-    href: `/observations/${toSlug(entry.id)}`,
+    href: `/observations/${observationSlug(entry.id)}/`,
     published: entry.data.publishedAt,
   }))
   .sort((a, b) => b.published.getTime() - a.published.getTime())
@@ -110,16 +110,39 @@ const libri = [
     }
   }
 
+  /*
+   * RC2.6 mobile-only Liber overlay positioning.
+   *
+   * The portrait plate is already the locked mobile composition.  Do not
+   * project the five live Liber inscriptions from the uncropped source-image
+   * width: at narrow viewports that pushes the first inscription into the
+   * cropped left margin.  Instead anchor each inscription directly to the
+   * visible portrait composition.
+   *
+   * These percentages are viewport-relative and affect ONLY the live overlay
+   * surfaces; the architectural image, crop and links remain unchanged.
+   */
+  .mobile-reading-room__libri li {
+    top: 80.25% !important;
+    height: 8.15% !important;
+    width: 18.25% !important;
+  }
+
+  .mobile-reading-room__libri li:nth-child(1) { left: 3.25% !important; }
+  .mobile-reading-room__libri li:nth-child(2) { left: 22.35% !important; }
+  .mobile-reading-room__libri li:nth-child(3) { left: 41.45% !important; }
+  .mobile-reading-room__libri li:nth-child(4) { left: 60.55% !important; }
+  .mobile-reading-room__libri li:nth-child(5) { left: 79.65% !important; }
+
+
   .mobile-reading-room__libri a {
     pointer-events: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    position: relative;
+    display: block;
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    padding: 18% 10% 22%;
+    padding: 0;
     color: rgb(69 48 31 / 94%);
     text-align: center;
     text-decoration: none;
@@ -127,27 +150,68 @@ const libri = [
     -webkit-tap-highlight-color: transparent;
   }
 
+  /*
+   * RC2.9 — exact inscription placement inside the already-correct RC2.6
+   * Liber geometry.  The category and title are independently positioned
+   * against the visible stone face instead of being vertically centered as
+   * one flex group.
+   */
   .mobile-reading-room__category {
-    margin-bottom: 0.6em;
+    position: absolute;
+    top: 3%;
+    left: 7%;
+    width: 86%;
+    margin: 0;
     font-family: var(--font-sans, Arial, sans-serif);
-    font-size: clamp(0.31rem, 1.25vw, 0.43rem);
+    font-size: clamp(0.34rem, 1.38vw, 0.47rem);
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.075em;
     line-height: 1;
+    text-align: center;
     text-transform: uppercase;
   }
 
   .mobile-reading-room__title {
-    display: -webkit-box;
-    overflow: hidden;
+    position: absolute;
+    top: 29%;
+    left: 6%;
+    width: 88%;
+    margin: 0;
+    overflow: visible;
     font-family: var(--font-display, Georgia, serif);
-    font-size: clamp(0.39rem, 1.62vw, 0.56rem);
+    font-size: clamp(0.44rem, 1.78vw, 0.60rem);
     font-weight: 600;
-    line-height: 1.08;
-    text-wrap: balance;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
+    line-height: 1.04;
+    text-align: center;
   }
+
+  /*
+   * Liber I has a deliberately composed three-line title in both languages.
+   * Keep the original text node in place for accessibility; hide it visually
+   * and draw only the controlled three-line inscription.
+   */
+  .mobile-reading-room__libri li:first-child .mobile-reading-room__title {
+    font-size: 0 !important;
+    line-height: 1;
+  }
+
+  .mobile-reading-room__libri li:first-child .mobile-reading-room__title::after {
+    content: "An Institution\A Begins by\A Observing";
+    display: block;
+    white-space: pre-line;
+    color: rgb(69 48 31 / 94%);
+    font-family: var(--font-display, Georgia, serif);
+    font-size: clamp(0.44rem, 1.78vw, 0.60rem);
+    font-weight: 600;
+    line-height: 1.04;
+    text-align: center;
+    text-shadow: 0 1px 0 rgb(255 255 255 / 38%);
+  }
+
+  html[lang="it"] .mobile-reading-room__libri li:first-child .mobile-reading-room__title::after {
+    content: "Un’Istituzione\A Comincia\A Osservando";
+  }
+
 
   .mobile-reading-room__libri a:focus-visible {
     outline: 1px solid rgb(103 74 44 / 70%);

@@ -13,6 +13,11 @@ import { primaryNavigation } from '@/config/navigation';
         {primaryNavigation.map((item) => (
           <li><a href={item.href}>{item.label}</a></li>
         ))}
+        <li class="mobile-language-utility" aria-label="Language selection">
+          <a class="active" href="/" lang="en" data-language-toggle="en" aria-current="page">EN</a>
+          <span aria-hidden="true">|</span>
+          <a href="/" lang="it" data-language-toggle="it">IT</a>
+        </li>
       </ul>
     </nav>
   </details>
@@ -195,6 +200,31 @@ import { primaryNavigation } from '@/config/navigation';
       letter-spacing: 0.06em;
       text-decoration: none;
       text-transform: uppercase;
+    }
+
+    .mobile-language-utility {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 0.2rem;
+      border-top: 1px solid rgb(239 224 205 / 10%);
+      font-family: var(--font-sans, Arial, sans-serif);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+    }
+
+    .mobile-language-utility a {
+      display: inline-block;
+      padding: 0;
+      color: rgb(239 224 205 / 58%);
+    }
+
+    .mobile-language-utility a.active {
+      color: #efe0cd;
+    }
+
+    .mobile-language-utility span {
+      color: rgb(239 224 205 / 34%);
     }
   }
 

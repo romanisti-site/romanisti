@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
+import { observationSlug } from '@/lib/url';
 
 const entries = await getCollection('observations');
-const toSlug = (id: string) => id.replace(/\.(md|mdx)$/i, '').replace(/^\/+|\/+$/g, '');
 const titleCase = (value: string) => value
   .split(/[-_\s]+/)
   .filter(Boolean)
@@ -14,7 +14,7 @@ const observations = entries
   .map((entry) => ({
     title: entry.data.title,
     category: entry.data.topics[0] ? titleCase(entry.data.topics[0]) : 'Observation',
-    href: `/observations/${toSlug(entry.id)}`,
+    href: `/observations/${observationSlug(entry.id)}/`,
     published: entry.data.publishedAt,
   }))
   .sort((a, b) => b.published.getTime() - a.published.getTime())

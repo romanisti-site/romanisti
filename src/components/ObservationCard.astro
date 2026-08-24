@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { formatEditorialDate } from '@/lib/date';
+import { observationSlug } from '@/lib/url';
 
 interface Props {
   entry: CollectionEntry<'observations'>;
@@ -10,7 +11,7 @@ const { entry } = Astro.props;
 ---
 <article>
   <p class="eyebrow">{formatEditorialDate(entry.data.publishedAt)}</p>
-  <h2><a href={`/observations/${entry.id}/`}>{entry.data.title}</a></h2>
+  <h2><a href={`/observations/${observationSlug(entry.id)}/`}>{entry.data.title}</a></h2>
   <p>{entry.data.description}</p>
   {entry.data.topics.length > 0 && (
     <ul aria-label="Topics">

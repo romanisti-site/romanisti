@@ -1,6 +1,7 @@
 import rss from '@astrojs/rss';
 import { getPublishedObservations } from '@/lib/content';
 import { site } from '@/config/site';
+import { observationSlug } from '@/lib/url';
 
 export async function GET(context) {
   const observations = await getPublishedObservations();
@@ -13,7 +14,7 @@ export async function GET(context) {
       title: entry.data.title,
       description: entry.data.description,
       pubDate: entry.data.publishedAt,
-      link: `/observations/${entry.id}/`,
+      link: `/observations/${observationSlug(entry.id)}/`,
     })),
   });
 }

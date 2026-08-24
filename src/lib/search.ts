@@ -1,5 +1,6 @@
 import { getPublishedObservations } from '@/lib/content';
 import { getLibraryEntries } from '@/lib/library';
+import { observationSlug } from '@/lib/url';
 
 export interface SearchRecord {
   title: string;
@@ -19,7 +20,7 @@ export async function createSearchIndex(): Promise<SearchRecord[]> {
     (entry) => ({
       title: entry.data.title,
       description: entry.data.description,
-      href: `/observations/${entry.id}/`,
+      href: `/observations/${observationSlug(entry.id)}/`,
       type: 'observation',
       topics: entry.data.topics,
     }),

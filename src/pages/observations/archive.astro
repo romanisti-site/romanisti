@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getObservationArchive } from '@/lib/archive';
 import { formatEditorialDate } from '@/lib/date';
+import { observationSlug } from '@/lib/url';
 
 const groups = await getObservationArchive();
 ---
@@ -48,7 +49,7 @@ const groups = await getObservationArchive();
                       <time datetime={entry.data.publishedAt.toISOString()}>
                         {formatEditorialDate(entry.data.publishedAt)}
                       </time>
-                      <a href={`/observations/${entry.id}/`}>
+                      <a href={`/observations/${observationSlug(entry.id)}/`}>
                         {entry.data.title}
                       </a>
                     </li>

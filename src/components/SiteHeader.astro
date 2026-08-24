@@ -28,9 +28,9 @@ const isActive = (href: string) =>
           </li>
         ))}
         <li class="language-utility" aria-label="Language selection">
-          <a class:list={{ active: !isItalian }} href="/" lang="en" aria-current={!isItalian ? 'page' : undefined}>EN</a>
+          <a class="active" href={currentPath} lang="en" data-language-toggle="en" aria-current="page">EN</a>
           <span aria-hidden="true">|</span>
-          <a class:list={{ active: isItalian }} href="/it/" lang="it" aria-current={isItalian ? 'page' : undefined}>IT</a>
+          <a href={currentPath} lang="it" data-language-toggle="it">IT</a>
         </li>
       </ul>
     </nav>
