@@ -200,8 +200,16 @@
 
       // Observation body — Edition One published observation
       'Observation is the beginning of editorial work.': 'L’osservazione è l’inizio del lavoro editoriale.',
-      'Romanisti does not begin by manufacturing urgency. It begins by paying attention—to what has been said, what has changed, what has endured, and what may otherwise pass unnoticed.': 'Romanisti non comincia fabbricando urgenza. Comincia prestando attenzione—a ciò che è stato detto, a ciò che è cambiato, a ciò che è durato e a ciò che altrimenti potrebbe passare inosservato.',
-      'This first published entry exists to verify the complete editorial pipeline of Edition One.': 'Questa prima pubblicazione esiste per verificare l’intero percorso editoriale dell’Edizione Uno.',
+      'Not because everything observed is important, but because importance is difficult to recognize without first paying attention.': 'Non perché tutto ciò che viene osservato sia importante, ma perché è difficile riconoscere ciò che conta senza prima prestare attenzione.',
+      'Rome requires this kind of attention. Its history rarely announces itself cleanly. The ancient and the ordinary occupy the same streets. What has endured is used, repaired, reconsidered and inherited. The past remains present without preventing the city from continuing to become something new.': 'Roma richiede questo tipo di attenzione. La sua storia raramente si presenta in modo netto. L’antico e l’ordinario occupano le stesse strade. Ciò che è durato viene usato, riparato, riconsiderato ed ereditato. Il passato rimane presente senza impedire alla città di continuare a diventare qualcosa di nuovo.',
+      'AS Roma belongs to that continuing story.': 'L’AS Roma appartiene a questa storia che continua.',
+      'Results, transfers, tactics and tables describe part of the club. They cannot explain all that it means. Roma also exists through memory, place, identity and the generations of people who have carried the club with them through the city and beyond it.': 'Risultati, trasferimenti, tattiche e classifiche descrivono una parte del club. Non possono spiegare tutto ciò che significa. La Roma esiste anche attraverso la memoria, il luogo, l’identità e le generazioni di persone che hanno portato con sé il club attraverso la città e oltre.',
+      'Romanisti exists to observe that relationship.': 'Romanisti esiste per osservare questo rapporto.',
+      'It sets out to report accurately, to provide context where context changes understanding, to recover what may have been forgotten, and to consider what events might mean beyond the moment in which they occur.': 'Si propone di raccontare con accuratezza, di fornire contesto quando il contesto cambia la comprensione, di recuperare ciò che può essere stato dimenticato e di considerare ciò che gli eventi possono significare oltre il momento in cui accadono.',
+      'It does not seek to add volume for its own sake. There is already enough information moving quickly around football. Romanisti will be measured instead by whether its work leaves something useful behind: greater understanding, a recovered connection, a different perspective, or simply reason to look again.': 'Non cerca di aggiungere volume fine a se stesso. Intorno al calcio circolano già abbastanza informazioni in fretta. Romanisti sarà invece misurato da ciò che il suo lavoro riesce a lasciare dietro di sé: una comprensione maggiore, un legame ritrovato, una prospettiva diversa o semplicemente un motivo per guardare di nuovo.',
+      'That work requires independence, accuracy and restraint. It requires respect for the history being inherited and for the reader being asked to consider it. Above all, it requires remembering that neither Rome nor AS Roma belongs to any one generation.': 'Questo lavoro richiede indipendenza, accuratezza e misura. Richiede rispetto per la storia che si eredita e per il lettore a cui si chiede di considerarla. Soprattutto, richiede di ricordare che né Roma né l’AS Roma appartengono a una sola generazione.',
+      'And so Romanisti begins not with the assumption that it has something to say.': 'E così Romanisti comincia non dal presupposto di avere qualcosa da dire.',
+      'It begins by observing.': 'Comincia osservando.',
 
       // Works institutional-page shell
       'Romanisti · Works Room': 'Romanisti · Sala delle Opere',
@@ -325,6 +333,23 @@
       if (!trimmed) return;
       const leading = original.match(/^\s*/)?.[0] ?? '';
       const trailing = original.match(/\s*$/)?.[0] ?? '';
+
+      // Dates are dynamic content, so localize any semantic <time datetime="..."> element
+      // instead of maintaining one translation entry per publication date.
+      const parent = node.parentElement;
+      if (parent?.tagName === 'TIME' && parent.hasAttribute('datetime')) {
+        const date = new Date(parent.getAttribute('datetime'));
+        if (!Number.isNaN(date.getTime())) {
+          const localized = new Intl.DateTimeFormat('it-IT', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+            timeZone: 'UTC',
+          }).format(date);
+          node.nodeValue = `${leading}${localized}${trailing}`;
+          return;
+        }
+      }
 
       if (trimmed in translations) {
         node.nodeValue = `${leading}${translations[trimmed]}${trailing}`;
