@@ -111,36 +111,27 @@ const libri = [
   }
 
   /*
-   * RC2.6 mobile-only Liber overlay positioning.
+   * RC2.13 — Canonical mobile Liber overlay geometry.
    *
-   * The portrait plate is already the locked mobile composition.  Do not
-   * project the five live Liber inscriptions from the uncropped source-image
-   * width: at narrow viewports that pushes the first inscription into the
-   * cropped left margin.  Instead anchor each inscription directly to the
-   * visible portrait composition.
+   * Liber I was the measured/verified working overlay on the locked 941 × 1988
+   * mobile plate. That geometry is now the template for every foreground Liber.
+   * The horizontal spacing from RC2.6 is preserved; only the proven Liber I
+   * calibration is replicated across the row.
    *
-   * These percentages are viewport-relative and affect ONLY the live overlay
-   * surfaces; the architectural image, crop and links remain unchanged.
+   * IMPORTANT: future Observation tiles inherit these same coordinates. Do not
+   * special-case a newly published work by index.
    */
   .mobile-reading-room__libri li {
-    top: 80.25% !important;
-    height: 8.15% !important;
-    width: 18.25% !important;
-  }
-
-  .mobile-reading-room__libri li:nth-child(1) { left: 3.25% !important; }
-  .mobile-reading-room__libri li:nth-child(2) { left: 22.35% !important; }
-  .mobile-reading-room__libri li:nth-child(3) { left: 41.45% !important; }
-  .mobile-reading-room__libri li:nth-child(4) { left: 60.55% !important; }
-  .mobile-reading-room__libri li:nth-child(5) { left: 79.65% !important; }
-
-  /* RC2.11 — verified Liber I geometry from actual 941 × 1988 locked plate. */
-  .mobile-reading-room__libri li:first-child {
-    left: 2.44% !important;
     top: 75.61% !important;
     width: 18.82% !important;
     height: 13.47% !important;
   }
+
+  .mobile-reading-room__libri li:nth-child(1) { left: 2.44% !important; }
+  .mobile-reading-room__libri li:nth-child(2) { left: 21.54% !important; }
+  .mobile-reading-room__libri li:nth-child(3) { left: 40.64% !important; }
+  .mobile-reading-room__libri li:nth-child(4) { left: 59.74% !important; }
+  .mobile-reading-room__libri li:nth-child(5) { left: 78.84% !important; }
 
 
 
@@ -173,15 +164,20 @@ const libri = [
     text-transform: uppercase;
   }
 
-  /* RC2.12 — Romanisti Mobile Liber abbreviation standard: Observation => OBS */
-  .mobile-reading-room__libri li:first-child .mobile-reading-room__category {
+  /*
+   * RC2.13 — Romanisti Mobile Liber category standard.
+   * Every mobile Liber uses the locked three-letter category abbreviation.
+   * Observation => OBS. The position is the proven Liber I position and is
+   * identical on every tile.
+   */
+  .mobile-reading-room__category {
     left: 21%;
     width: 72%;
     font-size: 0;
     text-align: left;
   }
 
-  .mobile-reading-room__libri li:first-child .mobile-reading-room__category::after {
+  .mobile-reading-room__category::after {
     content: "OBS";
     display: block;
     color: rgb(38 27 19);
@@ -197,8 +193,8 @@ const libri = [
   .mobile-reading-room__title {
     position: absolute;
     top: 24.3%;
-    left: 7%;
-    width: 86%;
+    left: 14%;
+    width: 72%;
     margin: 0;
     color: rgb(38 27 19);
     font-family: var(--font-display, Georgia, serif);
@@ -206,7 +202,8 @@ const libri = [
     font-weight: 700;
     line-height: 1.03;
     text-align: center;
-     transform: translateY(3px);
+    text-wrap: balance;
+    transform: translateY(3px);
   }
 
   .mobile-reading-room__date {
@@ -228,27 +225,7 @@ const libri = [
   }
 
 
-  .mobile-reading-room__libri li:first-child .mobile-reading-room__title {
-    font-size: 0 !important;
-    line-height: 1;
-  }
-
-  .mobile-reading-room__libri li:first-child .mobile-reading-room__title::after {
-    content: "An Institution\A Begins by\A Observing";
-    display: block;
-    white-space: pre-line;
-    color: rgb(38 27 19);
-    font-family: var(--font-display, Georgia, serif);
-    font-size: clamp(0.49rem, 1.95vw, 0.64rem);
-    font-weight: 700;
-    line-height: 1.03;
-    text-align: center;
-    text-shadow: none;
-  }
-
-  html[lang="it"] .mobile-reading-room__libri li:first-child .mobile-reading-room__title::after {
-    content: "Un’Istituzione\A Comincia\A Osservando";
-  }
+  /* Titles always render from live Observation content; no index-specific text. */
 
   .mobile-reading-room__libri a:focus-visible {
     outline: 1px solid rgb(103 74 44 / 70%);
