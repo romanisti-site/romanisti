@@ -25,7 +25,7 @@ The past is not somewhere one goes in Rome.
 
 It is simply there.
 
-To walk the streets of Rome is to encounter constant evidence that power is temporary, that fashion passes, that institutions disappear—and that certain things, through some combination of care, adaptation, accident and stubbornness, endure.
+To walk the streets of Rome is to encounter constant evidence that power is temporary, that fashion passes, that institutions disappear and that certain things, through some combination of care, adaptation, accident and stubbornness, endure.
 
 This may be the most useful place to begin when trying to understand AS Roma.
 
@@ -266,4 +266,4 @@ Rome existed long before AS Roma.
 
 It will exist long after everyone currently entrusted with the club is gone.
 
-Between those two facts lies the privilege—and the burden—of carrying its name.
+Between those two facts lies the privilege, and the burden, of carrying its name.
