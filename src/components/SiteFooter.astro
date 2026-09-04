@@ -3,7 +3,19 @@ import { site } from '@/config/site';
 ---
 <footer>
   <div class="container footer-inner">
-    <p><strong>{site.name}</strong> · {site.edition}</p>
+    <p class="footer-primary">
+      <strong>{site.name}</strong> · {site.edition} ·
+      <a
+        href="https://www.instagram.com/romanisti.official"
+        target="_blank"
+        rel="noopener noreferrer"
+      >INSTAGRAM</a> ·
+      <a
+        href="https://x.com/RomanistiDotOrg"
+        target="_blank"
+        rel="noopener noreferrer"
+      >X</a>
+    </p>
     <p>Stewardship, not ownership.</p>
   </div>
 </footer>
@@ -23,5 +35,20 @@ import { site } from '@/config/site';
     gap: var(--space-3);
     justify-content: space-between;
     padding-block: var(--space-4);
+  }
+
+  .footer-primary {
+    text-transform: uppercase;
+  }
+
+  .footer-primary a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .footer-primary a:hover,
+  .footer-primary a:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
   }
 </style>
