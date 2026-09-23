@@ -107,3 +107,7 @@ The new stadio may finally give Roma something it has not known since Campo Test
 But those earlier homes have already demonstrated the stranger truth.
 
 A place does not have to belong to you before you can belong to it.
+
+<figure class="editorial-figure">
+  <figcaption><strong>Source note:</strong> Gaetano Alegiani’s story is drawn from <a href="https://www.asroma.com/en/news/72418/60-years-a-roma-season-ticket-holder" target="_blank" rel="noopener noreferrer">“60 Years a Roma Season-Ticket Holder!”</a>, originally published by AS Roma, December 2024.</figcaption>
+</figure>
